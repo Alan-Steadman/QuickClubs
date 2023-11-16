@@ -1,6 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using QuickClubs.Domain.Abstractions;
+using QuickClubs.Domain.Clubs.Repository;
+using QuickClubs.Domain.Users.Repository;
+using QuickClubs.Infrastructure.Persistence;
+using QuickClubs.Infrastructure.Persistence.Repositories;
 
 namespace QuickClubs.Infrastructure;
 
@@ -27,9 +32,7 @@ public static class DependencyInjection
         });
 
 
-        services.AddScoped<IGuideRepository, GuideRepository>();
-        services.AddScoped<IManufacturerRepository, ManufacturerRepository>();
-        services.AddScoped<IModelRepository, ModelRepository>();
+        services.AddScoped<IClubRepository, ClubRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
