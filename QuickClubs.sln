@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickClubs.Application", "Q
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickClubs.Contracts", "QuickClubs.Contracts\QuickClubs.Contracts.csproj", "{07744D75-F92D-44CF-BB6A-2A7B07E89D4E}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{45F2B378-91CC-4785-AB80-7377FCDCD110}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{07744D75-F92D-44CF-BB6A-2A7B07E89D4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07744D75-F92D-44CF-BB6A-2A7B07E89D4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07744D75-F92D-44CF-BB6A-2A7B07E89D4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45F2B378-91CC-4785-AB80-7377FCDCD110}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45F2B378-91CC-4785-AB80-7377FCDCD110}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45F2B378-91CC-4785-AB80-7377FCDCD110}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45F2B378-91CC-4785-AB80-7377FCDCD110}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

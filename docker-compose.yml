@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+  quickclubs.webapi:
+    image: ${DOCKER_REGISTRY-}quickclubswebapi
+    container_name: quickclubs.webapi
+    build:
+      context: .
+      dockerfile: QuickClubs.WebApi/Dockerfile
+
+  quickclubs.db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: quickclubs.db
+    environment:
+      - MSSQL_SA_PASSWORD=${SA_PASSWORD}
+      - MSSQL_PID=Express
+      - ACCEPT_EULA=Y
+      - MSSQL_DATA_DIR=/var/opt/mssql/data
+    volumes:
+      - ./.containers/database:/var/opt/mssql/data
+    ports:
+      - 1433:1433
