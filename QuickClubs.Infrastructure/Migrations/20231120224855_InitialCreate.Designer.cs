@@ -12,7 +12,7 @@ using QuickClubs.Infrastructure.Persistence;
 namespace QuickClubs.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231120222737_InitialCreate")]
+    [Migration("20231120224855_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -40,7 +40,7 @@ namespace QuickClubs.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("club", (string)null);
+                    b.ToTable("Club", (string)null);
                 });
 
             modelBuilder.Entity("QuickClubs.Domain.Users.User", b =>
@@ -85,6 +85,34 @@ namespace QuickClubs.Infrastructure.Migrations
 
             modelBuilder.Entity("QuickClubs.Domain.Clubs.Club", b =>
                 {
+                    b.OwnsOne("QuickClubs.Domain.Clubs.Entities.ClubSettings", "Settings", b1 =>
+                        {
+                            b1.Property<Guid>("Id")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("Id");
+
+                            b1.Property<Guid>("ClubId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Currency")
+                                .IsRequired()
+                                .HasMaxLength(3)
+                                .HasColumnType("nvarchar(3)");
+
+                            b1.Property<bool>("MembershipNeedsApproval")
+                                .HasColumnType("bit");
+
+                            b1.HasKey("Id", "ClubId");
+
+                            b1.HasIndex("ClubId")
+                                .IsUnique();
+
+                            b1.ToTable("ClubSettings", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("ClubId");
+                        });
+
                     b.OwnsOne("QuickClubs.Domain.Clubs.ValueObjects.ClubName", "Name", b1 =>
                         {
                             b1.Property<Guid>("ClubId")
@@ -94,13 +122,13 @@ namespace QuickClubs.Infrastructure.Migrations
                                 .IsRequired()
                                 .HasMaxLength(8)
                                 .HasColumnType("nvarchar(8)")
-                                .HasColumnName("acronym");
+                                .HasColumnName("Acronym");
 
                             b1.Property<string>("FullName")
                                 .IsRequired()
                                 .HasMaxLength(50)
                                 .HasColumnType("nvarchar(50)")
-                                .HasColumnName("full_name");
+                                .HasColumnName("FullName");
 
                             b1.HasKey("ClubId");
 
@@ -110,7 +138,7 @@ namespace QuickClubs.Infrastructure.Migrations
                             b1.HasIndex("FullName")
                                 .IsUnique();
 
-                            b1.ToTable("club");
+                            b1.ToTable("Club");
 
                             b1.WithOwner()
                                 .HasForeignKey("ClubId");
@@ -125,45 +153,17 @@ namespace QuickClubs.Infrastructure.Migrations
                                 .IsRequired()
                                 .HasMaxLength(80)
                                 .HasColumnType("nvarchar(80)")
-                                .HasColumnName("website");
+                                .HasColumnName("Website");
 
                             b1.HasKey("ClubId");
 
                             b1.HasIndex("Url")
                                 .IsUnique();
 
-                            b1.ToTable("club");
+                            b1.ToTable("Club");
 
                             b1.WithOwner()
                                 .HasForeignKey("ClubId");
-                        });
-
-                    b.OwnsOne("QuickClubs.Domain.Clubs.Entities.ClubSettings", "Settings", b1 =>
-                        {
-                            b1.Property<Guid>("Id")
-                                .HasColumnType("uniqueidentifier")
-                                .HasColumnName("id");
-
-                            b1.Property<Guid>("club_id")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<string>("Currency")
-                                .IsRequired()
-                                .HasMaxLength(3)
-                                .HasColumnType("nvarchar(3)");
-
-                            b1.Property<bool>("MembershipNeedsApproval")
-                                .HasColumnType("bit");
-
-                            b1.HasKey("Id", "club_id");
-
-                            b1.HasIndex("club_id")
-                                .IsUnique();
-
-                            b1.ToTable("club_settings", (string)null);
-
-                            b1.WithOwner()
-                                .HasForeignKey("club_id");
                         });
 
                     b.Navigation("Name")
@@ -180,8 +180,7 @@ namespace QuickClubs.Infrastructure.Migrations
                     b.OwnsOne("QuickClubs.Domain.Users.Entities.UserProfile", "Profile", b1 =>
                         {
                             b1.Property<Guid>("Id")
-                                .HasColumnType("uniqueidentifier")
-                                .HasColumnName("id");
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<Guid>("UserId")
                                 .HasColumnType("uniqueidentifier");

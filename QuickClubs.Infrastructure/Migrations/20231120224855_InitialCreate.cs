@@ -12,19 +12,19 @@ namespace QuickClubs.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "club",
+                name: "Club",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    full_name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    acronym = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
-                    website = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
+                    FullName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Acronym = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
+                    Website = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
                     IsAffiliate = table.Column<bool>(type: "bit", nullable: false),
                     Version = table.Column<long>(type: "bigint", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_club", x => x.Id);
+                    table.PrimaryKey("PK_Club", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -44,21 +44,21 @@ namespace QuickClubs.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "club_settings",
+                name: "ClubSettings",
                 columns: table => new
                 {
-                    id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    club_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ClubId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Currency = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
                     MembershipNeedsApproval = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_club_settings", x => new { x.id, x.club_id });
+                    table.PrimaryKey("PK_ClubSettings", x => new { x.Id, x.ClubId });
                     table.ForeignKey(
-                        name: "FK_club_settings_club_club_id",
-                        column: x => x.club_id,
-                        principalTable: "club",
+                        name: "FK_ClubSettings_Club_ClubId",
+                        column: x => x.ClubId,
+                        principalTable: "Club",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -67,7 +67,7 @@ namespace QuickClubs.Infrastructure.Migrations
                 name: "UserProfile",
                 columns: table => new
                 {
-                    id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DateOfBirth = table.Column<DateOnly>(type: "date", nullable: false),
                     Address_Building = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
@@ -79,7 +79,7 @@ namespace QuickClubs.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserProfile", x => new { x.id, x.UserId });
+                    table.PrimaryKey("PK_UserProfile", x => new { x.Id, x.UserId });
                     table.ForeignKey(
                         name: "FK_UserProfile_User_UserId",
                         column: x => x.UserId,
@@ -89,27 +89,27 @@ namespace QuickClubs.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_club_acronym",
-                table: "club",
-                column: "acronym",
+                name: "IX_Club_Acronym",
+                table: "Club",
+                column: "Acronym",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_club_full_name",
-                table: "club",
-                column: "full_name",
+                name: "IX_Club_FullName",
+                table: "Club",
+                column: "FullName",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_club_website",
-                table: "club",
-                column: "website",
+                name: "IX_Club_Website",
+                table: "Club",
+                column: "Website",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_club_settings_club_id",
-                table: "club_settings",
-                column: "club_id",
+                name: "IX_ClubSettings_ClubId",
+                table: "ClubSettings",
+                column: "ClubId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -135,13 +135,13 @@ namespace QuickClubs.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "club_settings");
+                name: "ClubSettings");
 
             migrationBuilder.DropTable(
                 name: "UserProfile");
 
             migrationBuilder.DropTable(
-                name: "club");
+                name: "Club");
 
             migrationBuilder.DropTable(
                 name: "User");

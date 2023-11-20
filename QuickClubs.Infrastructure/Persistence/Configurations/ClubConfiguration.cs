@@ -10,7 +10,7 @@ internal sealed class ClubConfiguration : IEntityTypeConfiguration<Club>
 {
     public void Configure(EntityTypeBuilder<Club> builder)
     {
-        builder.ToTable("club");
+        builder.ToTable("Club");
 
         builder.HasKey(club => club.Id);
 
@@ -20,11 +20,11 @@ internal sealed class ClubConfiguration : IEntityTypeConfiguration<Club>
         builder.OwnsOne(club => club.Name, nameBuilder =>
         {
             nameBuilder.Property(name => name.FullName)
-                .HasColumnName("full_name")
+                .HasColumnName("FullName")
                 .HasMaxLength(ClubName.FullNameMaxLength);
 
             nameBuilder.Property(name => name.Acronym)
-                .HasColumnName("acronym")
+                .HasColumnName("Acronym")
                 .HasMaxLength(ClubName.AcronymMaxLength);
 
             nameBuilder.HasIndex(name => name.FullName).IsUnique();
@@ -34,7 +34,7 @@ internal sealed class ClubConfiguration : IEntityTypeConfiguration<Club>
         builder.OwnsOne(club => club.Website, websiteBuilder =>
         {
             websiteBuilder.Property(website => website.Url)
-                .HasColumnName("website")
+                .HasColumnName("Website")
                 .HasMaxLength(ClubWebsite.MaxLength);
 
             websiteBuilder.HasIndex(website => website.Url).IsUnique();
@@ -44,16 +44,16 @@ internal sealed class ClubConfiguration : IEntityTypeConfiguration<Club>
 
         builder.OwnsOne(club => club.Settings, settingsBuilder =>
         {
-            settingsBuilder.ToTable("club_settings");
+            settingsBuilder.ToTable("ClubSettings");
 
             settingsBuilder.Property(s => s.Id)
-                .HasColumnName("id")
+                .HasColumnName("Id")
                 .ValueGeneratedNever()
                 .HasConversion(id => id.Value, value => new ClubSettingsId(value));
 
-            settingsBuilder.WithOwner().HasForeignKey("club_id");
+            settingsBuilder.WithOwner().HasForeignKey("ClubId");
 
-            settingsBuilder.HasKey("Id", "club_id");
+            settingsBuilder.HasKey("Id", "ClubId");
 
             settingsBuilder.Property(s => s.Currency)
                 .HasConversion(c => c.Code, value => Currency.FromCode(value))
