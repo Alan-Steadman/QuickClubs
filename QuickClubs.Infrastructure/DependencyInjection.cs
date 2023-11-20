@@ -31,7 +31,6 @@ public static class DependencyInjection
             options.EnableSensitiveDataLogging();
         });
 
-
         services.AddScoped<IClubRepository, ClubRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
 

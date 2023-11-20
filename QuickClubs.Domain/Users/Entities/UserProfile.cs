@@ -8,7 +8,7 @@ public class UserProfile : Entity<UserProfileId>
 {
 
     public User User { get; private set; }
-    public UserId UserId { get; private set; }
+    //public UserId UserId { get; private set; }
 
     public DateOnly DateOfBirth { get; private set; }
     public Address Address { get; private set; }
@@ -18,27 +18,27 @@ public class UserProfile : Entity<UserProfileId>
 
     private UserProfile(
         UserProfileId id,
-        UserId userId,
+        //UserId userId,
         User user,
         DateOnly dateOfBirth,
         Address address)
         : base(id)
     {
         User = user;
-        UserId = userId;
+        //UserId = userId;
         DateOfBirth = dateOfBirth;
         Address = address;
     }
 
     public static UserProfile Create(
-        UserId userId,
+        //UserId userId,
         User user,
         DateOnly dateOfBirth,
         Address address)
     {
         return new UserProfile(
             UserProfileId.New(),
-            userId,
+            //userId,
             user,
             dateOfBirth,
             address);

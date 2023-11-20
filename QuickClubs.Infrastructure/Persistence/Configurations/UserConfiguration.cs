@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using QuickClubs.Domain.Users.Entities;
+using QuickClubs.Domain.Common;
 using QuickClubs.Domain.Users.ValueObjects;
 using QuickClubs.Domain.Users;
 
@@ -10,7 +10,7 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
-        builder.ToTable("user");
+        builder.ToTable("User");
 
         builder.HasKey(user => user.Id);
 
@@ -30,39 +30,34 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
             .HasMaxLength(UserEmail.MaxLength)
             .HasConversion(email => email.Value, value => new UserEmail(value));
 
-        builder.HasOne(user => user.Profile)
-            .WithOne(up => up.User)
-            .HasForeignKey<UserProfile>(up => up.UserId)
-            .IsRequired(false);
-        //builder.OwnsOne(user => user.Profile, profileBuilder =>
-        //{
-        //    profileBuilder.ToTable("user_profile");
+        builder.OwnsOne(user => user.Profile, profileBuilder => {
+            profileBuilder.ToTable("UserProfile");
 
-        //    profileBuilder.Property(p => p.Id)
-        //        .HasColumnName("id")
-        //        .ValueGeneratedNever()
-        //        .HasConversion(id => id.Value, value => new UserProfileId(value));
+            profileBuilder.Property(p => p.Id)
+                .HasColumnName("id")
+                .ValueGeneratedNever()
+                .HasConversion(id => id.Value, value => new UserProfileId(value));
 
-        //    profileBuilder.WithOwner().HasForeignKey();
+                //profileBuilder.WithOwner().HasForeignKey("UserId");
 
-        //    profileBuilder.HasKey("Id", "user_id");
+                profileBuilder.HasKey("Id", "UserId");
 
-        //    profileBuilder.OwnsOne(p => p.Address, addressBuilder =>
-        //    {
-        //        addressBuilder.Property(a => a.Building)
-        //            .HasMaxLength(Address.BuildingMaxLength);
-        //        addressBuilder.Property(a => a.Street)
-        //            .HasMaxLength(Address.StreetMaxLength);
-        //        addressBuilder.Property(a => a.Locality)
-        //            .HasMaxLength(Address.LocalityMaxLength);
-        //        addressBuilder.Property(a => a.Town)
-        //            .HasMaxLength(Address.TownMaxLength);
-        //        addressBuilder.Property(a => a.County)
-        //            .HasMaxLength(Address.CountyMaxLength);
-        //        addressBuilder.Property(a => a.Postcode)
-        //            .HasMaxLength(Address.PostcodeMaxLength);
-        //    });
-        //});
+            profileBuilder.OwnsOne(p => p.Address, addressBuilder =>
+            {
+                addressBuilder.Property(a => a.Building)
+                    .HasMaxLength(Address.BuildingMaxLength);
+                addressBuilder.Property(a => a.Street)
+                    .HasMaxLength(Address.StreetMaxLength);
+                addressBuilder.Property(a => a.Locality)
+                    .HasMaxLength(Address.LocalityMaxLength);
+                addressBuilder.Property(a => a.Town)
+                    .HasMaxLength(Address.TownMaxLength);
+                addressBuilder.Property(a => a.County)
+                    .HasMaxLength(Address.CountyMaxLength);
+                addressBuilder.Property(a => a.Postcode)
+                    .HasMaxLength(Address.PostcodeMaxLength);
+            });
+        });
 
         builder.Property<uint>("Version").IsRowVersion();
 
