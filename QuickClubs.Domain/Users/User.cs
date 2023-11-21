@@ -29,6 +29,8 @@ public sealed class User : AggregateRoot<UserId>
     public LastName LastName { get; private set; }
     public UserEmail Email { get; private set; }
     public PasswordHash PasswordHash { get; private set; }
+    public DateTime Registered { get; private set; }
+    public DateTime LastLogin { get; private set; }
     public UserProfile? Profile { get; private set; }
     public bool HasProfile => Profile != null;
 
@@ -69,6 +71,16 @@ public sealed class User : AggregateRoot<UserId>
         Profile = profile;
 
         return Result.Success();
+    }
+
+    public void SetLastLoginNow(DateTime now)
+    {
+        this.LastLogin = now;
+    }
+
+    public void SetRegisteredNow(DateTime now)
+    {
+        this.Registered = now;
     }
 
 #pragma warning disable CS8618

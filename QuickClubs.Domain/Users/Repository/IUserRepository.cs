@@ -8,5 +8,5 @@ public interface IUserRepository
     void Add(User user);
     void Update(User club);
 
-    Task<bool> IsEmailUniqueAsync(UserId? id, string email, CancellationToken cancellationToken = default);
+    Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken = default);
 }
