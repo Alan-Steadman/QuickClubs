@@ -30,6 +30,10 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
             .HasMaxLength(UserEmail.MaxLength)
             .HasConversion(email => email.Value, value => new UserEmail(value));
 
+        builder.Property(user => user.PasswordHash)
+            .HasMaxLength(PasswordHash.MaxLength)
+            .HasConversion(passwordHash => passwordHash.Value, value => new PasswordHash(value));
+
         builder.OwnsOne(user => user.Profile, profileBuilder => {
             profileBuilder.ToTable("UserProfile");
 
@@ -59,6 +63,5 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property<uint>("Version").IsRowVersion();
 
         builder.HasIndex(user => user.Email).IsUnique();
-        builder.HasIndex(user => user.IdentityId).IsUnique();
     }
 }

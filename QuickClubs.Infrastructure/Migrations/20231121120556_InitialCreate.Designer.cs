@@ -12,7 +12,7 @@ using QuickClubs.Infrastructure.Persistence;
 namespace QuickClubs.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231120224855_InitialCreate")]
+    [Migration("20231121120556_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -58,14 +58,15 @@ namespace QuickClubs.Infrastructure.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<string>("IdentityId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasMaxLength(75)
+                        .HasColumnType("nvarchar(75)");
 
                     b.Property<long>("Version")
                         .IsConcurrencyToken()
@@ -75,9 +76,6 @@ namespace QuickClubs.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
-                        .IsUnique();
-
-                    b.HasIndex("IdentityId")
                         .IsUnique();
 
                     b.ToTable("User", (string)null);

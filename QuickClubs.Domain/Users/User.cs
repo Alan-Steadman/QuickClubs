@@ -14,28 +14,29 @@ public sealed class User : AggregateRoot<UserId>
         FirstName firstName,
         LastName lastName,
         UserEmail email,
-        string identityId,
+        PasswordHash passwordHash,
         UserProfile? profile)
         : base(id)
     {
         FirstName = firstName;
         LastName = lastName;
         Email = email;
-        IdentityId = identityId;
+        PasswordHash = passwordHash;
         Profile = profile;
     }
 
     public FirstName FirstName { get; private set; }
     public LastName LastName { get; private set; }
     public UserEmail Email { get; private set; }
-    public string IdentityId { get; private set; }
+    public PasswordHash PasswordHash { get; private set; }
     public UserProfile? Profile { get; private set; }
     public bool HasProfile => Profile != null;
 
     public static User Create(
         FirstName firstName,
         LastName lastName,
-        UserEmail email)
+        UserEmail email,
+        PasswordHash passwordHash)
     {
 
         var user = new User(
@@ -43,17 +44,12 @@ public sealed class User : AggregateRoot<UserId>
             firstName,
             lastName,
             email,
-            identityId: string.Empty,
+            passwordHash,
             profile: null);
 
         user.RaiseDomainEvent(new UserCreatedDomainEvent(user.Id));
 
         return user;
-    }
-
-    public void SetIdentityId(string identityId)
-    {
-        IdentityId = identityId;
     }
 
     public Result SetProfile(

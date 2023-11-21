@@ -35,7 +35,7 @@ namespace QuickClubs.Infrastructure.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    IdentityId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(75)", maxLength: 75, nullable: false),
                     Version = table.Column<long>(type: "bigint", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
@@ -116,12 +116,6 @@ namespace QuickClubs.Infrastructure.Migrations
                 name: "IX_User_Email",
                 table: "User",
                 column: "Email",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_User_IdentityId",
-                table: "User",
-                column: "IdentityId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
