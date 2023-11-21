@@ -7,7 +7,7 @@ using QuickClubs.Contracts.Authentication;
 
 namespace QuickClubs.Presentation.Controllers;
 
-public class AuthController : ApiController
+public sealed class AuthController : ApiController
 {
     [AllowAnonymous]
     [HttpPost("register")]

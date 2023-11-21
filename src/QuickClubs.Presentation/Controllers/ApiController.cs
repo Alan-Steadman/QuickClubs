@@ -8,7 +8,7 @@ namespace QuickClubs.Presentation.Controllers;
 [Authorize]
 [ApiController]
 [Route("api/[controller]")]
-public class ApiController : ControllerBase
+public abstract class ApiController : ControllerBase
 {
     private ISender _sender = null!;
 

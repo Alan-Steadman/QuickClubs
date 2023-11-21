@@ -1,0 +1,9 @@
+POST https://localhost:65124/api/clubs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWY2MDNlYi1hNDJlLTRiZDctOTMzMy1hOTY5NzJkZTRhZDIiLCJlbWFpbCI6InNvbWUub25lQGludGVybmV0LmNvbSIsImp0aSI6Ijg1MTQ0NzdiLTNhM2ItNDg4Yi04MzdlLTRmNmY0Y2M5ZDk3NCIsImV4cCI6MTcwMDY1MjA4NSwiaXNzIjoicXVpY2tjbHVicyIsImF1ZCI6InF1aWNrY2x1YnMifQ.iyHjivWCCzH_mhQSfHeNrnQ7lcMyutniOW5ukeB2RYQ
+
+{
+    "fullName": "Sevenoaks & District Motor Club",
+    "acronym": "sdmc",
+    "website": "https://www.sdmc.org.uk/"
+}
