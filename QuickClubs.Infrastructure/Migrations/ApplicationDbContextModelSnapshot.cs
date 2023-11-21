@@ -30,11 +30,6 @@ namespace QuickClubs.Infrastructure.Migrations
                     b.Property<bool>("IsAffiliate")
                         .HasColumnType("bit");
 
-                    b.Property<long>("Version")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("bigint");
-
                     b.HasKey("Id");
 
                     b.ToTable("Club", (string)null);
@@ -55,6 +50,9 @@ namespace QuickClubs.Infrastructure.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
+                    b.Property<DateTime>("LastLogin")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(30)
@@ -65,10 +63,8 @@ namespace QuickClubs.Infrastructure.Migrations
                         .HasMaxLength(75)
                         .HasColumnType("nvarchar(75)");
 
-                    b.Property<long>("Version")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("bigint");
+                    b.Property<DateTime>("Registered")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 

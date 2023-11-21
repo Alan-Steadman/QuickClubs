@@ -12,7 +12,7 @@ using QuickClubs.Infrastructure.Persistence;
 namespace QuickClubs.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231121120556_InitialCreate")]
+    [Migration("20231121165650_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -32,11 +32,6 @@ namespace QuickClubs.Infrastructure.Migrations
 
                     b.Property<bool>("IsAffiliate")
                         .HasColumnType("bit");
-
-                    b.Property<long>("Version")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -58,6 +53,9 @@ namespace QuickClubs.Infrastructure.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
+                    b.Property<DateTime>("LastLogin")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(30)
@@ -68,10 +66,8 @@ namespace QuickClubs.Infrastructure.Migrations
                         .HasMaxLength(75)
                         .HasColumnType("nvarchar(75)");
 
-                    b.Property<long>("Version")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("bigint");
+                    b.Property<DateTime>("Registered")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 

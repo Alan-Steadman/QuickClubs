@@ -7,9 +7,9 @@
 /  - PasswordHasher
 /  - JWT Generator
 
-- Create RegisterCommand/handler/validator in application layer
+/- Create RegisterCommand/handler/validator in application layer
 
-- Create minimal API controller for Register
+/- Create API controller for Register
 
 - Check that errors are returned correctly as json problem details
 

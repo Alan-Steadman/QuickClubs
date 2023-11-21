@@ -19,8 +19,7 @@ namespace QuickClubs.Infrastructure.Migrations
                     FullName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Acronym = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     Website = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
-                    IsAffiliate = table.Column<bool>(type: "bit", nullable: false),
-                    Version = table.Column<long>(type: "bigint", rowVersion: true, nullable: false)
+                    IsAffiliate = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -36,7 +35,8 @@ namespace QuickClubs.Infrastructure.Migrations
                     LastName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     PasswordHash = table.Column<string>(type: "nvarchar(75)", maxLength: 75, nullable: false),
-                    Version = table.Column<long>(type: "bigint", rowVersion: true, nullable: false)
+                    Registered = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastLogin = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
