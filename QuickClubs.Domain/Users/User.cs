@@ -66,7 +66,6 @@ public sealed class User : AggregateRoot<UserId>
         }
 
         var profile = UserProfile.Create(
-            //this.Id,
             this,
             dateOfBirth,
             address);

@@ -34,11 +34,8 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
             profileBuilder.ToTable("UserProfile");
 
             profileBuilder.Property(p => p.Id)
-                //.HasColumnName("id")
                 .ValueGeneratedNever()
                 .HasConversion(id => id.Value, value => new UserProfileId(value));
-
-                //profileBuilder.WithOwner().HasForeignKey("UserId");
 
                 profileBuilder.HasKey("Id", "UserId");
 
