@@ -24,11 +24,4 @@ public class AuthController : ApiController
 
         return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
     }
-
-    [AllowAnonymous]
-    [HttpGet("test")]
-    public async Task<IActionResult> Test(CancellationToken cancellationToken)
-    {
-        return Ok("hlo wrld");
-    }
 }
