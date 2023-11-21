@@ -1,11 +1,11 @@
 # Quick Clubs TODO Add JWT Bearer auth
 
 
-- Add PasswordHash value object and add it to User.  Alter UserConfig too as necessary.
+/ - Add PasswordHash value object and add it to User.  Alter UserConfig too as necessary.
 
-- Create & implement:
-  - PasswordHasher
-  - JWT Generator
+/- Create & implement:
+/  - PasswordHasher
+/  - JWT Generator
 
 - Create RegisterCommand/handler/validator in application layer
 

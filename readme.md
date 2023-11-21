@@ -18,3 +18,10 @@ Enter a connection string using the values below, replacing the sa password to s
   "ConnectionStrings:Database": "server=quickclubs.db;database=quickclubs;user id=sa;password=MyStrongPassword;encrypt=false;"
 }
 ```
+
+JWT Secret:
+```json
+{
+  "JwtSettings:Secret": "Strong_and_at_least_16_charas"
+}
+```
