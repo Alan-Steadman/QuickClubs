@@ -40,8 +40,6 @@ internal sealed class ClubConfiguration : IEntityTypeConfiguration<Club>
             websiteBuilder.HasIndex(website => website.Url).IsUnique();
         });
 
-        builder.Property<uint>("Version").IsRowVersion();
-
         builder.OwnsOne(club => club.Settings, settingsBuilder =>
         {
             settingsBuilder.ToTable("ClubSettings");
