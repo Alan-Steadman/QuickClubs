@@ -15,6 +15,8 @@ internal sealed class UserRepository : Repository<User, UserId>, IUserRepository
 
     public async Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken = default)
     {
-        return await DbContext.Set<User>().FirstOrDefaultAsync(x => x.Email.Value == email, cancellationToken);
+
+        var userEmail = new UserEmail(email);
+        return await DbContext.Set<User>().FirstOrDefaultAsync(x => x.Email == userEmail, cancellationToken);
     }
 }
