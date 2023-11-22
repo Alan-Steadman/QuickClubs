@@ -9,6 +9,7 @@ using QuickClubs.Application.Abstractions.Clock;
 using QuickClubs.Domain.Abstractions;
 using QuickClubs.Domain.Clubs.Repository;
 using QuickClubs.Domain.MembershipOptions.Repository;
+using QuickClubs.Domain.Memberships.Repository;
 using QuickClubs.Domain.Users.Repository;
 using QuickClubs.Infrastructure.Authentication;
 using QuickClubs.Infrastructure.Clock;
@@ -45,6 +46,7 @@ public static class DependencyInjection
 
         services.AddScoped<IClubRepository, ClubRepository>();
         services.AddScoped<IMembershipOptionRepository, MembershipOptionRepository>();
+        services.AddScoped<IMembershipRepository, MembershipRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());

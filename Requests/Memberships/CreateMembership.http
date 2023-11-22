@@ -1,10 +1,10 @@
-@clubId=982b56cf-39ee-4554-8b67-98f8ceda3b9b
-
-PUT https://localhost:41819/api/clubs/{{clubId}}/set-affiliated
+POST https://localhost:41819/api/memberships
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxM2NjMGY4NC01ZTdkLTQyM2MtOWYyOC05MGFkOGNhZThhMmMiLCJlbWFpbCI6InNvbWUub25lQGludGVybmV0LmNvbSIsImp0aSI6IjQ3Y2UwMjQwLTM1NDQtNDMxZi04NWQwLWU0NzczMTJjMjc0ZiIsImV4cCI6MTcwMDcwMzA4NSwiaXNzIjoicXVpY2tjbHVicyIsImF1ZCI6InF1aWNrY2x1YnMifQ.dOGGHJDHM_n8kkkXcMBBVwHYY4JBVHWtSra_FQ7Yb7c
 
 {
-    "currencyCode": "GBP",
-    "membershipNeedsApproval": true
+    "userId": "39CF1583-23D0-4E14-80CC-A5E112A87E93",
+    "additionalMembers": [],
+    "membershipOptionId": "05ca327d-49d6-4591-8651-3a8ff60960a2",
+    "membershipLevelId": "2C2DD15E-FCEB-48B6-AB29-E36326BE9D8A"
 }

@@ -3,7 +3,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxM2NjMGY4NC01ZTdkLTQyM2MtOWYyOC05MGFkOGNhZThhMmMiLCJlbWFpbCI6InNvbWUub25lQGludGVybmV0LmNvbSIsImp0aSI6IjQ3Y2UwMjQwLTM1NDQtNDMxZi04NWQwLWU0NzczMTJjMjc0ZiIsImV4cCI6MTcwMDcwMzA4NSwiaXNzIjoicXVpY2tjbHVicyIsImF1ZCI6InF1aWNrY2x1YnMifQ.dOGGHJDHM_n8kkkXcMBBVwHYY4JBVHWtSra_FQ7Yb7c
 
 {
-    "ClubId": "c9b27a46-acea-492e-bc51-2189d8d91ecc",
+    "ClubId": "982b56cf-39ee-4554-8b67-98f8ceda3b9b",
     "Name": "Annual Membership",
     "Period": "Yearly",
     "HasCutoff": true,
