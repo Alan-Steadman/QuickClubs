@@ -1,0 +1,9 @@
+@membershipId=312C377C-E24B-4180-A13B-3CA9D3657E24
+
+POST https://localhost:41819/api/memberships/{{membershipId}}/approve
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3OGE0Njc0MC1lYTU0LTQzZTAtOTRkNy0yOTgxMDYxNWZjNGMiLCJlbWFpbCI6ImhlbnJ5QGludGVybmV0LmNvbSIsImp0aSI6IjZhZmIyNWY4LTA0NWEtNDdiZS05ZjIwLWVjYzc3ZmE4OTAyNSIsImV4cCI6MTcwMDczNjU2NywiaXNzIjoicXVpY2tjbHVicyIsImF1ZCI6InF1aWNrY2x1YnMifQ.OXwU8ZVKGp1p_YjC2D3J61IEo8wvc7ROl7J_Owauedg
+
+{
+    "reason": "why not"
+}

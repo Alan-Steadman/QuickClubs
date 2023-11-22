@@ -93,7 +93,7 @@ public sealed class Membership : AggregateRoot<MembershipId>
         Paid = true;
     }
 
-    public void SetApproved(UserId approvedBy, DateTime UtcNow, string? reason)
+    public void SetApproved(UserId approvedBy, DateTime utcNow, string? reason)
     {
         var approvalStatus = ApprovalStatus.Approved;
 
@@ -101,7 +101,7 @@ public sealed class Membership : AggregateRoot<MembershipId>
             IsApproved: approvalStatus.IsApproved,
             approvalStatus,
             ApprovedBy: approvedBy,
-            ApprovedDate: UtcNow,
+            ApprovedDate: utcNow,
             Reason: reason);
 
         Approval = approval;

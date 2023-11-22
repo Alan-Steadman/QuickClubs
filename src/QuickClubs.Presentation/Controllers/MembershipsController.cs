@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using QuickClubs.Application.Clubs.GetAllClubs;
+using QuickClubs.Application.Memberships.ApproveMembership;
 using QuickClubs.Application.Memberships.CreateMembership;
 using QuickClubs.Application.Memberships.GetAllClubMembers;
 using QuickClubs.Contracts.Memberships;
@@ -40,6 +41,30 @@ public class MembershipsController : ApiController
         var result = await Sender.Send(query, cancellationToken);
 
         return result.IsSuccess ? Ok(result.Value) : NotFound();
+    }
+
+    [HttpPost("{id}/approve")]
+    public async Task<IActionResult> ApproveMembership(Guid Id, ApproveMembershipRequest request, CancellationToken cancellationToken)
+    {
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+        if (userIdClaim is null)
+            return Unauthorized();
+
+        var userIdString = userIdClaim.Value;
+        if (userIdString is null)
+            return Unauthorized();
+
+        if (!Guid.TryParse(userIdString, out Guid userId))
+            return Unauthorized();
+
+        var command = new ApproveMembershipCommand(
+            Id,
+            userId,
+            request.Reason);
+
+        var result = await Sender.Send(command);
+
+        return result.IsSuccess ? Ok() : BadRequest(result.Error);
     }
 
 }
