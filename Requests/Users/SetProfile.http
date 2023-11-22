@@ -1,0 +1,15 @@
+@userId=FAF603EB-A42E-4BD7-9333-A96972DE4AD2
+
+PUT https://localhost:41819/api/Users/{{userId}}/set-profile
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWY2MDNlYi1hNDJlLTRiZDctOTMzMy1hOTY5NzJkZTRhZDIiLCJlbWFpbCI6InNvbWUub25lQGludGVybmV0LmNvbSIsImp0aSI6IjJjNmIzMjBhLTFkNzEtNGE5Mi05ZTU2LThkNzk0MmFhZWY5MCIsImV4cCI6MTcwMDY5ODMwMywiaXNzIjoicXVpY2tjbHVicyIsImF1ZCI6InF1aWNrY2x1YnMifQ.QABLPbsU7vNocEosANBZO3bAI31IGt3re052oKwrax0
+
+{
+    "dateOfBirth": "1990-01-01",
+    "building": "Buckingham Palace",
+    "street": "The Mall",
+    "locality": "",
+    "town": "London",
+    "county": "",
+    "postcode": "SW1A 1AA"
+}

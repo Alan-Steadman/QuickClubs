@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using QuickClubs.Application.Authentication.Register;
+﻿using Microsoft.AspNetCore.Mvc;
 using QuickClubs.Application.Clubs.CreateClub;
 using QuickClubs.Application.Clubs.SetAffiliated;
-using QuickClubs.Contracts.Authentication;
 using QuickClubs.Contracts.Clubs;
 
 namespace QuickClubs.Presentation.Controllers;
