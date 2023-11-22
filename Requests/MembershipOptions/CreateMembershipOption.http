@@ -1,0 +1,38 @@
+POST https://localhost:41819/api/membership-options
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxM2NjMGY4NC01ZTdkLTQyM2MtOWYyOC05MGFkOGNhZThhMmMiLCJlbWFpbCI6InNvbWUub25lQGludGVybmV0LmNvbSIsImp0aSI6IjQ3Y2UwMjQwLTM1NDQtNDMxZi04NWQwLWU0NzczMTJjMjc0ZiIsImV4cCI6MTcwMDcwMzA4NSwiaXNzIjoicXVpY2tjbHVicyIsImF1ZCI6InF1aWNrY2x1YnMifQ.dOGGHJDHM_n8kkkXcMBBVwHYY4JBVHWtSra_FQ7Yb7c
+
+{
+    "ClubId": "c9b27a46-acea-492e-bc51-2189d8d91ecc",
+    "Name": "Annual Membership",
+    "Period": "Yearly",
+    "HasCutoff": true,
+    "CutoffMonth": "12",
+    "CutoffDay": "31",
+    "Levels": [
+        {
+            "Name": "Adult",
+            "Description": "",
+            "MaxMembers": 1,
+            "MinAge": 17,
+            "MaxAge": null,
+            "PriceAmount": 20.00
+        },
+        {
+            "Name": "Junior",
+            "Description": "",
+            "MaxMembers": 1,
+            "MinAge": null,
+            "MaxAge": 17,
+            "PriceAmount": 10.00
+        },
+        {
+            "Name": "Family",
+            "Description": "",
+            "MaxMembers": 5,
+            "MinAge": null,
+            "MaxAge": null,
+            "PriceAmount": 35.00
+        }
+    ]
+}
