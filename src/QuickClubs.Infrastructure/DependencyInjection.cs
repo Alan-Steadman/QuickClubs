@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using QuickClubs.Application.Abstractions.Authentication;
 using QuickClubs.Application.Abstractions.Clock;
+using QuickClubs.Application.Abstractions.Data;
 using QuickClubs.Domain.Abstractions;
 using QuickClubs.Domain.Clubs.Repository;
 using QuickClubs.Domain.MembershipOptions.Repository;
@@ -13,6 +14,7 @@ using QuickClubs.Domain.Memberships.Repository;
 using QuickClubs.Domain.Users.Repository;
 using QuickClubs.Infrastructure.Authentication;
 using QuickClubs.Infrastructure.Clock;
+using QuickClubs.Infrastructure.Data;
 using QuickClubs.Infrastructure.Persistence;
 using QuickClubs.Infrastructure.Persistence.Repositories;
 using System.Text;
@@ -50,6 +52,8 @@ public static class DependencyInjection
         services.AddScoped<IUserRepository, UserRepository>();
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
+
+        services.AddSingleton<ISqlConnectionFactory>(_ => new SqlConnectionFactory(connectionString));
 
         return services;
     }

@@ -1,4 +1,14 @@
-# Quickclubs
+# QuickClubs
+
+## Tech Stack
+
+- SqlServer
+- Dapper
+- EF Core
+- Serilog
+- MediatR
+- Docker Compose
+- Fluent Validation
 
 ## Installation
 
