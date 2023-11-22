@@ -3,7 +3,7 @@ using QuickClubs.Domain.Common;
 
 namespace QuickClubs.Application.Clubs.SetAffiliated;
 
-internal sealed class SetAffiliatedCommandValidator : AbstractValidator<SetAffiliatedCommand>
+public sealed class SetAffiliatedCommandValidator : AbstractValidator<SetAffiliatedCommand>
 {
     public SetAffiliatedCommandValidator()
     {

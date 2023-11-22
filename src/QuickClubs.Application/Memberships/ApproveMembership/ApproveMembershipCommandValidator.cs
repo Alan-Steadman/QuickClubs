@@ -3,7 +3,7 @@ using QuickClubs.Domain.Memberships.ValueObjects;
 
 namespace QuickClubs.Application.Memberships.ApproveMembership;
 
-internal sealed class ApproveMembershipCommandValidator : AbstractValidator<ApproveMembershipCommand>
+public sealed class ApproveMembershipCommandValidator : AbstractValidator<ApproveMembershipCommand>
 {
     public ApproveMembershipCommandValidator()
     {

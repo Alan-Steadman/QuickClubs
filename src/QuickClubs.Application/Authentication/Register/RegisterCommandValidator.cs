@@ -2,7 +2,7 @@
 using QuickClubs.Domain.Users.ValueObjects;
 
 namespace QuickClubs.Application.Authentication.Register;
-internal sealed class RegisterCommandValidator : AbstractValidator<RegisterCommand>
+public sealed class RegisterCommandValidator : AbstractValidator<RegisterCommand>
 {
     public RegisterCommandValidator()
     {

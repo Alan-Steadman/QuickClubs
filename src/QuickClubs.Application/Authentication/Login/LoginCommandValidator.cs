@@ -3,7 +3,7 @@ using QuickClubs.Domain.Users.ValueObjects;
 
 namespace QuickClubs.Application.Authentication.Login;
 
-internal sealed class LoginCommandValidator : AbstractValidator<LoginCommand>
+public sealed class LoginCommandValidator : AbstractValidator<LoginCommand>
 {
     public LoginCommandValidator()
     {

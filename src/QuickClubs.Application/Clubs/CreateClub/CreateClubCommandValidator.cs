@@ -3,7 +3,7 @@ using QuickClubs.Domain.Clubs.ValueObjects;
 
 namespace QuickClubs.Application.Clubs.CreateClub;
 
-internal sealed class CreateClubCommandValidator : AbstractValidator<CreateClubCommand>
+public sealed class CreateClubCommandValidator : AbstractValidator<CreateClubCommand>
 {
     public CreateClubCommandValidator()
     {

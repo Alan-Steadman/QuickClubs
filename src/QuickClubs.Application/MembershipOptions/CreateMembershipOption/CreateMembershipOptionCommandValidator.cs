@@ -3,7 +3,7 @@ using QuickClubs.Domain.MembershipOptions.ValueObjects;
 
 namespace QuickClubs.Application.MembershipOptions.CreateMembershipOption;
 
-internal sealed class CreateMembershipOptionCommandValidator : AbstractValidator<CreateMembershipOptionCommand>
+public sealed class CreateMembershipOptionCommandValidator : AbstractValidator<CreateMembershipOptionCommand>
 {
     public CreateMembershipOptionCommandValidator()
     {

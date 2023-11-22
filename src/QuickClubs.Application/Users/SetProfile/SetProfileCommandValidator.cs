@@ -5,7 +5,7 @@ using QuickClubs.Domain.Users.Entities;
 
 namespace QuickClubs.Application.Users.SetProfile;
 
-internal sealed class SetProfileCommandValidator : AbstractValidator<SetProfileCommand>
+public sealed class SetProfileCommandValidator : AbstractValidator<SetProfileCommand>
 {
     private readonly IDateTimeProvider _dateTimeProvider;
     public SetProfileCommandValidator(IDateTimeProvider dateTimeProvider)
