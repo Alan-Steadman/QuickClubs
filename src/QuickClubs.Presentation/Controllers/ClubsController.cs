@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QuickClubs.Application.Clubs.CreateClub;
+using QuickClubs.Application.Clubs.GetAllClubs;
 using QuickClubs.Application.Clubs.GetClub;
 using QuickClubs.Application.Clubs.SetAffiliated;
 using QuickClubs.Contracts.Clubs;
@@ -29,6 +30,17 @@ public sealed class ClubsController : ApiController
     public async Task<IActionResult> GetClub(Guid id, CancellationToken cancellationToken)
     {
         var query = new GetClubQuery(id);
+
+        var result = await Sender.Send(query, cancellationToken);
+
+        return result.IsSuccess ? Ok(result.Value) : NotFound();
+    }
+
+    [AllowAnonymous]
+    [HttpGet]
+    public async Task<IActionResult> GetAllClubs(CancellationToken cancellationToken)
+    {
+        var query = new GetAllClubsQuery();
 
         var result = await Sender.Send(query, cancellationToken);
 
