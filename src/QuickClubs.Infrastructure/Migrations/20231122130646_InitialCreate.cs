@@ -27,6 +27,22 @@ namespace QuickClubs.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MembershipOption",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ClubId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
+                    Period = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
+                    CutoffMonth = table.Column<int>(type: "int", nullable: true),
+                    CutoffDay = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MembershipOption", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
@@ -59,6 +75,31 @@ namespace QuickClubs.Infrastructure.Migrations
                         name: "FK_ClubSettings_Club_ClubId",
                         column: x => x.ClubId,
                         principalTable: "Club",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MembershipLevels",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MembershipOptionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
+                    MaxMembers = table.Column<int>(type: "int", nullable: false),
+                    MinAge = table.Column<int>(type: "int", nullable: true),
+                    MaxAge = table.Column<int>(type: "int", nullable: true),
+                    PriceAmount = table.Column<decimal>(type: "decimal(6,2)", nullable: false),
+                    PriceCurrency = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MembershipLevels", x => new { x.Id, x.MembershipOptionId });
+                    table.ForeignKey(
+                        name: "FK_MembershipLevels_MembershipOption_MembershipOptionId",
+                        column: x => x.MembershipOptionId,
+                        principalTable: "MembershipOption",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -113,6 +154,11 @@ namespace QuickClubs.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_MembershipLevels_MembershipOptionId",
+                table: "MembershipLevels",
+                column: "MembershipOptionId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_User_Email",
                 table: "User",
                 column: "Email",
@@ -132,10 +178,16 @@ namespace QuickClubs.Infrastructure.Migrations
                 name: "ClubSettings");
 
             migrationBuilder.DropTable(
+                name: "MembershipLevels");
+
+            migrationBuilder.DropTable(
                 name: "UserProfile");
 
             migrationBuilder.DropTable(
                 name: "Club");
+
+            migrationBuilder.DropTable(
+                name: "MembershipOption");
 
             migrationBuilder.DropTable(
                 name: "User");

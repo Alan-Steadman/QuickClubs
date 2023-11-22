@@ -12,7 +12,7 @@ using QuickClubs.Infrastructure.Persistence;
 namespace QuickClubs.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231121165650_InitialCreate")]
+    [Migration("20231122130646_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -36,6 +36,29 @@ namespace QuickClubs.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Club", (string)null);
+                });
+
+            modelBuilder.Entity("QuickClubs.Domain.MembershipOptions.MembershipOption", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ClubId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<string>("Period")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MembershipOption", (string)null);
                 });
 
             modelBuilder.Entity("QuickClubs.Domain.Users.User", b =>
@@ -167,6 +190,101 @@ namespace QuickClubs.Infrastructure.Migrations
 
                     b.Navigation("Website")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("QuickClubs.Domain.MembershipOptions.MembershipOption", b =>
+                {
+                    b.OwnsMany("QuickClubs.Domain.MembershipOptions.Entities.MembershipLevel", "Levels", b1 =>
+                        {
+                            b1.Property<Guid>("Id")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("Id");
+
+                            b1.Property<Guid>("MembershipOptionId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Description")
+                                .IsRequired()
+                                .HasMaxLength(120)
+                                .HasColumnType("nvarchar(120)");
+
+                            b1.Property<int?>("MaxAge")
+                                .HasColumnType("int");
+
+                            b1.Property<int>("MaxMembers")
+                                .HasColumnType("int");
+
+                            b1.Property<int?>("MinAge")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("Name")
+                                .IsRequired()
+                                .HasMaxLength(12)
+                                .HasColumnType("nvarchar(12)");
+
+                            b1.HasKey("Id", "MembershipOptionId");
+
+                            b1.HasIndex("MembershipOptionId");
+
+                            b1.ToTable("MembershipLevels", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("MembershipOptionId");
+
+                            b1.OwnsOne("QuickClubs.Domain.Common.Money", "Price", b2 =>
+                                {
+                                    b2.Property<Guid>("MembershipLevelId")
+                                        .HasColumnType("uniqueidentifier");
+
+                                    b2.Property<Guid>("MembershipLevelMembershipOptionId")
+                                        .HasColumnType("uniqueidentifier");
+
+                                    b2.Property<decimal>("Amount")
+                                        .HasColumnType("decimal(6,2)")
+                                        .HasColumnName("PriceAmount");
+
+                                    b2.Property<string>("Currency")
+                                        .IsRequired()
+                                        .HasMaxLength(3)
+                                        .HasColumnType("nvarchar(3)")
+                                        .HasColumnName("PriceCurrency");
+
+                                    b2.HasKey("MembershipLevelId", "MembershipLevelMembershipOptionId");
+
+                                    b2.ToTable("MembershipLevels");
+
+                                    b2.WithOwner()
+                                        .HasForeignKey("MembershipLevelId", "MembershipLevelMembershipOptionId");
+                                });
+
+                            b1.Navigation("Price")
+                                .IsRequired();
+                        });
+
+                    b.OwnsOne("QuickClubs.Domain.MembershipOptions.ValueObjects.Cutoff", "Cutoff", b1 =>
+                        {
+                            b1.Property<Guid>("MembershipOptionId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<int>("Day")
+                                .HasColumnType("int")
+                                .HasColumnName("CutoffDay");
+
+                            b1.Property<int>("Month")
+                                .HasColumnType("int")
+                                .HasColumnName("CutoffMonth");
+
+                            b1.HasKey("MembershipOptionId");
+
+                            b1.ToTable("MembershipOption");
+
+                            b1.WithOwner()
+                                .HasForeignKey("MembershipOptionId");
+                        });
+
+                    b.Navigation("Cutoff");
+
+                    b.Navigation("Levels");
                 });
 
             modelBuilder.Entity("QuickClubs.Domain.Users.User", b =>
