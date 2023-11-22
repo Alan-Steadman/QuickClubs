@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using QuickClubs.Application.Common.Behaviours;
+using QuickClubs.Domain.Memberships.Services;
 
 namespace QuickClubs.Application;
 
@@ -18,6 +19,8 @@ public static class DependencyInjection
         });
 
         services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
+
+        services.AddTransient<EndDateService>();
 
         return services;
     }
