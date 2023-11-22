@@ -1,4 +1,4 @@
-@userId=FAF603EB-A42E-4BD7-9333-A96972DE4AD2
+@userId=9C4A231D-CF11-4439-982A-7952DF46D5A7
 
 PUT https://localhost:41819/api/Users/{{userId}}/set-profile
 Content-Type: application/json

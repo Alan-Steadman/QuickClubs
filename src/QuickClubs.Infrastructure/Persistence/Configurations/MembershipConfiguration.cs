@@ -25,9 +25,7 @@ internal sealed class MembershipConfiguration : IEntityTypeConfiguration<Members
 
         builder.OwnsMany(m => m.Members, membersBuilder =>
         {
-            membersBuilder.ToTable("Members"); // argument for calling this "MembershipMembers"
-
-            //membersBuilder.WithOwner().HasForeignKey("MembershipId");
+            membersBuilder.ToTable("Member");
 
             membersBuilder.HasKey("Id");
 

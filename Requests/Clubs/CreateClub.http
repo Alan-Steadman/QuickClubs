@@ -3,7 +3,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzOWNmMTU4My0yM2QwLTRlMTQtODBjYy1hNWUxMTJhODdlOTMiLCJlbWFpbCI6InNvbWUub25lQGludGVybmV0LmNvbSIsImp0aSI6Ijg1MzFlNzk4LTRjMTctNDcyYy1hNTk1LTgxNzdhMzg1YzUwOSIsImV4cCI6MTcwMDcwNjA0MiwiaXNzIjoicXVpY2tjbHVicyIsImF1ZCI6InF1aWNrY2x1YnMifQ.hYh6K7euQf_DRDUHMFxtobYg-w75wILUpsVElVeh86Y
 
 {
-    "fullName": "Sevenoaks & District Motor Club",
-    "acronym": "sdmc",
-    "website": "https://www.sdmc.org.uk/"
+    "fullName": "Tunbridge Wells Motor Club",
+    "acronym": "twmc",
+    "website": "https://www.twmc.org.uk/"
 }

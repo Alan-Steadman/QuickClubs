@@ -259,7 +259,7 @@ namespace QuickClubs.Infrastructure.Migrations
 
                             b1.HasIndex("MembershipOptionId");
 
-                            b1.ToTable("MembershipLevels", (string)null);
+                            b1.ToTable("MembershipLevel", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("MembershipOptionId");
@@ -284,7 +284,7 @@ namespace QuickClubs.Infrastructure.Migrations
 
                                     b2.HasKey("MembershipLevelId", "MembershipLevelMembershipOptionId");
 
-                                    b2.ToTable("MembershipLevels");
+                                    b2.ToTable("MembershipLevel");
 
                                     b2.WithOwner()
                                         .HasForeignKey("MembershipLevelId", "MembershipLevelMembershipOptionId");
@@ -390,7 +390,7 @@ namespace QuickClubs.Infrastructure.Migrations
 
                             b1.HasIndex("MembershipId");
 
-                            b1.ToTable("Members", (string)null);
+                            b1.ToTable("Member", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("MembershipId");

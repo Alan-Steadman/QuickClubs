@@ -1,4 +1,4 @@
-@clubId=982b56cf-39ee-4554-8b67-98f8ceda3b9b
+@clubId=B6ED22A1-7864-4265-875A-7614C906DED8
 
 PUT https://localhost:41819/api/clubs/{{clubId}}/set-affiliated
 Content-Type: application/json

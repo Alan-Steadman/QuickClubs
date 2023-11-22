@@ -38,7 +38,7 @@ internal sealed class MembershipOptionConfiguration : IEntityTypeConfiguration<M
 
         builder.OwnsMany(o => o.Levels, levelsBuilder =>
         {
-            levelsBuilder.ToTable("MembershipLevels");
+            levelsBuilder.ToTable("MembershipLevel");
 
             levelsBuilder.Property(l => l.Id)
                 .HasColumnName("Id")
@@ -46,8 +46,6 @@ internal sealed class MembershipOptionConfiguration : IEntityTypeConfiguration<M
                 .HasConversion(
                     id => id.Value,
                     value => new MembershipLevelId(value));
-
-            //levelsBuilder.WithOwner().HasForeignKey("membership_option_id");
 
             levelsBuilder.HasKey("Id", "MembershipOptionId"); // tell it the names of the two fields that make up our composite primary key.  There is a way to do this by setting HasKey(s => new[] {s.id, xxx}), but the xxx isn’t available as it is a shadow property of another table, so instead we’ll use an overload that accepts strings of the database field names.
 

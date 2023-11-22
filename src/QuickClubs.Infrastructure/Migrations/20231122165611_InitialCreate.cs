@@ -106,7 +106,7 @@ namespace QuickClubs.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Members",
+                name: "Member",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -116,9 +116,9 @@ namespace QuickClubs.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Members", x => x.Id);
+                    table.PrimaryKey("PK_Member", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Members_Membership_MembershipId",
+                        name: "FK_Member_Membership_MembershipId",
                         column: x => x.MembershipId,
                         principalTable: "Membership",
                         principalColumn: "Id",
@@ -126,7 +126,7 @@ namespace QuickClubs.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MembershipLevels",
+                name: "MembershipLevel",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -141,9 +141,9 @@ namespace QuickClubs.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MembershipLevels", x => new { x.Id, x.MembershipOptionId });
+                    table.PrimaryKey("PK_MembershipLevel", x => new { x.Id, x.MembershipOptionId });
                     table.ForeignKey(
-                        name: "FK_MembershipLevels_MembershipOption_MembershipOptionId",
+                        name: "FK_MembershipLevel_MembershipOption_MembershipOptionId",
                         column: x => x.MembershipOptionId,
                         principalTable: "MembershipOption",
                         principalColumn: "Id",
@@ -200,13 +200,13 @@ namespace QuickClubs.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Members_MembershipId",
-                table: "Members",
+                name: "IX_Member_MembershipId",
+                table: "Member",
                 column: "MembershipId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MembershipLevels_MembershipOptionId",
-                table: "MembershipLevels",
+                name: "IX_MembershipLevel_MembershipOptionId",
+                table: "MembershipLevel",
                 column: "MembershipOptionId");
 
             migrationBuilder.CreateIndex(
@@ -229,10 +229,10 @@ namespace QuickClubs.Infrastructure.Migrations
                 name: "ClubSettings");
 
             migrationBuilder.DropTable(
-                name: "Members");
+                name: "Member");
 
             migrationBuilder.DropTable(
-                name: "MembershipLevels");
+                name: "MembershipLevel");
 
             migrationBuilder.DropTable(
                 name: "UserProfile");
