@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using QuickClubs.Application.Clubs.GetAllClubs;
 using QuickClubs.Application.Memberships.CreateMembership;
+using QuickClubs.Application.Memberships.GetAllClubMembers;
 using QuickClubs.Contracts.Memberships;
 using QuickClubs.Domain.MembershipOptions.ValueObjects;
 using QuickClubs.Domain.Users.ValueObjects;
@@ -22,4 +24,15 @@ public class MembershipsController : ApiController
         // TODO: Return 201 CreatedAt:
         return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAllClubMembers(GetAllClubMembersRequest request, CancellationToken cancellationToken)
+    {
+        var query = new GetAllClubMembersQuery(request.ClubId, request.MemberAtDate);
+
+        var result = await Sender.Send(query, cancellationToken);
+
+        return result.IsSuccess ? Ok(result.Value) : NotFound();
+    }
+
 }
