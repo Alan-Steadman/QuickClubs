@@ -7,7 +7,7 @@ using QuickClubs.Domain.Clubs.ValueObjects;
 
 namespace QuickClubs.Application.Clubs.CreateClub;
 
-public sealed class CreateClubCommandHandler : ICommandHandler<CreateClubCommand, Guid>
+internal sealed class CreateClubCommandHandler : ICommandHandler<CreateClubCommand, Guid>
 {
     private readonly IClubRepository _clubRepository;
     private readonly IUnitOfWork _unitOfWork;
