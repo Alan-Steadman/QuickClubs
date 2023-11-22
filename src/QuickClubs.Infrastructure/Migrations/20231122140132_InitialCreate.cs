@@ -27,6 +27,32 @@ namespace QuickClubs.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Membership",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ClubId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MembershipOptionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MembershipLevelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    MembershipNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MembershipName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price_Amount = table.Column<decimal>(type: "decimal(6,2)", nullable: false),
+                    Price_Currency = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Paid = table.Column<bool>(type: "bit", nullable: false),
+                    Approval_IsApproved = table.Column<bool>(type: "bit", nullable: false),
+                    Approval_ApprovalStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Approval_ApprovedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Approval_ApprovedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Approval_Reason = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Membership", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "MembershipOption",
                 columns: table => new
                 {
@@ -75,6 +101,26 @@ namespace QuickClubs.Infrastructure.Migrations
                         name: "FK_ClubSettings_Club_ClubId",
                         column: x => x.ClubId,
                         principalTable: "Club",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Members",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MembershipId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Members", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Members_Membership_MembershipId",
+                        column: x => x.MembershipId,
+                        principalTable: "Membership",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -154,6 +200,11 @@ namespace QuickClubs.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Members_MembershipId",
+                table: "Members",
+                column: "MembershipId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_MembershipLevels_MembershipOptionId",
                 table: "MembershipLevels",
                 column: "MembershipOptionId");
@@ -178,6 +229,9 @@ namespace QuickClubs.Infrastructure.Migrations
                 name: "ClubSettings");
 
             migrationBuilder.DropTable(
+                name: "Members");
+
+            migrationBuilder.DropTable(
                 name: "MembershipLevels");
 
             migrationBuilder.DropTable(
@@ -185,6 +239,9 @@ namespace QuickClubs.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Club");
+
+            migrationBuilder.DropTable(
+                name: "Membership");
 
             migrationBuilder.DropTable(
                 name: "MembershipOption");
