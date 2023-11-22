@@ -5,6 +5,7 @@ using QuickClubs.Application.Memberships.GetAllClubMembers;
 using QuickClubs.Contracts.Memberships;
 using QuickClubs.Domain.MembershipOptions.ValueObjects;
 using QuickClubs.Domain.Users.ValueObjects;
+using System.Security.Claims;
 
 namespace QuickClubs.Presentation.Controllers;
 
@@ -29,6 +30,12 @@ public class MembershipsController : ApiController
     public async Task<IActionResult> GetAllClubMembers(GetAllClubMembersRequest request, CancellationToken cancellationToken)
     {
         var query = new GetAllClubMembersQuery(request.ClubId, request.MemberAtDate);
+
+        Console.WriteLine("User Id: " + User.FindFirst(ClaimTypes.NameIdentifier));
+
+        Console.WriteLine("Id: " + User.FindFirst("sub"));
+        Console.WriteLine("Email: " + User.FindFirst("email"));
+        Console.WriteLine("Jti: " + User.FindFirst("jti"));
 
         var result = await Sender.Send(query, cancellationToken);
 

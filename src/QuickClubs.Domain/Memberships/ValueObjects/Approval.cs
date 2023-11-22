@@ -7,4 +7,7 @@ public sealed record Approval(
     ApprovalStatus ApprovalStatus,
     UserId? ApprovedBy,
     DateTime? ApprovedDate,
-    string? Reason);
+    string? Reason)
+{
+    public const int ReasonMaxLength = 200;
+}

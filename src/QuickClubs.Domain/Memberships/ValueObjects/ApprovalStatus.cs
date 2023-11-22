@@ -2,13 +2,14 @@
 
 public sealed record ApprovalStatus
 {
-    public static ApprovalStatus NotSet = new ApprovalStatus("NotSet", false);
-    public static ApprovalStatus NotRequired = new ApprovalStatus("NotRequired", true);
+    public static ApprovalStatus NotSet = new ApprovalStatus("Not Set", false);
+    public static ApprovalStatus NotRequired = new ApprovalStatus("Not Required", true);
     public static ApprovalStatus Approved = new ApprovalStatus("Approved", true);
     public static ApprovalStatus Rejected = new ApprovalStatus("Rejected", false);
 
     public string Name { get; init; }
     public bool IsApproved { get; init; }
+    public const int MaxLength = 15;
 
     private ApprovalStatus(string name, bool isApproved)
     {

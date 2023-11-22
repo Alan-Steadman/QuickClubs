@@ -43,10 +43,12 @@ internal sealed class MembershipConfiguration : IEntityTypeConfiguration<Members
             .HasConversion(id => id.Value, value => new MembershipLevelId(value));
 
         builder.Property(m => m.MembershipNumber)
-            .HasConversion(mn => mn.Value, value => new MembershipNumber(value));
+            .HasConversion(mn => mn.Value, value => new MembershipNumber(value))
+            .HasMaxLength(MembershipNumber.MaxLength);
 
         builder.Property(m => m.MembershipName)
-            .HasConversion(mn => mn.Value, value => new MembershipName(value));
+            .HasConversion(mn => mn.Value, value => new MembershipName(value))
+            .HasMaxLength(MembershipName.MaxLength);
 
         builder.OwnsOne(m => m.Price, priceBuilder =>
         {
@@ -60,12 +62,16 @@ internal sealed class MembershipConfiguration : IEntityTypeConfiguration<Members
         builder.OwnsOne(m => m.Approval, approvalBuilder =>
         {
             approvalBuilder.Property(a => a.ApprovalStatus)
-                .HasConversion(a => a.ToString(), value => ApprovalStatus.FromString(value));
+                .HasConversion(a => a.ToString(), value => ApprovalStatus.FromString(value))
+                .HasMaxLength(ApprovalStatus.MaxLength);
 
             approvalBuilder.Property(a => a.ApprovedBy)
                 .HasConversion(
                     uid => uid.Value,
                     value => new UserId(value));
+
+            approvalBuilder.Property(a => a.Reason)
+                .HasMaxLength(Approval.ReasonMaxLength);
         });
     }
 }
