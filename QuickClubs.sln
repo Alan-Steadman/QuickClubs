@@ -5,15 +5,15 @@ VisualStudioVersion = 17.8.34212.112
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickClubs.Domain", "src\QuickClubs.Domain\QuickClubs.Domain.csproj", "{67DCB603-D2C9-4A5F-9DC4-E99C95F1ED24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickClubs.Infrastructure", "src\QuickClubs.Infrastructure\QuickClubs.Infrastructure.csproj", "{B9CB2601-BE85-4EF8-A1B5-93663A3794F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickClubs.Infrastructure", "src\QuickClubs.Infrastructure\QuickClubs.Infrastructure.csproj", "{B9CB2601-BE85-4EF8-A1B5-93663A3794F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickClubs.WebApi", "src\QuickClubs.WebApi\QuickClubs.WebApi.csproj", "{19A6CC59-1A47-4ED3-A3D6-3C3EB8904824}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickClubs.WebApi", "src\QuickClubs.WebApi\QuickClubs.WebApi.csproj", "{19A6CC59-1A47-4ED3-A3D6-3C3EB8904824}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickClubs.Presentation", "src\QuickClubs.Presentation\QuickClubs.Presentation.csproj", "{5BC07306-5DA3-4867-80CA-8BE444313470}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickClubs.Presentation", "src\QuickClubs.Presentation\QuickClubs.Presentation.csproj", "{5BC07306-5DA3-4867-80CA-8BE444313470}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickClubs.Application", "src\QuickClubs.Application\QuickClubs.Application.csproj", "{FEF5DA4D-5630-47BB-B7F4-1360D7036085}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickClubs.Application", "src\QuickClubs.Application\QuickClubs.Application.csproj", "{FEF5DA4D-5630-47BB-B7F4-1360D7036085}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickClubs.Contracts", "src\QuickClubs.Contracts\QuickClubs.Contracts.csproj", "{07744D75-F92D-44CF-BB6A-2A7B07E89D4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickClubs.Contracts", "src\QuickClubs.Contracts\QuickClubs.Contracts.csproj", "{07744D75-F92D-44CF-BB6A-2A7B07E89D4E}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "src\docker-compose.dcproj", "{45F2B378-91CC-4785-AB80-7377FCDCD110}"
 EndProject
