@@ -1,6 +1,6 @@
 using QuickClubs.Domain.Abstractions;
 
-namespace QuickClubs.DomainUnitTests;
+namespace QuickClubs.Domain.UnitTests;
 
 public abstract class BaseTest
 {

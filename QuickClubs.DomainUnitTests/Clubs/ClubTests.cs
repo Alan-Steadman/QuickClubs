@@ -2,7 +2,7 @@
 using QuickClubs.Domain.Clubs.ValueObjects;
 using QuickClubs.Domain.Clubs;
 
-namespace QuickClubs.DomainUnitTests.Clubs;
+namespace QuickClubs.Domain.UnitTests.Clubs;
 
 public class ClubTests : BaseTest
 {

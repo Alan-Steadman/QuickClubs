@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{547DA64B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickClubs.ArchitectureTests", "QuickClubs.ArchitectureTests\QuickClubs.ArchitectureTests.csproj", "{5954D616-245F-498D-ABA7-AFC0460898AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickClubs.DomainUnitTests", "QuickClubs.DomainUnitTests\QuickClubs.DomainUnitTests.csproj", "{C1EB1D63-A948-49EA-9DE5-E2F4FA80452E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickClubs.Domain.UnitTests", "QuickClubs.DomainUnitTests\QuickClubs.Domain.UnitTests.csproj", "{C1EB1D63-A948-49EA-9DE5-E2F4FA80452E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
