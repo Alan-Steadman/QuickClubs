@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using QuickClubs.Application.Abstractions.Authentication;
 using QuickClubs.Application.Abstractions.Clock;
 using QuickClubs.Application.Abstractions.Data;
+using QuickClubs.Application.Abstractions.Email;
 using QuickClubs.Domain.Abstractions;
 using QuickClubs.Domain.Clubs.Repository;
 using QuickClubs.Domain.MembershipOptions.Repository;
@@ -15,6 +16,7 @@ using QuickClubs.Domain.Users.Repository;
 using QuickClubs.Infrastructure.Authentication;
 using QuickClubs.Infrastructure.Clock;
 using QuickClubs.Infrastructure.Data;
+using QuickClubs.Infrastructure.Email;
 using QuickClubs.Infrastructure.Persistence;
 using QuickClubs.Infrastructure.Persistence.Repositories;
 using System.Text;
@@ -28,6 +30,7 @@ public static class DependencyInjection
         services
             .AddAuth(configuration)
             .AddPersistence(configuration)
+            .AddEmail(configuration)
             .AddServices();
 
         return services;
@@ -54,6 +57,19 @@ public static class DependencyInjection
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
 
         services.AddSingleton<ISqlConnectionFactory>(_ => new SqlConnectionFactory(connectionString));
+
+        return services;
+    }
+
+    public static IServiceCollection AddEmail(
+    this IServiceCollection services,
+    ConfigurationManager configuration)
+    {
+        var emailSettings = new EmailSettings();
+        configuration.Bind(EmailSettings.SectionName, emailSettings);
+        services.AddSingleton(Options.Create(emailSettings));
+
+        services.AddSingleton<IEmailService, EmailService>();
 
         return services;
     }

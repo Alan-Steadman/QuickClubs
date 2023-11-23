@@ -35,3 +35,11 @@ JWT Secret:
   "JwtSettings:Secret": "Strong_and_at_least_16_charas"
 }
 ```
+
+Email SMTP Username & Password:
+```json
+{
+  "EmailSettings:Username": "SmtpUsername",
+  "EmailSettings:Password": "SmtpPassword"
+}
+```
