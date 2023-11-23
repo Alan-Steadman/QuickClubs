@@ -10,7 +10,7 @@ using QuickClubs.Domain.Users.ValueObjects;
 
 namespace QuickClubs.Application.Memberships.ApproveMembership;
 
-internal sealed class ApproveMembershipCommandHandler : ICommandHandler<ApproveMembershipCommand>
+public sealed class ApproveMembershipCommandHandler : ICommandHandler<ApproveMembershipCommand>
 {
     private readonly IMembershipRepository _membershipRepository;
     private readonly IUserRepository _userRepository;

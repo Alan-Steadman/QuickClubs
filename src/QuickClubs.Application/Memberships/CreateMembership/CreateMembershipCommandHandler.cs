@@ -13,7 +13,7 @@ using QuickClubs.Domain.Users.ValueObjects;
 
 namespace QuickClubs.Application.Memberships.CreateMembership;
 
-internal sealed class CreateMembershipCommandHandler : ICommandHandler<CreateMembershipCommand, Guid>
+public sealed class CreateMembershipCommandHandler : ICommandHandler<CreateMembershipCommand, Guid>
 {
     private readonly IClubRepository _clubRepository;
     private readonly IMembershipOptionRepository _membershipOptionRepository;

@@ -6,7 +6,7 @@ using QuickClubs.Domain.Abstractions;
 
 namespace QuickClubs.Application.Clubs.GetClub;
 
-internal sealed class GetClubQueryHandler : IQueryHandler<GetClubQuery, ClubResult>
+public sealed class GetClubQueryHandler : IQueryHandler<GetClubQuery, ClubResult>
 {
     private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
