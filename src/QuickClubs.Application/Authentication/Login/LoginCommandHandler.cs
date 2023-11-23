@@ -8,7 +8,7 @@ using QuickClubs.Domain.Users.Repository;
 
 namespace QuickClubs.Application.Authentication.Login;
 
-internal sealed class LoginCommandHandler : ICommandHandler<LoginCommand, AuthenticationResult>
+public sealed class LoginCommandHandler : ICommandHandler<LoginCommand, AuthenticationResult>
 {
     private readonly IUserRepository _userRepository;
     private readonly IUnitOfWork _unitOfWork;

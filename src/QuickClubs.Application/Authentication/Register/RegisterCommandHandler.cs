@@ -9,7 +9,7 @@ using QuickClubs.Domain.Users.Repository;
 using QuickClubs.Domain.Users.ValueObjects;
 
 namespace QuickClubs.Application.Authentication.Register;
-internal sealed class RegisterCommandHandler : ICommandHandler<RegisterCommand, AuthenticationResult>
+public sealed class RegisterCommandHandler : ICommandHandler<RegisterCommand, AuthenticationResult>
 {
     private readonly IUserRepository _userRepository;
     private readonly IUnitOfWork _unitOfWork;

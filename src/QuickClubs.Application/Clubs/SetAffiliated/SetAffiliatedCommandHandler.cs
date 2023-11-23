@@ -7,7 +7,7 @@ using QuickClubs.Domain.Common;
 
 namespace QuickClubs.Application.Clubs.SetAffiliated;
 
-internal sealed class SetAffiliatedCommandHandler : ICommandHandler<SetAffiliatedCommand>
+public sealed class SetAffiliatedCommandHandler : ICommandHandler<SetAffiliatedCommand>
 {
     private readonly IClubRepository _clubRepository;
     private readonly IUnitOfWork _unitOfWork;

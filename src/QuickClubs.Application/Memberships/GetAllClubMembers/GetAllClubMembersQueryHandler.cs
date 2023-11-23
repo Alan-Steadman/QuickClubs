@@ -8,7 +8,7 @@ using QuickClubs.Domain.Abstractions;
 
 namespace QuickClubs.Application.Memberships.GetAllClubMembers;
 
-internal sealed class GetAllClubMembersQueryHandler : IQueryHandler<GetAllClubMembersQuery, IEnumerable<MemberResult>>
+public sealed class GetAllClubMembersQueryHandler : IQueryHandler<GetAllClubMembersQuery, IEnumerable<MemberResult>>
 {
     private readonly ISqlConnectionFactory _sqlConnectionFactory;
     private readonly IDateTimeProvider _dateTimeProvider;

@@ -10,7 +10,7 @@ using QuickClubs.Domain.MembershipOptions.ValueObjects;
 
 namespace QuickClubs.Application.MembershipOptions.CreateMembershipOption;
 
-internal sealed class CreateMembershipOptionCommandHandler : ICommandHandler<CreateMembershipOptionCommand, Guid>
+public sealed class CreateMembershipOptionCommandHandler : ICommandHandler<CreateMembershipOptionCommand, Guid>
 {
     private readonly IMembershipOptionRepository _membershipOptionRepository;
     private readonly IClubRepository _clubRepository;
