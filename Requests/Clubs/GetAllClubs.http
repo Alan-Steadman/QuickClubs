@@ -1,2 +1,2 @@
 
-GET https://localhost:41819/api/clubs
+GET https://localhost:5443/api/clubs

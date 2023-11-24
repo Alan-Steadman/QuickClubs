@@ -5,6 +5,7 @@
 - SqlServer
 - Dapper
 - EF Core
+- Email/SMTP
 - Serilog
 - MediatR
 - Docker Compose

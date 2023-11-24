@@ -1,6 +1,6 @@
 @clubId=0EF6F163-2013-4697-A780-97945B346726
 
-PUT https://localhost:41819/api/clubs/{{clubId}}/set-affiliated
+PUT https://localhost:5443/api/clubs/{{clubId}}/set-affiliated
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxM2NjMGY4NC01ZTdkLTQyM2MtOWYyOC05MGFkOGNhZThhMmMiLCJlbWFpbCI6InNvbWUub25lQGludGVybmV0LmNvbSIsImp0aSI6IjQ3Y2UwMjQwLTM1NDQtNDMxZi04NWQwLWU0NzczMTJjMjc0ZiIsImV4cCI6MTcwMDcwMzA4NSwiaXNzIjoicXVpY2tjbHVicyIsImF1ZCI6InF1aWNrY2x1YnMifQ.dOGGHJDHM_n8kkkXcMBBVwHYY4JBVHWtSra_FQ7Yb7c
 
