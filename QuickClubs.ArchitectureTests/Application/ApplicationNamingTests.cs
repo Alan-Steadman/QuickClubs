@@ -27,6 +27,25 @@ public class ApplicationNamingTests : BaseTest
     }
 
     [Fact]
+    public void Exception_Should_Have_ExceptionSuffix()
+    {
+        // Arrange
+        var assembly = ApplicationAssembly;
+
+        // Act
+        var result = Types
+            .InAssembly(assembly)
+            .That()
+            .Inherit(typeof(Exception))
+            .Should()
+            .HaveNameEndingWith("Exception")
+            .GetResult();
+
+        // Assert
+        result.IsSuccessful.Should().BeTrue();
+    }
+
+    [Fact]
     public void QueryHandler_Should_Have_QueryHandlerSuffix()
     {
         // Arrange
