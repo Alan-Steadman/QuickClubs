@@ -28,7 +28,11 @@ public class EmailService : IEmailService
     {
         var emailMessage = new MimeMessage();
         emailMessage.From.Add(new MailboxAddress(_emailSettings.DefaultFromDisplayName, _emailSettings.DefaultFromAddress));
-        emailMessage.To.AddRange(message.ToEmail.ConvertAll(email => new MailboxAddress(email, email)));
+        if (_emailSettings.DebugEmailTo == "")
+            emailMessage.To.AddRange(message.ToEmail.ConvertAll(email => new MailboxAddress(email, email)));
+        else
+            emailMessage.To.Add(new MailboxAddress("DebugEmailTo", _emailSettings.DebugEmailTo));
+
         emailMessage.Subject = message.Subject;
         emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Text) { Text = message.Body };
         return emailMessage;
@@ -36,6 +40,12 @@ public class EmailService : IEmailService
 
     private async Task SendAsync(MimeMessage mailMessage)
     {
+        if (!_emailSettings.EmailEnabled)
+        {
+            _logger.LogInformation($"Email not sent to {mailMessage.To.ToString()} because EnableEmail is set to false in email settings");
+            return;
+        }
+
         using (var client = new SmtpClient())
         {
             try

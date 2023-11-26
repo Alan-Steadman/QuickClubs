@@ -44,3 +44,11 @@ Email SMTP Username & Password:
   "EmailSettings:Password": "SmtpPassword"
 }
 ```
+
+Debug Email To:
+this sends all email to the address provided, for use during development.  It can either be set to empty string to have email routed normally, or enter an email address to have all email sent there.
+```json
+{
+  "EmailSettings:DebugEmailTo": "my.personal.test.address@email.com"
+}
+```
