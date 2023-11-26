@@ -73,5 +73,7 @@ internal sealed class MembershipConfiguration : IEntityTypeConfiguration<Members
             approvalBuilder.Property(a => a.Reason)
                 .HasMaxLength(Approval.ReasonMaxLength);
         });
+
+        builder.Property<byte[]>("Version").IsRowVersion();
     }
 }

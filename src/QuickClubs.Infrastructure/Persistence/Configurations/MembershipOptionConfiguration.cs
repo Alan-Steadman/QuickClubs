@@ -73,6 +73,8 @@ internal sealed class MembershipOptionConfiguration : IEntityTypeConfiguration<M
 
         });
 
+        builder.Property<byte[]>("Version").IsRowVersion();
+
         /* The MembershipOption.Levels public property is a ReadOnlyList<T>,
         meaning that EF will only have read-only access to them by default.
         We need to tell EF to populate the private List<T> backing field 

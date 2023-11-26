@@ -61,5 +61,7 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
         });
 
         builder.HasIndex(user => user.Email).IsUnique();
+
+        builder.Property<byte[]>("Version").IsRowVersion();
     }
 }

@@ -57,5 +57,7 @@ internal sealed class ClubConfiguration : IEntityTypeConfiguration<Club>
                 .HasConversion(c => c.Code, value => Currency.FromCode(value))
                 .HasMaxLength(Currency.CodeMaxLength);
         });
+
+        builder.Property<byte[]>("Version").IsRowVersion();
     }
 }
