@@ -15,7 +15,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services
     .AddApplication()
-    .AddInfrastructure(builder.Configuration)
+    .AddInfrastructure(builder.Configuration, builder.Environment)
     .AddPresentation();
 
 builder.Host.UseSerilog((context, configuration) =>
@@ -23,7 +23,6 @@ builder.Host.UseSerilog((context, configuration) =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

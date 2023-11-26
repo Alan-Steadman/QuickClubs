@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using QuickClubs.Application.Abstractions.Authentication;
@@ -25,18 +26,18 @@ namespace QuickClubs.Infrastructure;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, ConfigurationManager configuration)
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, ConfigurationManager configuration, IHostEnvironment env)
     {
         services
             .AddAuth(configuration)
-            .AddPersistence(configuration)
+            .AddPersistence(configuration, env)
             .AddEmail(configuration)
             .AddServices();
 
         return services;
     }
 
-    private static IServiceCollection AddPersistence(this IServiceCollection services, ConfigurationManager configuration)
+    private static IServiceCollection AddPersistence(this IServiceCollection services, ConfigurationManager configuration, IHostEnvironment env)
     {
         var connectionString =
             configuration.GetConnectionString("Database") ??
@@ -45,8 +46,12 @@ public static class DependencyInjection
         services.AddDbContext<ApplicationDbContext>(options =>
         {
             options.UseSqlServer(connectionString);
-            options.EnableDetailedErrors();
-            options.EnableSensitiveDataLogging();
+
+            if (env.IsDevelopment())
+            {
+                options.EnableDetailedErrors();
+                options.EnableSensitiveDataLogging();
+            }
         });
 
         services.AddScoped<IClubRepository, ClubRepository>();
