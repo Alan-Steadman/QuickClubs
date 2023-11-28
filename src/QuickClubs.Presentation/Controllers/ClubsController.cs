@@ -21,8 +21,9 @@ public sealed class ClubsController : ApiController
 
         var result = await Sender.Send(command, cancellationToken);
 
-        // TODO: return created at
-        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+        return result.IsSuccess ? 
+            CreatedAtAction(nameof(GetClub), new { id = result.Value }, result.Value)
+            : BadRequest(result.Error);
     }
 
     [AllowAnonymous]
