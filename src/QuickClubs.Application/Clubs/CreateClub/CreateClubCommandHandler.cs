@@ -32,7 +32,7 @@ public sealed class CreateClubCommandHandler : ICommandHandler<CreateClubCommand
 
         if (!await _clubRepository.IsWebsiteUniqueAsync(null, request.Website, cancellationToken))
         {
-            return Result.Failure<Guid>(ClubErrors.DuplicateWebsite);
+            return Result.Failure<Guid>(ClubErrors.DuplicateWebsite(request.Website));
         }
 
         var club = Club.Create(

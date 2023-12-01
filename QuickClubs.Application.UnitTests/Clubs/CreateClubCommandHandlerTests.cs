@@ -88,7 +88,7 @@ public class CreateClubCommandHandlerTests
 
         // Assert
         result.IsFailure.Should().BeTrue();
-        result.Error.Should().Be(ClubErrors.DuplicateWebsite);
+        result.Error.Should().Be(ClubErrors.DuplicateWebsite(Website));
     }
 
     [Fact]
