@@ -65,7 +65,7 @@ public class CreateClubCommandHandlerTests
 
         // Assert
         result.IsFailure.Should().BeTrue();
-        result.Error.Should().Be(ClubErrors.DuplicateAcronym);
+        result.Error.Should().Be(ClubErrors.DuplicateAcronym(Acronym));
     }
 
     [Fact]

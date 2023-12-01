@@ -27,7 +27,7 @@ public sealed class CreateClubCommandHandler : ICommandHandler<CreateClubCommand
 
         if (!await _clubRepository.IsAcronymUniqueAsync(null, request.Acronym, cancellationToken))
         {
-            return Result.Failure<Guid>(ClubErrors.DuplicateAcronym);
+            return Result.Failure<Guid>(ClubErrors.DuplicateAcronym(request.Acronym));
         }
 
         if (!await _clubRepository.IsWebsiteUniqueAsync(null, request.Website, cancellationToken))
