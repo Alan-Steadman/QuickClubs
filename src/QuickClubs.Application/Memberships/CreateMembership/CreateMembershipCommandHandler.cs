@@ -43,13 +43,13 @@ public sealed class CreateMembershipCommandHandler : ICommandHandler<CreateMembe
         var membershipOption = await _membershipOptionRepository.GetByIdAsync(request.MembershipOptionId, cancellationToken);
         if (membershipOption is null)
         {
-            return Result.Failure<Guid>(MembershipOptionErrors.NotFound);
+            return Result.Failure<Guid>(MembershipOptionErrors.NotFound(request.MembershipOptionId.Value));
         }
 
         var membershipLevel = membershipOption.Levels.FirstOrDefault(l => l.Id == request.MembershipLevelId);
         if (membershipLevel is null)
         {
-            return Result.Failure<Guid>(MembershipOptionErrors.MembershipLevelNotFound);
+            return Result.Failure<Guid>(MembershipOptionErrors.MembershipLevelNotFound(request.MembershipLevelId.Value));
         }
 
         var club = await _clubRepository.GetByIdAsync(membershipOption.ClubId);
