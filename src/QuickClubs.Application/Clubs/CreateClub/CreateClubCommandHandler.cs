@@ -22,7 +22,7 @@ public sealed class CreateClubCommandHandler : ICommandHandler<CreateClubCommand
     {
         if (!await _clubRepository.IsFullNameUniqueAsync(null, request.FullName, cancellationToken))
         {
-            return Result.Failure<Guid>(ClubErrors.DuplicateFullName);
+            return Result.Failure<Guid>(ClubErrors.DuplicateFullName(request.FullName));
         }
 
         if (!await _clubRepository.IsAcronymUniqueAsync(null, request.Acronym, cancellationToken))

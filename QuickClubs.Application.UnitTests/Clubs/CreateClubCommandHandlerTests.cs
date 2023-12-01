@@ -42,7 +42,7 @@ public class CreateClubCommandHandlerTests
 
         // Assert
         result.IsFailure.Should().BeTrue();
-        result.Error.Should().Be(ClubErrors.DuplicateFullName);
+        result.Error.Should().Be(ClubErrors.DuplicateFullName(FullName));
     }
 
     [Fact]

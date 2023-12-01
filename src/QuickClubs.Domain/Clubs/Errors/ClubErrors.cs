@@ -5,7 +5,7 @@ public static class ClubErrors
 {
     public static Error NotFound(Guid clubId) => new("Club.NotFound", $"No club was found with the id '{clubId}'");
 
-    public static Error DuplicateFullName => new("Club.DuplicateFullName", "A club already exists with that full name");
+    public static Error DuplicateFullName(string fullName) => new("Club.DuplicateFullName", $"A club already exists with the full name '{fullName}'");
     public static Error DuplicateAcronym => new("Club.DuplicateAcronym", "A club already exists with that acronym");
     public static Error DuplicateWebsite => new("Club.DuplicateWebsite", "A club already exists with that website");
 
