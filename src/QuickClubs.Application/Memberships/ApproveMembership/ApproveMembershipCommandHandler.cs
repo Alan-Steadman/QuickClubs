@@ -33,14 +33,14 @@ public sealed class ApproveMembershipCommandHandler : ICommandHandler<ApproveMem
     {
         var membership = await _membershipRepository.GetByIdAsync(new MembershipId(request.MembershipId), cancellationToken);
         if (membership is null)
-            return Result.Failure(MembershipErrors.NotFound);
+            return Result.Failure(MembershipErrors.NotFound(request.MembershipId));
 
         if (membership.Approval.IsApproved)
             return Result.Failure(MembershipErrors.AlreadyApproved);
 
         var approvedBy = await _userRepository.GetByIdAsync(new UserId(request.ApprovedByUserId), cancellationToken);
         if (approvedBy is null)
-            return Result.Failure(UserErrors.NotFound);
+            return Result.Failure(UserErrors.NotFound(request.ApprovedByUserId));
 
         membership.SetApproved(
             approvedBy: approvedBy.Id,

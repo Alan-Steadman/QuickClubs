@@ -24,7 +24,7 @@ internal sealed class SetProfileCommandHandler : ICommandHandler<SetProfileComma
 
         if (user is null)
         {
-            return Result.Failure(UserErrors.NotFound);
+            return Result.Failure(UserErrors.NotFound(request.UserId));
         }
 
         var address = new Address(
