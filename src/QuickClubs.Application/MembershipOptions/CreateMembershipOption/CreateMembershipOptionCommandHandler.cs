@@ -32,7 +32,7 @@ public sealed class CreateMembershipOptionCommandHandler : ICommandHandler<Creat
 
         if (club is null)
         {
-            return Result.Failure<Guid>(ClubErrors.NotFound);
+            return Result.Failure<Guid>(ClubErrors.NotFound(request.ClubId));
         }
 
         if (!club.IsAffiliate)

@@ -24,7 +24,7 @@ public sealed class SetAffiliatedCommandHandler : ICommandHandler<SetAffiliatedC
 
         if (club is null)
         {
-            return Result.Failure(ClubErrors.NotFound);
+            return Result.Failure(ClubErrors.NotFound(request.ClubId));
         }
 
         var result = club.SetAffiliated(

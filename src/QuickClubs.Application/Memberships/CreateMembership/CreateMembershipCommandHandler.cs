@@ -55,7 +55,7 @@ public sealed class CreateMembershipCommandHandler : ICommandHandler<CreateMembe
         var club = await _clubRepository.GetByIdAsync(membershipOption.ClubId);
         if (club is null)
         {
-            return Result.Failure<Guid>(ClubErrors.NotFound);
+            return Result.Failure<Guid>(ClubErrors.NotFound(membershipOption.ClubId.Value));
         }
 
         var members = new List<UserId>

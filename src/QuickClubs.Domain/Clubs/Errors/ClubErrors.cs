@@ -3,14 +3,14 @@
 namespace QuickClubs.Domain.Clubs.Errors;
 public static class ClubErrors
 {
-    public static Error NotFound = new("Club.NotFound", "No club was found with that identifier");
+    public static Error NotFound(Guid clubId) => new("Club.NotFound", $"No club was found with the id '{clubId}'");
 
-    public static Error DuplicateFullName = new("Club.DuplicateFullName", "A club already exists with that full name");
-    public static Error DuplicateAcronym = new("Club.DuplicateAcronym", "A club already exists with that acronym");
-    public static Error DuplicateWebsite = new("Club.DuplicateWebsite", "A club already exists with that website");
+    public static Error DuplicateFullName => new("Club.DuplicateFullName", "A club already exists with that full name");
+    public static Error DuplicateAcronym => new("Club.DuplicateAcronym", "A club already exists with that acronym");
+    public static Error DuplicateWebsite => new("Club.DuplicateWebsite", "A club already exists with that website");
 
-    public static Error AlreadyAffiliated = new("Club.AlreadyAffiliated", "This club is already affiliated");
-    public static Error NotAffiliated = new("Club.NotAffiliated", "This club is not affiliated");
+    public static Error AlreadyAffiliated => new("Club.AlreadyAffiliated", "This club is already affiliated");
+    public static Error NotAffiliated => new("Club.NotAffiliated", "This club is not affiliated");
 
-    public static Error CurrencyNotSet = new("Club.CurrencyNotSet", "This club does not have a currency set up");
+    public static Error CurrencyNotSet => new("Club.CurrencyNotSet", "This club does not have a currency set up");
 }
