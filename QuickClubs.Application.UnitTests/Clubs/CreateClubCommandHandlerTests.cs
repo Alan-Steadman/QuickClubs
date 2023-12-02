@@ -134,7 +134,7 @@ public class CreateClubCommandHandlerTests
 
         // Assert
         _clubRepositoryMock.Received(1)
-            .Add(Arg.Is<Club>(c => c.Name.FullName == FullName)); // (assert that teh club repository mock recieved 1 call to the Add method with an argument of a club with the same full name as the full name of the club we created)
+            .Add(Arg.Is<Club>(c => c.Name.FullName == FullName)); // (assert that the club repository mock recieved 1 call to the Add method with an argument of a club with the same full name as the full name of the club we created)
     }
 
     [Fact]
