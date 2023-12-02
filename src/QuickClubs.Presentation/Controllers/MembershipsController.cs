@@ -16,10 +16,10 @@ public class MembershipsController : ApiController
     public async Task<IActionResult> CreateMembership(CreateMembershipRequest request, CancellationToken cancellationToken)
     {
         var command = new CreateMembershipCommand(
-            new UserId(request.UserId),
-            request.AdditionalMembers.ConvertAll(u => new UserId(u)),
-            new MembershipOptionId(request.MembershipOptionId),
-            new MembershipLevelId(request.MembershipLevelId));
+            request.UserId,
+            request.AdditionalMembers,
+            request.MembershipOptionId,
+            request.MembershipLevelId);
 
         var result = await Sender.Send(command);
 

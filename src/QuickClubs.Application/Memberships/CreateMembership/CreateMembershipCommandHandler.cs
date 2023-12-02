@@ -5,6 +5,7 @@ using QuickClubs.Domain.Clubs.Errors;
 using QuickClubs.Domain.Clubs.Repository;
 using QuickClubs.Domain.MembershipOptions.Errors;
 using QuickClubs.Domain.MembershipOptions.Repository;
+using QuickClubs.Domain.MembershipOptions.ValueObjects;
 using QuickClubs.Domain.Memberships;
 using QuickClubs.Domain.Memberships.Repository;
 using QuickClubs.Domain.Memberships.Services;
@@ -40,16 +41,16 @@ public sealed class CreateMembershipCommandHandler : ICommandHandler<CreateMembe
 
     public async Task<Result<Guid>> Handle(CreateMembershipCommand request, CancellationToken cancellationToken)
     {
-        var membershipOption = await _membershipOptionRepository.GetByIdAsync(request.MembershipOptionId, cancellationToken);
+        var membershipOption = await _membershipOptionRepository.GetByIdAsync(new MembershipOptionId(request.MembershipOptionId), cancellationToken);
         if (membershipOption is null)
         {
-            return Result.Failure<Guid>(MembershipOptionErrors.NotFound(request.MembershipOptionId.Value));
+            return Result.Failure<Guid>(MembershipOptionErrors.NotFound(request.MembershipOptionId));
         }
 
-        var membershipLevel = membershipOption.Levels.FirstOrDefault(l => l.Id == request.MembershipLevelId);
+        var membershipLevel = membershipOption.Levels.FirstOrDefault(l => l.Id == new MembershipLevelId(request.MembershipLevelId));
         if (membershipLevel is null)
         {
-            return Result.Failure<Guid>(MembershipOptionErrors.MembershipLevelNotFound(request.MembershipLevelId.Value));
+            return Result.Failure<Guid>(MembershipOptionErrors.MembershipLevelNotFound(request.MembershipLevelId));
         }
 
         var club = await _clubRepository.GetByIdAsync(membershipOption.ClubId);
@@ -60,9 +61,9 @@ public sealed class CreateMembershipCommandHandler : ICommandHandler<CreateMembe
 
         var members = new List<UserId>
         {
-            request.UserId
+             new UserId(request.UserId)
         };
-        members.AddRange(request.AdditionalMembers);
+        members.AddRange(request.AdditionalMembers.ConvertAll<UserId>(m => new UserId(m)));
 
         // TODO: Check members count vs membership option
         // TODO: Check ages of users vs membership option - return error if not set
@@ -78,7 +79,7 @@ public sealed class CreateMembershipCommandHandler : ICommandHandler<CreateMembe
             startDate: _dateTimeProvider.UtcNow,
             endDate: _endDateService.CalculateEndDate(membershipOption, _dateTimeProvider.UtcNow),
             membershipNumber: new MembershipNumber("1"), // TODO: create a service that generates membership numbers according to Club
-            membershipName: new MembershipName($"{membershipOption.Name} {membershipLevel.Name}"),
+            membershipName: new MembershipName($"{membershipOption.Name.Value} {membershipLevel.Name.Value}"),
             price: membershipLevel.Price,
             membershipNeedsApproval: club.GetSettings().MembershipNeedsApproval
             );
