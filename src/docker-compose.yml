@@ -8,6 +8,13 @@ services:
       context: .
       dockerfile: QuickClubs.WebApi/Dockerfile
 
+  quickclubs.adminui:
+    image: ${DOCKER_REGISTRY-}quickclubsadminui
+    container_name: quickclubs.adminui
+    build:
+      context: .
+      dockerfile: QuickClubs.AdminUI/Dockerfile
+
   quickclubs.db:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: quickclubs.db
