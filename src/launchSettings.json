@@ -1,0 +1,16 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "composeLaunchAction": "LaunchBrowser",
+      "composeLaunchServiceName": "quickclubs.adminui",
+      "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}",
+      "serviceActions": {
+        "quickclubs.adminui": "StartDebugging",
+        "quickclubs.db": "StartWithoutDebugging",
+        "quickclubs.webapi": "StartDebugging"
+      }
+    }
+  }
+}
