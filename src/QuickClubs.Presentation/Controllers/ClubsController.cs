@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using MapsterMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QuickClubs.Application.Clubs.CreateClub;
 using QuickClubs.Application.Clubs.GetAllClubs;
@@ -9,15 +10,19 @@ using QuickClubs.Contracts.Clubs;
 namespace QuickClubs.Presentation.Controllers;
 public sealed class ClubsController : ApiController
 {
+    private readonly IMapper _mapper;
+
+    public ClubsController(IMapper mapper)
+    {
+        _mapper = mapper;
+    }
+
     [HttpPost]
     public async Task<IActionResult> CreateClub(
         CreateClubRequest request,
         CancellationToken cancellationToken)
     {
-        var command = new CreateClubCommand(
-            request.FullName,
-            request.Acronym,
-            request.Website);
+        var command = _mapper.Map<CreateClubCommand>(request);
 
         var result = await Sender.Send(command, cancellationToken);
 
@@ -34,7 +39,9 @@ public sealed class ClubsController : ApiController
 
         var result = await Sender.Send(query, cancellationToken);
 
-        return result.IsSuccess ? Ok(result.Value) : NotFound();
+        return result.IsSuccess ?
+            Ok(_mapper.Map<ClubResponse>(result.Value))
+            : NotFound();
     }
 
     [AllowAnonymous]
@@ -45,7 +52,9 @@ public sealed class ClubsController : ApiController
 
         var result = await Sender.Send(query, cancellationToken);
 
-        return result.IsSuccess ? Ok(result.Value) : NotFound();
+        return result.IsSuccess ?
+            Ok(result.Value.Select(c => _mapper.Map<ClubResponse>(c)))
+            : NotFound();
     }
 
     [HttpPut("{id}/set-affiliated")]
