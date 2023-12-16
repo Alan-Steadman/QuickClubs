@@ -1,6 +1,9 @@
-﻿namespace QuickClubs.AdminUI.Clubs;
+﻿using QuickClubs.Contracts.Clubs;
+
+namespace QuickClubs.AdminUI.Clubs;
 
 public interface IClubService
 {
-    //Task<List<club>>
+    Task<IEnumerable<ClubResponse>?> GetAllClubs();
+    Task<ClubResponse?> GetClub(Guid id);
 }

@@ -1,0 +1,32 @@
+﻿@page "/clubs"
+@using QuickClubs.Contracts.Clubs
+@inject IClubService clubService
+
+
+<h3>Clubs</h3>
+
+@foreach(var club in clubs)
+{
+    <div>@club.FullName</div>
+}
+
+@code {
+    private List<ClubResponse> clubs = new ();
+
+    protected async override Task OnInitializedAsync()
+    {
+        var result = await clubService.GetAllClubs();
+
+        if (result is not null)
+        {
+            clubs = result.ToList();
+            StateHasChanged();
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        //await base.OnAfterRenderAsync(firstRender);
+
+    }
+}
