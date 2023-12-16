@@ -3,12 +3,31 @@
 @inject IClubService clubService
 
 
-<h3>Clubs</h3>
+<PageTitle>Clubs</PageTitle>
+<h1>Clubs</h1>
 
-@foreach(var club in clubs)
-{
-    <div>@club.FullName</div>
-}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Acronym</th>
+            <th>Website</th>
+            <th>Affiliate</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var club in clubs)
+        {
+            <tr>
+                <td>@club.FullName</td>
+                <td>@club.Acronym</td>
+                <td>@club.Website</td>
+                <td>@club.IsAffiliate</td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 @code {
     private List<ClubResponse> clubs = new ();
@@ -24,9 +43,4 @@
         }
     }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        //await base.OnAfterRenderAsync(firstRender);
-
-    }
 }
