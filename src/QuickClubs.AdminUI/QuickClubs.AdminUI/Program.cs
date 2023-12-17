@@ -1,5 +1,8 @@
+using Microsoft.Extensions.Options;
 using QuickClubs.AdminUI.Client.Pages;
+using QuickClubs.AdminUI.Common.Models;
 using QuickClubs.AdminUI.Components;
+using QuickClubs.AdminUI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +10,21 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
+
+builder.Services.AddOptions<ApiSettings>()
+    .BindConfiguration(ApiSettings.SectionName)
+    .ValidateDataAnnotations()
+    .ValidateOnStart();
+
+builder.Services.AddScoped<IClubService, ClubService>();
+
+builder.Services.AddHttpClient<IClubService, ClubService>((serviceProvider, httpClient) =>
+{
+    var apiSettings = serviceProvider.GetRequiredService<IOptions<ApiSettings>>().Value;
+
+    httpClient.DefaultRequestHeaders.Add("User-Agent", apiSettings.UserAgent);
+    httpClient.BaseAddress = new Uri(apiSettings.BaseUrl + "/clubs");
+});//.AddHttpMessageHandler<AuthenticationHandler>();
 
 var app = builder.Build();
 

@@ -1,0 +1,52 @@
+﻿@page "/clubs"
+@using QuickClubs.AdminUI.Services
+@using QuickClubs.Contracts.Clubs
+@inject IClubService clubService
+@inject NavigationManager navigationManager
+@rendermode InteractiveServer
+
+<PageTitle>Clubs</PageTitle>
+<h1>Clubs</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Acronym</th>
+            <th>Website</th>
+            <th>Affiliate</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var club in clubs)
+        {
+            <tr @onclick="(() => ViewClub(club.Id))" class="@club.Id">
+                <td>@club.FullName</td>
+                <td>@club.Acronym</td>
+                <td>@club.Website</td>
+                <td>@club.IsAffiliate</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private List<ClubResponse> clubs = new();
+
+    protected async override Task OnInitializedAsync()
+    {
+        var result = await clubService.GetAllClubs();
+
+        if (result is not null)
+        {
+            clubs = result.ToList();
+            StateHasChanged();
+        }
+    }
+
+    public void ViewClub(Guid id)
+    {
+        navigationManager.NavigateTo($"/clubs/{id}");
+    }
+}
