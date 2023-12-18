@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Options;
 using QuickClubs.AdminUI.Client.Pages;
+using QuickClubs.AdminUI.Common.Listeners;
 using QuickClubs.AdminUI.Common.Models;
 using QuickClubs.AdminUI.Components;
 using QuickClubs.AdminUI.Services;
@@ -10,6 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
+
+builder.Services.AddHttpContextAccessor(); // needed for the NotFoundListener on MainLayout.razor
+builder.Services.AddScoped<NotFoundListener>();
 
 builder.Services.AddOptions<ApiSettings>()
     .BindConfiguration(ApiSettings.SectionName)
