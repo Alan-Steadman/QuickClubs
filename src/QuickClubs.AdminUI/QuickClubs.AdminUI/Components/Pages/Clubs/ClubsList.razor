@@ -8,6 +8,7 @@
 <PageTitle>Clubs</PageTitle>
 <h1>Clubs</h1>
 
+<button @onclick="CreateClub" class="btn btn-primary">Create Club</button>
 
 <table class="table">
     <thead>
@@ -48,5 +49,10 @@
     public void ViewClub(Guid id)
     {
         navigationManager.NavigateTo($"/clubs/{id}");
+    }
+
+    public void CreateClub()
+    {
+        navigationManager.NavigateTo("/clubs/create");
     }
 }

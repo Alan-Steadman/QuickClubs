@@ -6,4 +6,5 @@ public interface IClubService
 {
     Task<IEnumerable<ClubResponse>?> GetAllClubs();
     Task<ClubResponse?> GetClub(Guid id);
+    Task<Guid> CreateClub(CreateClubRequest club);
 }

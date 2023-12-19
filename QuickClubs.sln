@@ -25,9 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickClubs.Domain.UnitTests
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickClubs.Application.UnitTests", "QuickClubs.Application.UnitTests\QuickClubs.Application.UnitTests.csproj", "{4FEC067D-AC8F-49F2-A7A3-F63F5D9AB0E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickClubs.AdminUI", "src\QuickClubs.AdminUI\QuickClubs.AdminUI\QuickClubs.AdminUI.csproj", "{96E17A70-0245-4254-A6D9-BBA81C9D315B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickClubs.AdminUI", "src\QuickClubs.AdminUI\QuickClubs.AdminUI\QuickClubs.AdminUI.csproj", "{96E17A70-0245-4254-A6D9-BBA81C9D315B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickClubs.AdminUI.Client", "src\QuickClubs.AdminUI\QuickClubs.AdminUI.Client\QuickClubs.AdminUI.Client.csproj", "{DECAD0C2-6A30-48A0-BDFF-EE490572B623}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickClubs.AdminUI.Client", "src\QuickClubs.AdminUI\QuickClubs.AdminUI.Client\QuickClubs.AdminUI.Client.csproj", "{DECAD0C2-6A30-48A0-BDFF-EE490572B623}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

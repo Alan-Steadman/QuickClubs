@@ -1,0 +1,43 @@
+﻿@page "/clubs/create"
+@using QuickClubs.Contracts.Clubs
+@inject IClubService clubService
+@rendermode InteractiveServer
+
+<PageTitle>Create Club</PageTitle>
+<h1>Create Club</h1>
+
+<EditForm Model="@Model" OnValidSubmit="@Submit" FormName="CreateClub">
+    <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <InputText id="fullName" @bind-Value="Model!.FullName" placeholder="Full Name" class="form-control" aria-describedby="fullNameHelp"/>
+        <small id="fullNameHelp">The club&apos;s full name</small>
+    </div>
+
+    <div class="form-group">
+        <label for="acronym">Acronym</label>
+        <InputText id="acronym" @bind-Value="Model!.Acronym" placeholder="Acronym" class="form-control" aria-describedby="acronymHelp" />
+        <small id="acronymHelp">The club&apos;s acronym</small>
+    </div>
+
+    <div class="form-group">
+        <label for="website">Website</label>
+        <InputText id="website" @bind-Value="Model!.Website" placeholder="Website" class="form-control" aria-describedby="websiteHelp" />
+        <small id="websiteHelp">The club&apos;s website</small>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+</EditForm>
+
+
+@code {
+    [SupplyParameterFromForm]
+    public CreateClubRequest? Model { get; set; }
+
+    protected override void OnInitialized() => Model ??= new();
+
+    private void Submit()
+    {
+        clubService.CreateClub(Model!);
+    }
+
+}

@@ -1,4 +1,6 @@
-﻿using QuickClubs.Contracts.Clubs;
+﻿using QuickClubs.AdminUI.Extensions;
+using QuickClubs.Contracts.Clubs;
+using System.Net.Http.Json;
 
 namespace QuickClubs.AdminUI.Services;
 
@@ -21,5 +23,11 @@ public class ClubService : IClubService
     {
         var content = await _httpClient.GetFromJsonAsync<ClubResponse>($"clubs/{id}");
         return content;
+    }
+
+    public async Task<Guid> CreateClub(CreateClubRequest club)
+    {
+        var response = await _httpClient.PostAsJsonAsync<CreateClubRequest>("clubs", club);
+        return await response.ToResult<Guid>();
     }
 }
