@@ -4,12 +4,29 @@
 @inject IClubService clubService
 @inject NotFoundListener nfl
 
-<PageTitle>ClubEdit</PageTitle>
-<h1>ClubEdit</h1>
 
 @if (club is not null)
 {
-    <div>@club.FullName</div>
+    <PageTitle>@club.FullName</PageTitle>
+    <h1>@club.FullName</h1>
+    <div>@club.Acronym</div>
+    <div>
+        <a href="@club.Website">@club.Website</a>
+    </div>
+    <div>
+        @if(club.IsAffiliate)
+        {
+            <div>
+                Is Affiliate
+            </div>
+        }
+        else
+        {
+            <div>
+                Not Affiliated <button>Set Affiliated</button>
+            </div>
+        }
+    </div>
 }
 else
 {
