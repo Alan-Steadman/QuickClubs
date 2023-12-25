@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using MapsterMapper;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QuickClubs.Application.Authentication.Login;
@@ -9,6 +10,13 @@ namespace QuickClubs.Presentation.Controllers;
 
 public sealed class AuthController : ApiController
 {
+    private readonly IMapper _mapper;
+
+    public AuthController(IMapper mapper)
+    {
+        _mapper = mapper;
+    }
+
     [AllowAnonymous]
     [HttpPost("register")]
     public async Task<IActionResult> Register(
@@ -38,7 +46,7 @@ public sealed class AuthController : ApiController
 
         var result = await Sender.Send(command, cancellationToken);
 
-        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+        return result.IsSuccess ? Ok(_mapper.Map<AuthenticationResponse>(result.Value)) : BadRequest(result.Error);
     }
 
 }
