@@ -1,0 +1,54 @@
+﻿@page "/auth/login"
+@using QuickClubs.Contracts.Authentication
+@inject IAuthenticationService _authenticationService
+@inject NavigationManager navManager
+@rendermode InteractiveServer
+
+<PageTitle>Login</PageTitle>
+<h1>Login</h1>
+
+<fieldset>
+    <legend>Login</legend>
+    <EditForm Model="@login" OnValidSubmit="SubmitAsync" FormName="Login">
+        <div>
+            <label for="email">Email</label>
+            <InputText id="email" @bind-Value="login!.Email" type="email" class="form-control" />
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <InputText id="password" @bind-Value="login!.Password" type="password" class="form-control" />
+        </div>
+        <div>
+            <button type="submit">Login</button>
+        </div>
+    </EditForm>
+    <div class="">
+        @errorMessage
+    </div>
+</fieldset>
+
+@code {
+    [SupplyParameterFromForm]
+    public LoginRequest? login { get; set; } = new();
+
+    private string? errorMessage;
+
+    // protected override void OnInitialized() => login ??= new();
+
+    public async Task SubmitAsync()
+    {
+        try
+        {
+            var authResponse = await _authenticationService.LoginAsync(login!);
+            errorMessage = null;
+            //loggedIn = true;
+            navManager.NavigateTo("/", true);
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+            //loggedIn = false;
+        }
+    }
+
+}

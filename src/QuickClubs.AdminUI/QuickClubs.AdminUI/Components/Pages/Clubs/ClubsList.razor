@@ -35,14 +35,17 @@
 @code {
     private List<ClubResponse> clubs = new();
 
-    protected async override Task OnInitializedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        var result = await clubService.GetAllClubs();
-
-        if (result is not null)
+        if (firstRender)
         {
-            clubs = result.ToList();
-            StateHasChanged();
+            var result = await clubService.GetAllClubs();
+
+            if (result is not null)
+            {
+                clubs = result.ToList();
+                StateHasChanged();
+            }
         }
     }
 

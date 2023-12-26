@@ -1,4 +1,7 @@
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using Microsoft.Extensions.Options;
+using QuickClubs.AdminUI.Authentication;
 using QuickClubs.AdminUI.Client.Pages;
 using QuickClubs.AdminUI.Common.Listeners;
 using QuickClubs.AdminUI.Common.Models;
@@ -15,12 +18,26 @@ builder.Services.AddRazorComponents()
 builder.Services.AddHttpContextAccessor(); // needed for the NotFoundListener on MainLayout.razor
 builder.Services.AddScoped<NotFoundListener>();
 
+builder.Services.AddScoped<ProtectedSessionStorage>();
+builder.Services.AddAuthenticationCore();
+builder.Services.AddTransient<AuthenticationHandler>();
+builder.Services.AddScoped<AuthenticationStateProvider, AppAuthenticationStateProvider>();
+
 builder.Services.AddOptions<ApiSettings>()
     .BindConfiguration(ApiSettings.SectionName)
     .ValidateDataAnnotations()
     .ValidateOnStart();
 
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IClubService, ClubService>();
+
+builder.Services.AddHttpClient<IAuthenticationService, AuthenticationService>((serviceProvider, httpClient) =>
+{
+    var apiSettings = serviceProvider.GetRequiredService<IOptions<ApiSettings>>().Value;
+
+    httpClient.DefaultRequestHeaders.Add("User-Agent", apiSettings.UserAgent);
+    httpClient.BaseAddress = new Uri(apiSettings.BaseUrl + "/auth");
+});
 
 builder.Services.AddHttpClient<IClubService, ClubService>((serviceProvider, httpClient) =>
 {
@@ -28,7 +45,7 @@ builder.Services.AddHttpClient<IClubService, ClubService>((serviceProvider, http
 
     httpClient.DefaultRequestHeaders.Add("User-Agent", apiSettings.UserAgent);
     httpClient.BaseAddress = new Uri(apiSettings.BaseUrl + "/clubs");
-});//.AddHttpMessageHandler<AuthenticationHandler>();
+}).AddHttpMessageHandler<AuthenticationHandler>();
 
 var app = builder.Build();
 
