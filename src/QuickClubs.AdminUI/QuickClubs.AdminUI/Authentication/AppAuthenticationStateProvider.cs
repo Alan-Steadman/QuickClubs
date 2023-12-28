@@ -22,7 +22,6 @@ public class AppAuthenticationStateProvider : AuthenticationStateProvider
         _sessionStorage = sessionStorage;
     }
 
-    // TODO: Call from AuthenticationService.Login():
     public async Task StateChangedAsync()
     {
         var authState = Task.FromResult(await GetAuthenticationStateAsync());
@@ -30,7 +29,6 @@ public class AppAuthenticationStateProvider : AuthenticationStateProvider
         NotifyAuthenticationStateChanged(authState);
     }
 
-    // TODO: Call from AuthenticationService.Logout():
     public void MarkUserAsLoggedOut()
     {
         var anonymousUser = new ClaimsPrincipal(new ClaimsIdentity());
