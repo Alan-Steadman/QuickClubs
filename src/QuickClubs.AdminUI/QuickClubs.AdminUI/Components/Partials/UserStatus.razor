@@ -1,0 +1,29 @@
+﻿@inject IAuthenticationService AuthenticationService;
+@inject AuthenticationStateProvider authenticationStateProvider
+@inject NavigationManager navManager
+@rendermode InteractiveServer
+
+<CascadingAuthenticationState>
+    <AuthorizeView>
+        <Authorized>
+            @context.User.Identity?.Name
+            <a @onclick="Logout" href="javascript:void(0)">Logout</a>
+        </Authorized>
+        <NotAuthorized>
+            <a @onclick="Login" href="javascript:void(0)">Sign in...</a>
+        </NotAuthorized>
+    </AuthorizeView>
+</CascadingAuthenticationState>
+@code {
+    private async void Logout()
+    {
+        await AuthenticationService.LogoutAsync();
+        navManager.NavigateTo("/", true);
+    }
+
+    private async void Login()
+    {
+        await Task.CompletedTask;
+        navManager.NavigateTo("/auth/login");
+    }
+}
