@@ -48,13 +48,12 @@ public class AppAuthenticationStateProvider : AuthenticationStateProvider
     {
         var claimsPrincipal = await GetAuthenticationStateProviderUserAsync();
 
-        UserDetailsFromClaims userDetails = new() {
-            UserId = claimsPrincipal.Claims.FirstOrDefault(c => c.Type == ApplicationClaimTypes.Sub)?.Value ?? string.Empty,
-            FirstName = claimsPrincipal.Claims.FirstOrDefault(c => c.Type == ApplicationClaimTypes.GivenName)?.Value ?? string.Empty,
-            LastName = claimsPrincipal.Claims.FirstOrDefault(c => c.Type == ApplicationClaimTypes.FamilyName)?.Value ?? string.Empty,
-            Email = claimsPrincipal.Claims.FirstOrDefault(c => c.Type == ApplicationClaimTypes.Email)?.Value ?? string.Empty,
-            Jti = claimsPrincipal.Claims.FirstOrDefault(c => c.Type == ApplicationClaimTypes.Jti)?.Value ?? string.Empty
-        };
+        var userDetails = new UserDetailsFromClaims(
+            UserId: claimsPrincipal.Claims.FirstOrDefault(c => c.Type == ApplicationClaimTypes.Sub)?.Value ?? string.Empty,
+            FirstName: claimsPrincipal.Claims.FirstOrDefault(c => c.Type == ApplicationClaimTypes.GivenName)?.Value ?? string.Empty,
+            LastName: claimsPrincipal.Claims.FirstOrDefault(c => c.Type == ApplicationClaimTypes.FamilyName)?.Value ?? string.Empty,
+            Email: claimsPrincipal.Claims.FirstOrDefault(c => c.Type == ApplicationClaimTypes.Email)?.Value ?? string.Empty,
+            Jti: claimsPrincipal.Claims.FirstOrDefault(c => c.Type == ApplicationClaimTypes.Jti)?.Value ?? string.Empty);
 
         return userDetails;
     }
