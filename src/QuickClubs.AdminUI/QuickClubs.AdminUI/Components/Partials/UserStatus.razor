@@ -1,12 +1,15 @@
 ﻿@inject IAuthenticationService AuthenticationService;
 @inject AuthenticationStateProvider authenticationStateProvider
 @inject NavigationManager navManager
+@using QuickClubs.AdminUI.Authentication
+@using System.Security.Claims
 @rendermode InteractiveServer
 
 <CascadingAuthenticationState>
     <AuthorizeView>
         <Authorized>
-            @context.User.Identity?.Name
+            @* @context.User.Identity?.Name *@
+            @_userDetails?.FullName
             <a @onclick="Logout" href="javascript:void(0)">Logout</a>
         </Authorized>
         <NotAuthorized>
@@ -15,6 +18,13 @@
     </AuthorizeView>
 </CascadingAuthenticationState>
 @code {
+    private UserDetailsFromClaims? _userDetails;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        _userDetails = await ((AppAuthenticationStateProvider)authenticationStateProvider).GetUserDetailsFromClaimsAsync();
+    }
+
     private async void Logout()
     {
         await AuthenticationService.LogoutAsync();

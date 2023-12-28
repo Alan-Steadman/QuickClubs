@@ -37,12 +37,26 @@ public class AppAuthenticationStateProvider : AuthenticationStateProvider
         NotifyAuthenticationStateChanged(authState);
     }
 
-    // TODO: This should end up being called from NavMenu
     public async Task<ClaimsPrincipal> GetAuthenticationStateProviderUserAsync()
     {
         var state = await this.GetAuthenticationStateAsync();
         var authenticationStateProviderUser = state.User;
         return authenticationStateProviderUser;
+    }
+
+    public async Task<UserDetailsFromClaims> GetUserDetailsFromClaimsAsync()
+    {
+        var claimsPrincipal = await GetAuthenticationStateProviderUserAsync();
+
+        UserDetailsFromClaims userDetails = new() {
+            UserId = claimsPrincipal.Claims.FirstOrDefault(c => c.Type == ApplicationClaimTypes.Sub)?.Value ?? string.Empty,
+            FirstName = claimsPrincipal.Claims.FirstOrDefault(c => c.Type == ApplicationClaimTypes.GivenName)?.Value ?? string.Empty,
+            LastName = claimsPrincipal.Claims.FirstOrDefault(c => c.Type == ApplicationClaimTypes.FamilyName)?.Value ?? string.Empty,
+            Email = claimsPrincipal.Claims.FirstOrDefault(c => c.Type == ApplicationClaimTypes.Email)?.Value ?? string.Empty,
+            Jti = claimsPrincipal.Claims.FirstOrDefault(c => c.Type == ApplicationClaimTypes.Jti)?.Value ?? string.Empty
+        };
+
+        return userDetails;
     }
 
     public ClaimsPrincipal AuthenticationStateUser { get; set; } = new ClaimsPrincipal(new ClaimsIdentity());
