@@ -5,8 +5,23 @@
 @inject NavigationManager navigationManager
 @rendermode InteractiveServer
 
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+@using QuickClubs.Contracts.Constants.Storage;
+@inject ProtectedSessionStorage _sessionStorage
+
+
 <PageTitle>Clubs</PageTitle>
 <h1>Clubs</h1>
+
+<div>
+    Token: @token
+</div>
+<div>
+    <button @onclick="GetToken" class="btn btn-primary">Get Token</button>
+</div>
+<div>
+    <button @onclick="ListClubs" class="btn btn-primary">List Clubs</button>
+</div>
 
 <button @onclick="CreateClub" class="btn btn-primary">Create Club</button>
 
@@ -35,17 +50,32 @@
 @code {
     private List<ClubResponse> clubs = new();
 
+    private string token = "initial value...";
+
+    private async Task GetToken()
+    {
+        var savedTokenResult = await _sessionStorage.GetAsync<string>(StorageConstants.Local.AuthToken);
+        token = savedTokenResult.Success ? savedTokenResult.Value! : "fk";
+        StateHasChanged();
+    }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            var result = await clubService.GetAllClubs();
+            //await ListClubs();
+            //await GetToken();
+        }
+    }
 
-            if (result is not null)
-            {
-                clubs = result.ToList();
-                StateHasChanged();
-            }
+    private async Task ListClubs()
+    {
+        var result = await clubService.GetAllClubs();
+
+        if (result is not null)
+        {
+            clubs = result.ToList();
+            StateHasChanged();
         }
     }
 
