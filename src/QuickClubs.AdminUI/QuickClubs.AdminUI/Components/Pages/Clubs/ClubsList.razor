@@ -16,14 +16,13 @@
 <div>
     Token: @token
 </div>
-<div>
-    <button @onclick="GetToken" class="btn btn-primary">Get Token</button>
-</div>
-<div>
-    <button @onclick="ListClubs" class="btn btn-primary">List Clubs</button>
+
+<div class="btn-toolbar">
+    <button @onclick="CreateClub" class="btn btn-primary me-2">Create Club</button>
+    <button @onclick="GetToken" class="btn btn-outline-primary me-2 ">Get Token</button>
+    <button @onclick="ListClubs" class="btn btn-outline-primary me-2 ">List Clubs</button>
 </div>
 
-<button @onclick="CreateClub" class="btn btn-primary">Create Club</button>
 
 <table class="table">
     <thead>
