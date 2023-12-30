@@ -1,11 +1,5 @@
-﻿using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
-using QuickClubs.Contracts.Constants.Storage;
-using System.Net.Http.Headers;
-
-using QuickClubs.AdminUI.Extensions;
+﻿using QuickClubs.AdminUI.Extensions;
 using QuickClubs.Contracts.Clubs;
-using System.Net.Http;
-using System.Net.Http.Json;
 
 namespace QuickClubs.AdminUI.Services;
 

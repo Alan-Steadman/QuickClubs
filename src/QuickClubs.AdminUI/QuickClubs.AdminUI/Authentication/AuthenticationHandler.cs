@@ -1,7 +1,5 @@
 ﻿
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
-using QuickClubs.Contracts.Constants.Storage;
-using System.Net.Http.Headers;
 
 namespace QuickClubs.AdminUI.Authentication;
 
@@ -14,6 +12,8 @@ public class AuthenticationHandler : DelegatingHandler
 
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
+        // Code below should work but doesn't due to issue https://github.com/dotnet/aspnetcore/issues/40336
+
         //if (request.Headers.Authorization?.Scheme != "Bearer")
         //{
         //    var savedTokenResult = await _sessionStorage.GetAsync<string>(StorageConstants.Local.AuthToken);
