@@ -1,6 +1,7 @@
 ﻿@page "/clubs/create"
 @using QuickClubs.Contracts.Clubs
 @inject IClubService clubService
+@inject NavigationManager navigationManager
 @rendermode InteractiveServer
 
 <PageTitle>Create Club</PageTitle>
@@ -35,9 +36,11 @@
 
     protected override void OnInitialized() => Model ??= new();
 
-    private void Submit()
+    private async Task Submit()
     {
-        clubService.CreateClub(Model!);
+        var clubId = await clubService.CreateClub(Model!);
+
+        navigationManager.NavigateTo($"/clubs/{clubId}");
     }
 
 }
