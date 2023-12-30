@@ -39,13 +39,14 @@ builder.Services.AddHttpClient<IAuthenticationService, AuthenticationService>((s
     httpClient.BaseAddress = new Uri(apiSettings.BaseUrl + "/auth");
 });
 
-builder.Services.AddHttpClient<IClubService, ClubService>((serviceProvider, httpClient) =>
+builder.Services.AddScoped<ApiService>();
+builder.Services.AddHttpClient<ApiService>((serviceProvider, httpClient) =>
 {
     var apiSettings = serviceProvider.GetRequiredService<IOptions<ApiSettings>>().Value;
 
     httpClient.DefaultRequestHeaders.Add("User-Agent", apiSettings.UserAgent);
-    httpClient.BaseAddress = new Uri(apiSettings.BaseUrl + "/clubs");
-}).AddHttpMessageHandler<AuthenticationHandler>();
+    httpClient.BaseAddress = new Uri(apiSettings.BaseUrl);
+});//.AddHttpMessageHandler<AuthenticationHandler>();
 
 var app = builder.Build();
 

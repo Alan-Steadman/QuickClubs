@@ -11,38 +11,32 @@ namespace QuickClubs.AdminUI.Services;
 
 public class ClubService : IClubService
 {
-    private readonly ProtectedSessionStorage _sessionStorage;
-    private readonly HttpClient _httpClient;
 
-    public ClubService(ProtectedSessionStorage sessionStorage, HttpClient httpClient)
+    private readonly ApiService _apiService;
+
+    public ClubService(ApiService apiService)
     {
-        _sessionStorage = sessionStorage;
-        _httpClient = httpClient;
+        _apiService = apiService;
     }
 
     public async Task<IEnumerable<ClubResponse>?> GetAllClubs()
     {
-        //var savedTokenResult = await _sessionStorage.GetAsync<string>(StorageConstants.Local.AuthToken);
-        //var savedToken = savedTokenResult.Success ? savedTokenResult.Value : null;
-
-        //if (!string.IsNullOrWhiteSpace(savedToken))
-        //{
-        //    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", savedToken);
-        //}
-
-        var content = await _httpClient.GetFromJsonAsync<IEnumerable<ClubResponse>>("");
+        await _apiService.SetAuthorizationHeader();
+        var content = await _apiService._httpClient.GetFromJsonAsync<IEnumerable<ClubResponse>>("api/clubs");
         return content;
     }
 
     public async Task<ClubResponse?> GetClub(Guid id)
     {
-        var content = await _httpClient.GetFromJsonAsync<ClubResponse>($"clubs/{id}");
+        await _apiService.SetAuthorizationHeader();
+        var content = await _apiService._httpClient.GetFromJsonAsync<ClubResponse>($"api/clubs/{id}");
         return content;
     }
 
     public async Task<Guid> CreateClub(CreateClubRequest club)
     {
-        var response = await _httpClient.PostAsJsonAsync<CreateClubRequest>("clubs", club);
+        await _apiService.SetAuthorizationHeader();
+        var response = await _apiService._httpClient.PostAsJsonAsync<CreateClubRequest>("api/clubs", club);
         return await response.ToResult<Guid>();
     }
 }

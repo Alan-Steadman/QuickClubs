@@ -3,7 +3,7 @@
 @using QuickClubs.Contracts.Clubs
 @inject IClubService clubService
 @inject NotFoundListener nfl
-
+@rendermode InteractiveServer
 
 @if (club is not null)
 {
@@ -39,7 +39,15 @@ else
 
     private ClubResponse? club;
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await GetClub();
+        }
+    }
+
+    private async Task GetClub()
     {
         Guid MyId = Guid.Parse(Id);
 
@@ -49,5 +57,6 @@ else
             nfl.NotifyNotFound();
 
         club = result;
+        StateHasChanged();
     }
 }
