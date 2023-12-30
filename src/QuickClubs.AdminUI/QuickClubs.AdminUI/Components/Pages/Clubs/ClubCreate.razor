@@ -8,25 +8,27 @@
 <h1>Create Club</h1>
 
 <EditForm Model="@Model" OnValidSubmit="@Submit" FormName="CreateClub">
-    <div class="form-group">
+    <div class="form-group mb-3">
         <label for="fullName">Full Name</label>
         <InputText id="fullName" @bind-Value="Model!.FullName" placeholder="Full Name" class="form-control" aria-describedby="fullNameHelp"/>
         <small id="fullNameHelp">The club&apos;s full name</small>
     </div>
 
-    <div class="form-group">
+    <div class="form-group mb-3">
         <label for="acronym">Acronym</label>
         <InputText id="acronym" @bind-Value="Model!.Acronym" placeholder="Acronym" class="form-control" aria-describedby="acronymHelp" />
         <small id="acronymHelp">The club&apos;s acronym</small>
     </div>
 
-    <div class="form-group">
+    <div class="form-group mb-3">
         <label for="website">Website</label>
         <InputText id="website" @bind-Value="Model!.Website" placeholder="Website" class="form-control" aria-describedby="websiteHelp" />
         <small id="websiteHelp">The club&apos;s website</small>
     </div>
 
-    <button type="submit" class="btn btn-primary">Create</button>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Create</button>
+    </div>
 </EditForm>
 
 
