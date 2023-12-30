@@ -22,21 +22,21 @@ public class ClubService : IClubService
     public async Task<IEnumerable<ClubResponse>?> GetAllClubs()
     {
         await _apiService.SetAuthorizationHeader();
-        var content = await _apiService._httpClient.GetFromJsonAsync<IEnumerable<ClubResponse>>("api/clubs");
+        var content = await _apiService.HttpClient.GetFromJsonAsync<IEnumerable<ClubResponse>>("api/clubs");
         return content;
     }
 
     public async Task<ClubResponse?> GetClub(Guid id)
     {
         await _apiService.SetAuthorizationHeader();
-        var content = await _apiService._httpClient.GetFromJsonAsync<ClubResponse>($"api/clubs/{id}");
+        var content = await _apiService.HttpClient.GetFromJsonAsync<ClubResponse>($"api/clubs/{id}");
         return content;
     }
 
     public async Task<Guid> CreateClub(CreateClubRequest club)
     {
         await _apiService.SetAuthorizationHeader();
-        var response = await _apiService._httpClient.PostAsJsonAsync<CreateClubRequest>("api/clubs", club);
+        var response = await _apiService.HttpClient.PostAsJsonAsync<CreateClubRequest>("api/clubs", club);
         return await response.ToResult<Guid>();
     }
 }

@@ -7,7 +7,9 @@ namespace QuickClubs.AdminUI.Services;
 public class ApiService
 {
     private readonly ProtectedSessionStorage _sessionStorage;
-    public readonly HttpClient _httpClient;
+    private readonly HttpClient _httpClient;
+
+    public HttpClient HttpClient => _httpClient;
 
     public ApiService(ProtectedSessionStorage sessionStorage, HttpClient httpClient)
     {
