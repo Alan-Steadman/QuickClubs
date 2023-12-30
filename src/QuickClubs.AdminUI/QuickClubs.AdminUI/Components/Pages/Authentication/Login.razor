@@ -10,19 +10,19 @@
 <fieldset>
     <legend>Login</legend>
     <EditForm Model="@login" OnValidSubmit="SubmitAsync" FormName="Login">
-        <div>
+        <div class="mb-3">
             <label for="email">Email</label>
             <InputText id="email" @bind-Value="login!.Email" type="email" class="form-control" />
         </div>
-        <div>
+        <div class="mb-3">
             <label for="password">Password</label>
             <InputText id="password" @bind-Value="login!.Password" type="password" class="form-control" />
         </div>
-        <div>
-            <button type="submit">Login</button>
+        <div class="mb-3">
+            <button class="btn btn-primary" type="submit">Login</button>
         </div>
     </EditForm>
-    <div class="">
+    <div class=" mb-3">
         @errorMessage
     </div>
 </fieldset>
@@ -33,21 +33,17 @@
 
     private string? errorMessage;
 
-    // protected override void OnInitialized() => login ??= new();
-
     public async Task SubmitAsync()
     {
         try
         {
             var authResponse = await _authenticationService.LoginAsync(login!);
             errorMessage = null;
-            //loggedIn = true;
             navManager.NavigateTo("/", true);
         }
         catch (Exception ex)
         {
             errorMessage = ex.Message;
-            //loggedIn = false;
         }
     }
 
