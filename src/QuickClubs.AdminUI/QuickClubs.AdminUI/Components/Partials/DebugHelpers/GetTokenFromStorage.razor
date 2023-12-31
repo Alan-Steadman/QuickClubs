@@ -5,16 +5,15 @@
 
 <div class="card">
     <div class="card-header">
-        <h2>Token</h2>
+        <h3>Token</h3>
     </div>
     <div class="card-body">
         <InputTextArea id="tokenValue" @bind-Value="token" class="form-control" rows="4" placeholder="Token value"></InputTextArea>
     </div>
     <div class="card-footer">
-        <button @onclick="GetToken" class="btn btn-outline-primary me-2 ">Get Token</button>
+        <button @onclick="GetToken" class="btn btn-outline-primary">Get Token</button>
     </div>
 </div>
-
 
 @code {
     private string token = "";
@@ -25,5 +24,4 @@
         token = savedTokenResult.Success ? savedTokenResult.Value! : "Token not found :(";
         StateHasChanged();
     }
-
 }
