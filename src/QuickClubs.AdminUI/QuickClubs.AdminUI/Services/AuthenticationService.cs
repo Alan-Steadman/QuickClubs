@@ -34,7 +34,7 @@ public class AuthenticationService : IAuthenticationService
 
         if (!response.IsSuccessStatusCode)
         {
-            _logger.LogInformation("Login failed: {@Email}", request.Email);
+            _logger.LogInformation("Login failed for {@Email}.  Response was {@StatusCode}", request.Email, response.StatusCode);
             throw new UnauthorizedAccessException("Login failed.");
         }
 

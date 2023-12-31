@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using QuickClubs.AdminUI.Authentication;
 using QuickClubs.AdminUI.Common.Listeners;
 using QuickClubs.AdminUI.Common.Models;
+using QuickClubs.AdminUI.Logging;
 using QuickClubs.AdminUI.Services;
 
 namespace QuickClubs.AdminUI;
@@ -47,7 +48,8 @@ public static class DependencyInjection
         services
             .AddScoped<IAuthenticationService, AuthenticationService>()
             .AddScoped<ApiService>()
-            .AddScoped<IClubService, ClubService>();
+            .AddScoped<IClubService, ClubService>()
+            .AddTransient<RequestLoggingHandler>();
 
         services.AddHttpClient<IAuthenticationService, AuthenticationService>((serviceProvider, httpClient) =>
             {
@@ -55,7 +57,7 @@ public static class DependencyInjection
 
                 httpClient.DefaultRequestHeaders.Add("User-Agent", apiSettings.UserAgent);
                 httpClient.BaseAddress = new Uri(apiSettings.BaseUrl + "/auth");
-            });
+            }).AddHttpMessageHandler<RequestLoggingHandler>();
 
         services.AddHttpClient<ApiService>((serviceProvider, httpClient) =>
             {
@@ -63,7 +65,8 @@ public static class DependencyInjection
 
                 httpClient.DefaultRequestHeaders.Add("User-Agent", apiSettings.UserAgent);
                 httpClient.BaseAddress = new Uri(apiSettings.BaseUrl);
-            }).AddHttpMessageHandler<AuthenticationHandler>();
+            }).AddHttpMessageHandler<AuthenticationHandler>()
+            .AddHttpMessageHandler<RequestLoggingHandler>();
 
         return services;
     }
