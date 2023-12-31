@@ -1,0 +1,29 @@
+﻿@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+@using QuickClubs.Contracts.Constants.Storage;
+@inject ProtectedSessionStorage _sessionStorage
+@rendermode InteractiveServer
+
+<div class="card">
+    <div class="card-header">
+        <h2>Token</h2>
+    </div>
+    <div class="card-body">
+        <InputTextArea id="tokenValue" @bind-Value="token" class="form-control" rows="4" placeholder="Token value"></InputTextArea>
+    </div>
+    <div class="card-footer">
+        <button @onclick="GetToken" class="btn btn-outline-primary me-2 ">Get Token</button>
+    </div>
+</div>
+
+
+@code {
+    private string token = "";
+
+    private async Task GetToken()
+    {
+        var savedTokenResult = await _sessionStorage.GetAsync<string>(StorageConstants.Local.AuthToken);
+        token = savedTokenResult.Success ? savedTokenResult.Value! : "Token not found :(";
+        StateHasChanged();
+    }
+
+}
