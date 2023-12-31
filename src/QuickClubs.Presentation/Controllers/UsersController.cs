@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Mvc;
 using QuickClubs.Application.Users.SetProfile;
 using QuickClubs.Contracts.Users;
 
@@ -7,6 +8,7 @@ namespace QuickClubs.Presentation.Controllers;
 public sealed class UsersController : ApiController
 {
     [HttpPut("{id}/set-profile")]
+    [MapToApiVersion(1)]
     public async Task<IActionResult> SetProfile(Guid id, SetProfileRequest request, CancellationToken cancellationToken)
     {
         var command = new SetProfileCommand(

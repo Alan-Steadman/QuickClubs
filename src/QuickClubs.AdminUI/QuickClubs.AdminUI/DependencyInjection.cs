@@ -56,7 +56,7 @@ public static class DependencyInjection
                 var apiSettings = serviceProvider.GetRequiredService<IOptions<ApiSettings>>().Value;
 
                 httpClient.DefaultRequestHeaders.Add("User-Agent", apiSettings.UserAgent);
-                httpClient.BaseAddress = new Uri(apiSettings.BaseUrl + "/auth");
+                httpClient.BaseAddress = new Uri(apiSettings.BaseUrl + "auth/");
             }).AddHttpMessageHandler<RequestLoggingHandler>();
 
         services.AddHttpClient<ApiService>((serviceProvider, httpClient) =>

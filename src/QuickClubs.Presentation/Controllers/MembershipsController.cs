@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using QuickClubs.Application.Clubs.GetAllClubs;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Mvc;
 using QuickClubs.Application.Memberships.ApproveMembership;
 using QuickClubs.Application.Memberships.CreateMembership;
 using QuickClubs.Application.Memberships.GetAllClubMembers;
 using QuickClubs.Contracts.Memberships;
-using QuickClubs.Domain.MembershipOptions.ValueObjects;
-using QuickClubs.Domain.Users.ValueObjects;
 using System.Security.Claims;
 
 namespace QuickClubs.Presentation.Controllers;
@@ -13,6 +11,7 @@ namespace QuickClubs.Presentation.Controllers;
 public class MembershipsController : ApiController
 {
     [HttpPost]
+    [MapToApiVersion(1)]
     public async Task<IActionResult> CreateMembership(CreateMembershipRequest request, CancellationToken cancellationToken)
     {
         var command = new CreateMembershipCommand(
@@ -28,6 +27,7 @@ public class MembershipsController : ApiController
     }
 
     [HttpGet]
+    [MapToApiVersion(1)]
     public async Task<IActionResult> GetAllClubMembers(GetAllClubMembersRequest request, CancellationToken cancellationToken)
     {
         var query = new GetAllClubMembersQuery(request.ClubId, request.MemberAtDate);
@@ -44,6 +44,7 @@ public class MembershipsController : ApiController
     }
 
     [HttpPost("{id}/approve")]
+    [MapToApiVersion(1)]
     public async Task<IActionResult> ApproveMembership(Guid Id, ApproveMembershipRequest request, CancellationToken cancellationToken)
     {
         var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);

@@ -1,3 +1,3 @@
-@clubId=982b56cf-39ee-4554-8b67-98f8ceda3b9b
+@clubId=734da606-ffb7-4b50-8ea3-25b9128890cf
 
-GET https://localhost:5443/api/clubs/{{clubId}}
+GET https://localhost:5443/api/v1/clubs/{{clubId}}

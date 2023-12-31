@@ -1,4 +1,5 @@
-﻿using MapsterMapper;
+﻿using Asp.Versioning;
+using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +20,7 @@ public sealed class AuthController : ApiController
 
     [AllowAnonymous]
     [HttpPost("register")]
+    [MapToApiVersion(1)]
     public async Task<IActionResult> Register(
         RegisterRequest request,
         CancellationToken cancellationToken)
@@ -36,6 +38,7 @@ public sealed class AuthController : ApiController
 
     [AllowAnonymous]
     [HttpPost("login")]
+    [MapToApiVersion(1)]
     public async Task<IActionResult> Login(
         LoginRequest request,
         CancellationToken cancellationToken)

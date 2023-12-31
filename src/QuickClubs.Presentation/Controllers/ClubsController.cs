@@ -1,4 +1,5 @@
-﻿using MapsterMapper;
+﻿using Asp.Versioning;
+using MapsterMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QuickClubs.Application.Clubs.CreateClub;
@@ -18,6 +19,7 @@ public sealed class ClubsController : ApiController
     }
 
     [HttpPost]
+    [MapToApiVersion(1)]
     public async Task<IActionResult> CreateClub(
         CreateClubRequest request,
         CancellationToken cancellationToken)
@@ -33,6 +35,7 @@ public sealed class ClubsController : ApiController
 
     [AllowAnonymous]
     [HttpGet("{id}")]
+    [MapToApiVersion(1)]
     public async Task<IActionResult> GetClub(Guid id, CancellationToken cancellationToken)
     {
         var query = new GetClubQuery(id);
@@ -46,6 +49,7 @@ public sealed class ClubsController : ApiController
 
     [AllowAnonymous]
     [HttpGet]
+    [MapToApiVersion(1)]
     public async Task<IActionResult> GetAllClubs(CancellationToken cancellationToken)
     {
         var query = new GetAllClubsQuery();
@@ -58,6 +62,7 @@ public sealed class ClubsController : ApiController
     }
 
     [HttpPut("{id}/set-affiliated")]
+    [MapToApiVersion(1)]
     public async Task<IActionResult> SetAffiliated(Guid id, SetAffiliatedRequest request, CancellationToken cancellationToken)
     {
         var command = new SetAffiliatedCommand(id, request.CurrencyCode, request.MembershipNeedsApproval);

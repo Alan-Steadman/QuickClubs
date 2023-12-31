@@ -2,5 +2,5 @@
 
 public static class AuthenticationEndpoints
 {
-    public static string LoginEndpoint = "/api/auth/login";
+    public static string LoginEndpoint = "/api/v1/auth/login";
 }

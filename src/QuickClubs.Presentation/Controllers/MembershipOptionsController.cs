@@ -1,13 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Mvc;
 using QuickClubs.Application.MembershipOptions.CreateMembershipOption;
 using QuickClubs.Contracts.MembershipOptions;
 
 namespace QuickClubs.Presentation.Controllers;
 
-[Route("api/membership-options")]
+[Route("api/v{v:apiVersion}/membership-options")]
 public sealed class MembershipOptionsController : ApiController
 {
     [HttpPost]
+    [MapToApiVersion(1)]
     public async Task<IActionResult> CreateMembershipOption(CreateMembershipOptionRequest request, CancellationToken cancellationToken)
     {
         var command = new CreateMembershipOptionCommand(
