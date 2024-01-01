@@ -25,12 +25,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\QuickClubs.Application\QuickClubs.Application.csproj" />
-    <ProjectReference Include="..\src\QuickClubs.Contracts\QuickClubs.Contracts.csproj" />
-    <ProjectReference Include="..\src\QuickClubs.Domain\QuickClubs.Domain.csproj" />
-    <ProjectReference Include="..\src\QuickClubs.Infrastructure\QuickClubs.Infrastructure.csproj" />
-    <ProjectReference Include="..\src\QuickClubs.Presentation\QuickClubs.Presentation.csproj" />
-    <ProjectReference Include="..\src\QuickClubs.WebApi\QuickClubs.WebApi.csproj" />
+    <ProjectReference Include="..\..\..\src\QuickClubs.Application\QuickClubs.Application.csproj" />
+    <ProjectReference Include="..\..\..\src\QuickClubs.Contracts\QuickClubs.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\src\QuickClubs.Domain\QuickClubs.Domain.csproj" />
+    <ProjectReference Include="..\..\..\src\QuickClubs.Infrastructure\QuickClubs.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\src\QuickClubs.Presentation\QuickClubs.Presentation.csproj" />
+    <ProjectReference Include="..\..\..\src\QuickClubs.WebApi\QuickClubs.WebApi.csproj" />
   </ItemGroup>
 
 </Project>
