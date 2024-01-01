@@ -19,11 +19,11 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "src\docke
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{547DA64B-7670-4A1D-BBD7-8034C3587D6F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickClubs.ArchitectureTests", "QuickClubs.ArchitectureTests\QuickClubs.ArchitectureTests.csproj", "{5954D616-245F-498D-ABA7-AFC0460898AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickClubs.ArchitectureTests", "test\architecture\QuickClubs.ArchitectureTests\QuickClubs.ArchitectureTests.csproj", "{5954D616-245F-498D-ABA7-AFC0460898AC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickClubs.Domain.UnitTests", "QuickClubs.DomainUnitTests\QuickClubs.Domain.UnitTests.csproj", "{C1EB1D63-A948-49EA-9DE5-E2F4FA80452E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickClubs.Application.UnitTests", "QuickClubs.Application.UnitTests\QuickClubs.Application.UnitTests.csproj", "{4FEC067D-AC8F-49F2-A7A3-F63F5D9AB0E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickClubs.Application.UnitTests", "test\unit\QuickClubs.Application.UnitTests\QuickClubs.Application.UnitTests.csproj", "{4FEC067D-AC8F-49F2-A7A3-F63F5D9AB0E0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickClubs.AdminUI", "src\QuickClubs.AdminUI\QuickClubs.AdminUI\QuickClubs.AdminUI.csproj", "{96E17A70-0245-4254-A6D9-BBA81C9D315B}"
 EndProject
