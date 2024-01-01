@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{547DA64B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickClubs.ArchitectureTests", "test\architecture\QuickClubs.ArchitectureTests\QuickClubs.ArchitectureTests.csproj", "{5954D616-245F-498D-ABA7-AFC0460898AC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickClubs.Domain.UnitTests", "QuickClubs.DomainUnitTests\QuickClubs.Domain.UnitTests.csproj", "{C1EB1D63-A948-49EA-9DE5-E2F4FA80452E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickClubs.Domain.UnitTests", "test\unit\QuickClubs.Domain.UnitTests\QuickClubs.Domain.UnitTests.csproj", "{C1EB1D63-A948-49EA-9DE5-E2F4FA80452E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickClubs.Application.UnitTests", "test\unit\QuickClubs.Application.UnitTests\QuickClubs.Application.UnitTests.csproj", "{4FEC067D-AC8F-49F2-A7A3-F63F5D9AB0E0}"
 EndProject
