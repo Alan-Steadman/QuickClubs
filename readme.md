@@ -52,3 +52,7 @@ this sends all email to the address provided, for use during development.  It ca
   "EmailSettings:DebugEmailTo": "my.personal.test.address@email.com"
 }
 ```
+
+## Licensing
+
+This software is unlicensed.  This means that whilst the source code is currently in the public domain on github, it is not licensed for any use.  The copyright belongs to the creator.  It is illegal to copy, modify or distribute this software.
