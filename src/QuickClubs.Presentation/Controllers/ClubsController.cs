@@ -33,6 +33,11 @@ public sealed class ClubsController : ApiController
             : BadRequest(result.Error);
     }
 
+    /// <summary>
+    /// Retrieves a club with the supplied id
+    /// </summary>
+    /// <param name="id">The id of the club to retrieve</param>
+    /// <returns></returns>
     [AllowAnonymous]
     [HttpGet("{id}")]
     [MapToApiVersion(1)]

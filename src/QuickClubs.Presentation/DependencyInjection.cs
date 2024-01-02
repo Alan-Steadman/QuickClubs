@@ -1,6 +1,8 @@
 ﻿using Asp.Versioning;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 using QuickClubs.Presentation.Common.Mapping;
+using System.Reflection;
 
 namespace QuickClubs.Presentation;
 
@@ -8,8 +10,18 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddPresentation(this IServiceCollection services)
     {
-        services.AddMappings();
+        services
+            .AddMappings()
+            .AddSwagger()
+            .AddVersioning();
 
+
+
+        return services;
+    }
+
+    public static IServiceCollection AddVersioning(this IServiceCollection services)
+    {
         services.AddApiVersioning(options =>
         {
             options.DefaultApiVersion = new ApiVersion(1);
@@ -22,6 +34,49 @@ public static class DependencyInjection
         {
             options.GroupNameFormat = "'v'V";
             options.SubstituteApiVersionInUrl = true;
+        });
+
+        return services;
+    }
+
+    public static IServiceCollection AddSwagger(this IServiceCollection services)
+    {
+        services.AddSwaggerGen(options =>
+        {
+            options.SwaggerDoc("v1", new OpenApiInfo
+            {
+                Title = "ClubEngine API",
+                Version = "v1",
+                Description = "An ASP.NET Web API for interacting with ClubEngine"
+            });
+
+            var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+
+            options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            {
+                In = ParameterLocation.Header,
+                Description = "Please enter a valid token",
+                Name = "Authorization",
+                Type = SecuritySchemeType.Http,
+                BearerFormat = "JWT",
+                Scheme = "Bearer"
+            });
+            options.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type=ReferenceType.SecurityScheme,
+                            Id="Bearer"
+                        }
+                    },
+                    new string[]{}
+                }
+            });
+
         });
 
         return services;
