@@ -1,15 +1,24 @@
 # QuickClubs
 
+## Architecture
+
+- Domain Driven Design by Eric Evans
+- Clean Architecture by Robert C Martin ('Uncle Bob')
+- CQRS by Greg Young
+- Screaming Architecture / Vertical Slice Architecture
+
 ## Tech Stack
 
-- SqlServer
-- Dapper
+- Sql Server
 - EF Core
-- Email/SMTP
-- Serilog
+- Dapper
+- Blazor
 - MediatR
 - Docker Compose
 - Fluent Validation
+- Serilog
+- Mapster
+- Email/SMTP
 
 ## Installation
 
