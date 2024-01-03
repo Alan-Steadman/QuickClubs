@@ -1,7 +1,30 @@
 ﻿@page "/"
+@inject AuthenticationStateProvider authenticationStateProvider
+
+@using QuickClubs.AdminUI.Authentication
+@using QuickClubs.AdminUI.Components.Partials.Authentication
+@using System.Security.Claims
+
+@rendermode InteractiveServer
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<CascadingAuthenticationState>
+    <AuthorizeView>
+        <Authorized>
+            <h1>Hello @_userDetails?.FirstName, welcome back!</h1>
+        </Authorized>
+        <NotAuthorized>
+            <Login />
+        </NotAuthorized>
+    </AuthorizeView>
+</CascadingAuthenticationState>
 
-<p>Welcome to your new app.</p>
+@code {
+    private UserDetailsFromClaims? _userDetails;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        _userDetails = await ((AppAuthenticationStateProvider)authenticationStateProvider).GetUserDetailsFromClaimsAsync();
+    }
+}

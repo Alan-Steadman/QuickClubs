@@ -8,9 +8,8 @@
 <CascadingAuthenticationState>
     <AuthorizeView>
         <Authorized>
-            @* @context.User.Identity?.Name *@
             @_userDetails?.FullName
-            <a @onclick="Logout" href="javascript:void(0)">Logout</a>
+            <a @onclick="Logout" href="javascript:void(0)">Sign out</a>
         </Authorized>
         <NotAuthorized>
             <a @onclick="Login" href="javascript:void(0)">Sign in...</a>
