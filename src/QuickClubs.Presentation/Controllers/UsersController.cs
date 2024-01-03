@@ -12,7 +12,7 @@ public sealed class UsersController : ApiController
     /// </summary>
     /// <param name="id">The user id</param>
     /// <param name="request">A SetProfileRequest</param>
-    /// <returns>Returns no value</returns>
+    /// <returns>No content</returns>
     [HttpPut("{id}/set-profile")]
     [MapToApiVersion(1)]
     public async Task<IActionResult> SetProfile(Guid id, SetProfileRequest request, CancellationToken cancellationToken)
@@ -29,6 +29,6 @@ public sealed class UsersController : ApiController
 
         var result = await Sender.Send(command, cancellationToken);
 
-        return result.IsSuccess ? Ok() : BadRequest(result.Error);
+        return result.IsSuccess ? NoContent() : BadRequest(result.Error);
     }
 }

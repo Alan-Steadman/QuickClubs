@@ -56,7 +56,7 @@ public class MembershipsController : ApiController
     /// </summary>
     /// <param name="Id">The membership id</param>
     /// <param name="request">An ApproveMembershipRequest</param>
-    /// <returns>Does not return a value</returns>
+    /// <returns>No content</returns>
     [HttpPost("{id}/approve")]
     [MapToApiVersion(1)]
     public async Task<IActionResult> ApproveMembership(Guid Id, ApproveMembershipRequest request, CancellationToken cancellationToken)
@@ -86,7 +86,7 @@ public class MembershipsController : ApiController
 
         var result = await Sender.Send(command);
 
-        return result.IsSuccess ? Ok() : BadRequest(result.Error);
+        return result.IsSuccess ? NoContent() : BadRequest(result.Error);
     }
 
 }

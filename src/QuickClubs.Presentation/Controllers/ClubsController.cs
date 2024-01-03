@@ -75,12 +75,13 @@ public sealed class ClubsController : ApiController
             : NotFound();
     }
 
+
     /// <summary>
     /// Marks a club as an affiliate and sets up various settings that are required for affiliated clubs
     /// </summary>
     /// <param name="id">The id of the Club to mark as an affiliate</param>
     /// <param name="request">A SetAffiliatedRequest</param>
-    /// <returns></returns>
+    /// <returns>No content</returns>
     [HttpPut("{id}/set-affiliated")]
     [MapToApiVersion(1)]
     public async Task<IActionResult> SetAffiliated(Guid id, SetAffiliatedRequest request, CancellationToken cancellationToken)
@@ -89,6 +90,6 @@ public sealed class ClubsController : ApiController
 
         var result = await Sender.Send(command, cancellationToken);
 
-        return result.IsSuccess ? Ok() : BadRequest(result.Error);
+        return result.IsSuccess ? NoContent() : BadRequest(result.Error);
     }
 }
