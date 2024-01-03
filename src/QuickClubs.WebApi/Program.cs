@@ -6,11 +6,6 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var presentationAssembly = typeof(QuickClubs.Presentation.DependencyInjection).Assembly;
-builder.Services.AddControllers()
-    .AddApplicationPart(presentationAssembly);
-
-builder.Services.AddEndpointsApiExplorer();
 
 builder.Services
     .AddApplication()

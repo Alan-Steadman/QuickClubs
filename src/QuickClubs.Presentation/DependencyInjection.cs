@@ -12,10 +12,20 @@ public static class DependencyInjection
     {
         services
             .AddMappings()
+            .AddControllerEndpoints()
             .AddSwagger()
             .AddVersioning();
 
+        return services;
+    }
 
+    public static IServiceCollection AddControllerEndpoints(this IServiceCollection services)
+    {
+        services
+            .AddControllers()
+            .AddApplicationPart(Assembly.GetExecutingAssembly());
+
+        services.AddEndpointsApiExplorer();
 
         return services;
     }
