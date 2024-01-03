@@ -1,14 +1,10 @@
-﻿@page "/auth/login"
-@using QuickClubs.Contracts.Authentication
+﻿@using QuickClubs.Contracts.Authentication
 @inject IAuthenticationService _authenticationService
 @inject NavigationManager navManager
 @rendermode InteractiveServer
 
-<PageTitle>Login</PageTitle>
-<h1>Login</h1>
-
 <fieldset>
-    <legend>Login</legend>
+    <legend>Sign In</legend>
     <EditForm Model="@login" OnValidSubmit="SubmitAsync" FormName="Login">
         <div class="mb-3">
             <label for="email">Email</label>
@@ -46,5 +42,4 @@
             errorMessage = ex.Message;
         }
     }
-
 }
