@@ -17,6 +17,12 @@ public class MembershipsController : ApiController
     {
         _mapper = mapper;
     }
+
+    /// <summary>
+    /// Create a new membership for a user at a club
+    /// </summary>
+    /// <param name="request">A CreateMembershipRequest</param>
+    /// <returns>The id of the newly created membership</returns>
     [HttpPost]
     [MapToApiVersion(1)]
     public async Task<IActionResult> CreateMembership(CreateMembershipRequest request, CancellationToken cancellationToken)
@@ -29,17 +35,28 @@ public class MembershipsController : ApiController
         return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
     }
 
+    /// <summary>
+    /// Returns a list of all members of a club, at a given point in time.
+    /// </summary>
+    /// <param name="request">A GetAllClubMembersRequest</param>
+    /// <returns>An IEnumerable of type MembershipResponse</returns>
     [HttpGet]
     [MapToApiVersion(1)]
     public async Task<IActionResult> GetAllClubMembers(GetAllClubMembersRequest request, CancellationToken cancellationToken)
     {
         var query = new GetAllClubMembersQuery(request.ClubId, request.MemberAtDate);
-
+                
         var result = await Sender.Send(query, cancellationToken);
 
         return result.IsSuccess ? Ok(result.Value.Select(m => _mapper.Map<MembershipResponse>(m))) : NotFound();
     }
 
+    /// <summary>
+    /// Approve a user's club membership application
+    /// </summary>
+    /// <param name="Id">The membership id</param>
+    /// <param name="request">An ApproveMembershipRequest</param>
+    /// <returns>Does not return a value</returns>
     [HttpPost("{id}/approve")]
     [MapToApiVersion(1)]
     public async Task<IActionResult> ApproveMembership(Guid Id, ApproveMembershipRequest request, CancellationToken cancellationToken)

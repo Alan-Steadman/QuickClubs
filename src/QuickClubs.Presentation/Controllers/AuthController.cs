@@ -18,6 +18,11 @@ public sealed class AuthController : ApiController
         _mapper = mapper;
     }
 
+    /// <summary>
+    /// Register a new user account
+    /// </summary>
+    /// <param name="request">A RegisterRequest</param>
+    /// <returns>An AuthenticationResponse</returns>
     [AllowAnonymous]
     [HttpPost("register")]
     [MapToApiVersion(1)]
@@ -33,9 +38,14 @@ public sealed class AuthController : ApiController
 
         var result = await Sender.Send(command, cancellationToken);
 
-        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+        return result.IsSuccess ? Ok(_mapper.Map<AuthenticationResponse>(result.Value)) : BadRequest(result.Error);
     }
 
+    /// <summary>
+    /// Sign in to a user account
+    /// </summary>
+    /// <param name="request">A LoginRequest</param>
+    /// <returns>An AuthenticationResponse</returns>
     [AllowAnonymous]
     [HttpPost("login")]
     [MapToApiVersion(1)]

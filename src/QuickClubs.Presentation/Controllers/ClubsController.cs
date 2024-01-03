@@ -18,6 +18,11 @@ public sealed class ClubsController : ApiController
         _mapper = mapper;
     }
 
+    /// <summary>
+    /// Creates a new club
+    /// </summary>
+    /// <param name="request">A CreateClubRequest</param>
+    /// <returns>The id of the newly created Club</returns>
     [HttpPost]
     [MapToApiVersion(1)]
     public async Task<IActionResult> CreateClub(
@@ -34,10 +39,10 @@ public sealed class ClubsController : ApiController
     }
 
     /// <summary>
-    /// Retrieves a club with the supplied id
+    /// Retrieves a club matching the supplied id
     /// </summary>
     /// <param name="id">The id of the club to retrieve</param>
-    /// <returns></returns>
+    /// <returns>A ClubResponse</returns>
     [AllowAnonymous]
     [HttpGet("{id}")]
     [MapToApiVersion(1)]
@@ -52,6 +57,10 @@ public sealed class ClubsController : ApiController
             : NotFound();
     }
 
+    /// <summary>
+    /// Retrieves all clubs
+    /// </summary>
+    /// <returns>An IEnumerable of type ClubResponse</returns>
     [AllowAnonymous]
     [HttpGet]
     [MapToApiVersion(1)]
@@ -66,6 +75,12 @@ public sealed class ClubsController : ApiController
             : NotFound();
     }
 
+    /// <summary>
+    /// Marks a club as an affiliate and sets up various settings that are required for affiliated clubs
+    /// </summary>
+    /// <param name="id">The id of the Club to mark as an affiliate</param>
+    /// <param name="request">A SetAffiliatedRequest</param>
+    /// <returns></returns>
     [HttpPut("{id}/set-affiliated")]
     [MapToApiVersion(1)]
     public async Task<IActionResult> SetAffiliated(Guid id, SetAffiliatedRequest request, CancellationToken cancellationToken)

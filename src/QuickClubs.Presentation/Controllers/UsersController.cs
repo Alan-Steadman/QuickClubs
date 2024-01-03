@@ -7,6 +7,12 @@ namespace QuickClubs.Presentation.Controllers;
 
 public sealed class UsersController : ApiController
 {
+    /// <summary>
+    /// Sets a user's profile
+    /// </summary>
+    /// <param name="id">The user id</param>
+    /// <param name="request">A SetProfileRequest</param>
+    /// <returns>Returns no value</returns>
     [HttpPut("{id}/set-profile")]
     [MapToApiVersion(1)]
     public async Task<IActionResult> SetProfile(Guid id, SetProfileRequest request, CancellationToken cancellationToken)

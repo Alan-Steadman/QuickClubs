@@ -8,6 +8,11 @@ namespace QuickClubs.Presentation.Controllers;
 [Route("api/v{v:apiVersion}/membership-options")]
 public sealed class MembershipOptionsController : ApiController
 {
+    /// <summary>
+    /// Creates a new MembershipOption
+    /// </summary>
+    /// <param name="request">A CreateMembershipOptionRequest</param>
+    /// <returns>The id of the newly created MembershipOption</returns>
     [HttpPost]
     [MapToApiVersion(1)]
     public async Task<IActionResult> CreateMembershipOption(CreateMembershipOptionRequest request, CancellationToken cancellationToken)
