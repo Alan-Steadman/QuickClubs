@@ -35,7 +35,7 @@ public class AuthenticationService : IAuthenticationService
         if (!response.IsSuccessStatusCode)
         {
             _logger.LogInformation("Login failed for {@Email}.  Response was {@StatusCode}", request.Email, response.StatusCode);
-            throw new UnauthorizedAccessException("Login failed.");
+            throw new UnauthorizedAccessException("Sign in failed. Incorrect username or password.");
         }
 
         var content = await response.Content.ReadFromJsonAsync<AuthenticationResponse>();
