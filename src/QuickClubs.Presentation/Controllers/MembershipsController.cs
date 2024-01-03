@@ -57,7 +57,7 @@ public class MembershipsController : ApiController
     /// <param name="Id">The membership id</param>
     /// <param name="request">An ApproveMembershipRequest</param>
     /// <returns>No content</returns>
-    [HttpPost("{id}/approve")]
+    [HttpPost("{id:guid}/approve")]
     [MapToApiVersion(1)]
     public async Task<IActionResult> ApproveMembership(Guid Id, ApproveMembershipRequest request, CancellationToken cancellationToken)
     {

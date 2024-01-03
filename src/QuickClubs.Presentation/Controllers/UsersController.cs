@@ -13,7 +13,7 @@ public sealed class UsersController : ApiController
     /// <param name="id">The user id</param>
     /// <param name="request">A SetProfileRequest</param>
     /// <returns>No content</returns>
-    [HttpPut("{id}/set-profile")]
+    [HttpPut("{id:guid}/set-profile")]
     [MapToApiVersion(1)]
     public async Task<IActionResult> SetProfile(Guid id, SetProfileRequest request, CancellationToken cancellationToken)
     {

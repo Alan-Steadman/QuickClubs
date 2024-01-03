@@ -44,7 +44,7 @@ public sealed class ClubsController : ApiController
     /// <param name="id">The id of the club to retrieve</param>
     /// <returns>A ClubResponse</returns>
     [AllowAnonymous]
-    [HttpGet("{id}")]
+    [HttpGet("{id:guid}")]
     [MapToApiVersion(1)]
     public async Task<IActionResult> GetClub(Guid id, CancellationToken cancellationToken)
     {
@@ -82,7 +82,7 @@ public sealed class ClubsController : ApiController
     /// <param name="id">The id of the Club to mark as an affiliate</param>
     /// <param name="request">A SetAffiliatedRequest</param>
     /// <returns>No content</returns>
-    [HttpPut("{id}/set-affiliated")]
+    [HttpPut("{id:guid}/set-affiliated")]
     [MapToApiVersion(1)]
     public async Task<IActionResult> SetAffiliated(Guid id, SetAffiliatedRequest request, CancellationToken cancellationToken)
     {
