@@ -25,7 +25,7 @@ public static class DependencyInjection
             .AddControllers()
             .AddApplicationPart(Assembly.GetExecutingAssembly());
 
-        services.AddEndpointsApiExplorer();
+        services.AddEndpointsApiExplorer(); // exposes endpoint metadata - the route, response type, etc
 
         return services;
     }
