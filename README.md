@@ -62,6 +62,24 @@ this sends all email to the address provided, for use during development.  It ca
 }
 ```
 
+## Next Steps and TODOs
+
+### Replace existing Blazor AdminUI
+
+The current QuickClubs.AdminUI Blazor project is just a quick and dirty exploratory prototype.  This will soon be replaced with a cleaner, three project implementation, consisting of:
+
+- An ApiClient generated using NSwag
+- A client infrastructure project, containing all infrastructure that can be pulled out of the blazor project
+- A thin Blazor AdminUI, using vertical slice feature folders
+
+### Tests
+- Integration Tests
+- Functional Tests 
+
+### Other TODOs
+
+See Task View in Visual Studio for individually commented TODO items
+
 ## Licensing
 
 This software is unlicensed.  This means that whilst the source code is currently in the public domain on github, it is not licensed for any use.  The copyright belongs to the creator.  It is illegal to copy, modify or distribute this software.
