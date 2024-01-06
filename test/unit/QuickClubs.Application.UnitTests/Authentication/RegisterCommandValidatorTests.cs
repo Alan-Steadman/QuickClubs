@@ -1,10 +1,8 @@
 ﻿using FluentValidation.TestHelper;
-using QuickClubs.Application.Authentication.Common;
 using QuickClubs.Application.Authentication.Register;
-using QuickClubs.Domain.Abstractions;
 
 namespace QuickClubs.Application.UnitTests.Authentication;
-public class RegisterCommandTests
+public class RegisterCommandValidatorTests
 {
     private static readonly string FirstName = "alan";
     private static readonly string LastName = "test";
@@ -12,29 +10,19 @@ public class RegisterCommandTests
     private static readonly string Password = "Password123";
 
     [Theory]
-    [InlineData("", "test", "alan.test@email.com", "Password123")]
-    [InlineData(" ", "test", "alan.test@email.com", "Password123")]
-    [InlineData("alan", "", "alan.test@email.com", "Password123")]
-    [InlineData("alan", " ", "alan.test@email.com", "Password123")]
-    [InlineData("alan", "test", "", "Password123")]
-    [InlineData("alan", "test", " ", "Password123")]
-    [InlineData("alan", "test", "alan.test@email.com", "")]
-    [InlineData("alan", "test", "alan.test@email.com", " ")]
-    public void Validator_ShouldReturnFalse_WhenValuesAreBlank(
-        string firstName,
-        string lastName,
-        string email,
-        string password)
+    [InlineData("")]
+    [InlineData(" ")]
+    public void Validator_ShouldReturnFalse_WhenFirstNameIsBlank(string firstName)
     {
         // Arrange
-        var command = new RegisterCommand(firstName, lastName, email, password);
+        var command = new RegisterCommand(firstName, LastName, Email, Password);
         var validator = new RegisterCommandValidator();
 
         // Act
         TestValidationResult<RegisterCommand> result = validator.TestValidate(command);
 
         // Assert
-        result.ShouldHaveAnyValidationError();
+        result.ShouldHaveValidationErrorFor(x => x.FirstName);
     }
 
     [Fact]
@@ -65,6 +53,22 @@ public class RegisterCommandTests
         result.ShouldHaveValidationErrorFor(x => x.FirstName);
     }
 
+    [Theory]
+    [InlineData("")]
+    [InlineData(" ")]
+    public void Validator_ShouldReturnFalse_WhenLastNameIsBlank(string lastName)
+    {
+        // Arrange
+        var command = new RegisterCommand(FirstName, lastName, Email, Password);
+        var validator = new RegisterCommandValidator();
+
+        // Act
+        TestValidationResult<RegisterCommand> result = validator.TestValidate(command);
+
+        // Assert
+        result.ShouldHaveValidationErrorFor(x => x.LastName);
+    }
+
     [Fact]
     public void Validator_ShouldReturnFalse_WhenLastNameIsTooLong()
     {
@@ -93,6 +97,22 @@ public class RegisterCommandTests
         result.ShouldHaveValidationErrorFor(x => x.LastName);
     }
 
+    [Theory]
+    [InlineData("")]
+    [InlineData(" ")]
+    public void Validator_ShouldReturnFalse_WhenEmailIsBlank(string email)
+    {
+        // Arrange
+        var command = new RegisterCommand(FirstName, LastName, email, Password);
+        var validator = new RegisterCommandValidator();
+
+        // Act
+        TestValidationResult<RegisterCommand> result = validator.TestValidate(command);
+
+        // Assert
+        result.ShouldHaveValidationErrorFor(x => x.Email);
+    }
+
     [Fact]
     public void Validator_ShouldReturnFalse_WhenEmailIsInvalidFormat()
     {
@@ -119,6 +139,22 @@ public class RegisterCommandTests
 
         // Assert
         result.ShouldHaveValidationErrorFor(x => x.Email);
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData(" ")]
+    public void Validator_ShouldReturnFalse_WhenPasswordIsBlank(string password)
+    {
+        // Arrange
+        var command = new RegisterCommand(FirstName, LastName, Email, password);
+        var validator = new RegisterCommandValidator();
+
+        // Act
+        TestValidationResult<RegisterCommand> result = validator.TestValidate(command);
+
+        // Assert
+        result.ShouldHaveValidationErrorFor(x => x.Password);
     }
 
     [Fact]
