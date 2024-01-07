@@ -72,6 +72,9 @@ The current QuickClubs.AdminUI Blazor project is just a quick and dirty explorat
 - A client infrastructure project, containing all infrastructure that can be pulled out of the blazor project
 - A thin Blazor AdminUI, using vertical slice feature folders
 
+### Minimal APIs
+- Convert controllers to Minimal APIs
+
 ### Tests
 - Integration Tests
 - Functional Tests 
