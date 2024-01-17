@@ -79,6 +79,9 @@ The current QuickClubs.AdminUI Blazor project is just a quick and dirty explorat
 - Integration Tests
 - Functional Tests 
 
+### Refresh Tokens
+- Implement Refresh Tokens
+
 ### Other TODOs
 
 See Task View in Visual Studio for individually commented TODO items
