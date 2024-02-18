@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using QuickClubs.Application.Memberships.ApproveMembership;
 using QuickClubs.Application.Memberships.CreateMembership;
 using QuickClubs.Application.Memberships.GetAllClubMembers;
+using QuickClubs.Application.Memberships.RejectMembership;
 using QuickClubs.Contracts.Memberships;
 using System.Security.Claims;
 
@@ -61,27 +62,13 @@ public class MembershipsController : ApiController
     [MapToApiVersion(1)]
     public async Task<IActionResult> ApproveMembership(Guid Id, ApproveMembershipRequest request, CancellationToken cancellationToken)
     {
-
-        //Console.WriteLine("User Id: " + User.FindFirst(ClaimTypes.NameIdentifier));
-
-        //Console.WriteLine("Id: " + User.FindFirst("sub"));
-        //Console.WriteLine("Email: " + User.FindFirst("email"));
-        //Console.WriteLine("Jti: " + User.FindFirst("jti"));
-
-        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
-        if (userIdClaim is null)
-            return Unauthorized();
-
-        var userIdString = userIdClaim.Value;
-        if (userIdString is null)
-            return Unauthorized();
-
-        if (!Guid.TryParse(userIdString, out Guid userId))
+        var userId = GetUserIdFromUser();
+        if (userId is null)
             return Unauthorized();
 
         var command = new ApproveMembershipCommand(
             Id,
-            userId,
+            (Guid)userId,
             request.Reason);
 
         var result = await Sender.Send(command);
@@ -89,4 +76,49 @@ public class MembershipsController : ApiController
         return result.IsSuccess ? NoContent() : BadRequest(result.Error);
     }
 
+    /// <summary>
+    /// Approve a user's club membership application
+    /// </summary>
+    /// <param name="Id">The membership id</param>
+    /// <param name="request">A RejectMembershipRequest</param>
+    /// <returns>No content</returns>
+    [HttpPost("{id:guid}/reject")]
+    [MapToApiVersion(1)]
+    public async Task<IActionResult> RejectMembership(Guid Id, RejectMembershipRequest request, CancellationToken cancellationToken)
+    {
+        var userId = GetUserIdFromUser();
+        if (userId is null)
+            return Unauthorized();
+
+        var command = new RejectMembershipCommand(
+            Id,
+            (Guid)userId,
+            request.Reason);
+
+        var result = await Sender.Send(command);
+
+        return result.IsSuccess ? NoContent() : BadRequest(result.Error);
+    }
+
+    /// <returns>A valid Guid UserId or null if the claim is invalid</returns>
+    private Guid? GetUserIdFromUser()
+    {
+        //Console.WriteLine("User Id: " + User.FindFirst(ClaimTypes.NameIdentifier));
+        //Console.WriteLine("Id: " + User.FindFirst("sub"));
+        //Console.WriteLine("Email: " + User.FindFirst("email"));
+        //Console.WriteLine("Jti: " + User.FindFirst("jti"));
+
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+        if (userIdClaim is null)
+            return null;
+
+        var userIdString = userIdClaim.Value;
+        if (userIdString is null)
+            return null;
+
+        if (!Guid.TryParse(userIdString, out Guid userId))
+            return null;
+
+        return userId;
+    }
 }

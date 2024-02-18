@@ -1,0 +1,9 @@
+@membershipId=7212F558-D93B-40FD-AE68-257B5DCBA826
+
+POST https://localhost:5443/api/v1/memberships/{{membershipId}}/reject
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MjlkZTViYi1iMDg3LTQwN2UtOWVmOC04ODZjYzFkMTc2MjEiLCJlbWFpbCI6ImhlbnJ5QGludGVybmV0LmNvbSIsImdpdmVuX25hbWUiOiJIZW5yeSIsImZhbWlseV9uYW1lIjoiOHRoIiwianRpIjoiZTAwYzNhODctMzJhNS00ZDZmLWEwOGMtNjM3M2FkNzgzZTY2IiwiZXhwIjoxNzA4MzExNjg5LCJpc3MiOiJxdWlja2NsdWJzIiwiYXVkIjoicXVpY2tjbHVicyJ9.SnaucW1mm15FRs5COaX8IWgGSd-Ob8BtiCFVZt4RpQM
+
+{
+    "reason": "forms filled in incorrectly"
+}
