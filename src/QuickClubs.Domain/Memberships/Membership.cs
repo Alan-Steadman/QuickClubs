@@ -2,6 +2,7 @@
 using QuickClubs.Domain.Clubs.ValueObjects;
 using QuickClubs.Domain.Common;
 using QuickClubs.Domain.MembershipOptions.ValueObjects;
+using QuickClubs.Domain.Memberships.Events;
 using QuickClubs.Domain.Memberships.ValueObjects;
 using QuickClubs.Domain.Users.ValueObjects;
 
@@ -73,7 +74,7 @@ public sealed class Membership : AggregateRoot<MembershipId>
             ApprovedDate: null,
             Reason: null);
 
-        return new Membership(
+        var membership = new Membership(
             MembershipId.New(),
             clubId,
             members,
@@ -86,6 +87,11 @@ public sealed class Membership : AggregateRoot<MembershipId>
             price,
             paid: false,
             approval);
+
+        if (approvalStatus.IsApproved)
+            membership.RaiseDomainEvent(new MembershipApprovedDomainEvent(membership.Id));
+
+        return membership;
     }
 
     public void SetPaid()
@@ -105,6 +111,8 @@ public sealed class Membership : AggregateRoot<MembershipId>
             Reason: reason);
 
         Approval = approval;
+
+        RaiseDomainEvent(new MembershipApprovedDomainEvent(Id));
     }
 
     public void SetRejected(UserId rejectedBy, DateTime UtcNow, string reason)

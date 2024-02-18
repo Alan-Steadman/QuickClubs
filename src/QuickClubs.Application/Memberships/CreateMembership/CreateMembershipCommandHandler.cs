@@ -78,7 +78,7 @@ public sealed class CreateMembershipCommandHandler : ICommandHandler<CreateMembe
             membershipLevel.Id,
             startDate: _dateTimeProvider.UtcNow,
             endDate: _endDateService.CalculateEndDate(membershipOption, _dateTimeProvider.UtcNow),
-            membershipNumber: new MembershipNumber("1"), // TODO: create a service that generates membership numbers according to Club
+            membershipNumber: new MembershipNumber("1"), // TODO: create a service that generates membership numbers according to Club's "MembershipNumberPolicy" mentioned in ClubEngine.Docs.DomainModels.md
             membershipName: new MembershipName($"{membershipOption.Name.Value} {membershipLevel.Name.Value}"),
             price: membershipLevel.Price,
             membershipNeedsApproval: club.GetSettings().MembershipNeedsApproval

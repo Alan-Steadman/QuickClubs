@@ -2,7 +2,6 @@
 using QuickClubs.Application.Abstractions.Email;
 using QuickClubs.Domain.Users.Events;
 using QuickClubs.Domain.Users.Repository;
-using System.Net.Mail;
 
 namespace QuickClubs.Application.Authentication.Register;
 
