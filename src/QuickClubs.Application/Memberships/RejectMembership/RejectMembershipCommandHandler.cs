@@ -51,6 +51,7 @@ public sealed class RejectMembershipCommandHandler : ICommandHandler<RejectMembe
             reason: request.Reason.Trim());
 
         _membershipRepository.Update(membership);
+        await _unitOfWork.SaveChangesAsync();
 
         return Result.Success();
     }
