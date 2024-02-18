@@ -127,6 +127,8 @@ public sealed class Membership : AggregateRoot<MembershipId>
             Reason: reason);
 
         Approval = approval;
+
+        RaiseDomainEvent(new MembershipRejectedDomainEvent(Id));
     }
 
 #pragma warning disable CS8618

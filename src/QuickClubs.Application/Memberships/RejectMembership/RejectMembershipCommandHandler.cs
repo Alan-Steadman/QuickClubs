@@ -8,16 +8,16 @@ using QuickClubs.Domain.Users.Errors;
 using QuickClubs.Domain.Users.Repository;
 using QuickClubs.Domain.Users.ValueObjects;
 
-namespace QuickClubs.Application.Memberships.ApproveMembership;
+namespace QuickClubs.Application.Memberships.RejectMembership;
 
-public sealed class ApproveMembershipCommandHandler : ICommandHandler<ApproveMembershipCommand>
+public sealed class RejectMembershipCommandHandler : ICommandHandler<RejectMembershipCommand>
 {
     private readonly IMembershipRepository _membershipRepository;
     private readonly IUserRepository _userRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IDateTimeProvider _dateTimeProvider;
 
-    public ApproveMembershipCommandHandler(
+    public RejectMembershipCommandHandler(
         IMembershipRepository membershipRepository,
         IUserRepository userRepository,
         IUnitOfWork unitOfWork,
@@ -29,27 +29,28 @@ public sealed class ApproveMembershipCommandHandler : ICommandHandler<ApproveMem
         _dateTimeProvider = dateTimeProvider;
     }
 
-    public async Task<Result> Handle(ApproveMembershipCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(RejectMembershipCommand request, CancellationToken cancellationToken)
     {
         var membership = await _membershipRepository.GetByIdAsync(new MembershipId(request.MembershipId), cancellationToken);
         if (membership is null)
             return Result.Failure(MembershipErrors.NotFound(request.MembershipId));
 
-        if (membership.Approval.IsApproved)
-            return Result.Failure(MembershipErrors.AlreadyApproved);
+        // TODO: Decide if any checks are necessary to make sure the membership application is in a state that can be rejected (eg should only "NotSet" be rejectable?  Should it be possible to reject a membership after it has been approved?  Should it be possible to reject a membership that is automatically approved when it is created?
+        // For now let's assume only "NotSet" be rejectable:
+        if (membership.Approval.ApprovalStatus != ApprovalStatus.NotSet)
+            return Result.Failure(MembershipErrors.NotInARejectableState);
 
-        var approvedBy = await _userRepository.GetByIdAsync(new UserId(request.ApprovedByUserId), cancellationToken);
-        if (approvedBy is null)
-            return Result.Failure(UserErrors.NotFound(request.ApprovedByUserId));
-        // TODO: Check ApprovedByUser has authorization to approve memberships
+        var rejectedBy = await _userRepository.GetByIdAsync(new UserId(request.RejectedByUserId), cancellationToken);
+        if (rejectedBy is null)
+            return Result.Failure(UserErrors.NotFound(request.RejectedByUserId));
+        // TODO: Check RejectedByUserId has authorization to reject memberships
 
-        membership.SetApproved(
-            approvedBy: approvedBy.Id,
-            utcNow: _dateTimeProvider.UtcNow,
-            reason: request.Reason?.Trim() == "" ? null : request.Reason?.Trim());
+        membership.SetRejected(
+            rejectedBy.Id,
+            _dateTimeProvider.UtcNow,
+            reason: request.Reason.Trim());
 
         _membershipRepository.Update(membership);
-        await _unitOfWork.SaveChangesAsync();
 
         return Result.Success();
     }
