@@ -34,7 +34,8 @@ public class EmailService : IEmailService
             emailMessage.To.Add(new MailboxAddress("DebugEmailTo", _emailSettings.DebugEmailTo));
 
         emailMessage.Subject = message.Subject;
-        emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Text) { Text = message.Body };
+        emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = message.Body };
+        
         return emailMessage;
     }
 
