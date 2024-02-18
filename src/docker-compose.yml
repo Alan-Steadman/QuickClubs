@@ -27,3 +27,17 @@ services:
       - ../.containers/database:/var/opt/mssql/data
     ports:
       - 1433:1433
+
+  quickclubs.smtp4dev:
+    image: rnwood/smtp4dev:v3 # For docker-compose info, see https://github.com/rnwood/smtp4dev/blob/master/docker-compose.yml
+    restart: always
+    ports:
+      - '3000:80' # port the smtp4dev web interface should be accessible on
+      - '2525:25' # port the SMTP server should be accessible on (I dont think this needs to be externally accessible)
+      #- '143:143' # port the IMAP server should be accessible on (I'm not using this - IMAP is used for retrieving messages, SMTP is for sending them)
+    volumes:
+        - ../.containers/smtp4dev-data:/smtp4dev
+    environment:
+      # See https://github.com/rnwood/smtp4dev/blob/master/docker-compose.yml
+      - ServerOptions__HostName=smtp4dev
+

@@ -32,6 +32,7 @@ Note this same sa password must match the one set in the user secrets below
 
 ### User Secrets
 
+#### Connection String
 Enter a connection string using the values below, replacing the sa password to something more suitable:
 ```json
 {
@@ -39,14 +40,17 @@ Enter a connection string using the values below, replacing the sa password to s
 }
 ```
 
-JWT Secret:
+#### JWT Secret:
 ```json
 {
   "JwtSettings:Secret": "Strong_and_at_least_16_charas"
 }
 ```
 
-Email SMTP Username & Password:
+#### Email SMTP Username & Password:
+
+Included in the dev setup is a smtp4dev docker container.  This smtp4dev does not use username & password for authentication, however, and 'real' smtp server such as SendInBlue does user a username & password.  Hence if using a 'real' smtp server, the username & password secrets will need to be set, if using smtp4dev, they do not need to be set.
+
 ```json
 {
   "EmailSettings:Username": "SmtpUsername",
@@ -61,6 +65,15 @@ this sends all email to the address provided, for use during development.  It ca
   "EmailSettings:DebugEmailTo": "my.personal.test.address@email.com"
 }
 ```
+
+## Running the project
+
+### Links
+
+- Admin UI: https://localhost:5442/
+- Web Api: https://localhost:5443/api/
+- Swagger : https://localhost:5443/swagger/index.html
+- smtp4dev : http://localhost:3000/
 
 ## Next Steps and TODOs
 

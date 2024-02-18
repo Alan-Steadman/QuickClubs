@@ -1,7 +1,7 @@
 ## Project Ignores
 
 # Ignore everything in all containers
-.containers/database/Entropy.bin
+.containers/
 
 
 
