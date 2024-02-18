@@ -30,7 +30,7 @@ public class LoggingBehavior<TRequest, TResponse>
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Command {Command} processing failed, {@DateTimeUtc}", commandName, DateTime.UtcNow);
+            _logger.LogError(ex, "Command {Command} processing failed, {@DateTimeUtc} Message: {exceptionMessage}, Stack Trace: {stackTrace}", commandName, DateTime.UtcNow, ex.Message, ex.StackTrace);
 
             throw;
         }
