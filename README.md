@@ -32,8 +32,11 @@ Note this same sa password must match the one set in the user secrets below
 
 ### User Secrets
 
+Edit the user secrets of the QuickClubs.WebApi project by right clicking it and selecting 'Manage User Secrets'.  Add the following user secrets:
+
 #### Connection String
-Enter a connection string using the values below, replacing the sa password to something more suitable:
+Add a connection string using the values below, replacing the sa password to something more suitable: that matches the sa_password in the docker compose environemtn file (.env) above.
+
 ```json
 {
   "ConnectionStrings:Database": "server=quickclubs.db;database=quickclubs;user id=sa;password=MyStrongPassword;encrypt=false;"
@@ -43,13 +46,13 @@ Enter a connection string using the values below, replacing the sa password to s
 #### JWT Secret:
 ```json
 {
-  "JwtSettings:Secret": "Strong_and_at_least_16_charas"
+  "JwtSettings:Secret": "Strong_and_at_least_32_charas_long"
 }
 ```
 
 #### Email SMTP Username & Password:
 
-Included in the dev setup is a smtp4dev docker container.  This smtp4dev does not use username & password for authentication, however, and 'real' smtp server such as SendInBlue does user a username & password.  Hence if using a 'real' smtp server, the username & password secrets will need to be set, if using smtp4dev, they do not need to be set.
+Included in the dev setup is a smtp4dev docker container.  This smtp4dev does not use username & password for authentication, however, any 'real' smtp server such as SendInBlue does user a username & password.  Hence if using a 'real' smtp server, the username & password secrets will need to be set, if using smtp4dev, they do not need to be set.
 
 ```json
 {
@@ -67,6 +70,8 @@ this sends all email to the address provided, for use during development.  It ca
 ```
 
 ## Running the project
+
+Set the startup project to 'docker-compose' and press F5.
 
 ### Links
 
