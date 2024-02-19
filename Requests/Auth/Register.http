@@ -2,8 +2,8 @@ POST https://localhost:5443/api/v1/auth/register
 Content-Type: application/json
 
 {
-    "email": "some.one@internet.com",
-    "firstName": "Some",
-    "lastName": "One",
-    "password": "password123"
+    "email": "henry@internet.com",
+    "firstName": "Henry",
+    "lastName": "8th",
+    "password": "pW6DdeEF44D7"
 }
