@@ -26,7 +26,7 @@ services:
     volumes:
       - ../.containers/database:/var/opt/mssql/data
     ports:
-      - 1433:1433
+      - 31433:1433
 
   quickclubs.smtp4dev:
     image: rnwood/smtp4dev:v3 # For docker-compose info, see https://github.com/rnwood/smtp4dev/blob/master/docker-compose.yml
