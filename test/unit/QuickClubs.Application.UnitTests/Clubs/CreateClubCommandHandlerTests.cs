@@ -5,6 +5,7 @@ using QuickClubs.Domain.Abstractions;
 using QuickClubs.Domain.Clubs;
 using QuickClubs.Domain.Clubs.Errors;
 using QuickClubs.Domain.Clubs.Repository;
+using QuickClubs.Domain.ClubTypes.Errors;
 
 namespace QuickClubs.Application.UnitTests.Clubs;
 public class CreateClubCommandHandlerTests
@@ -21,6 +22,30 @@ public class CreateClubCommandHandlerTests
     {
         _clubRepositoryMock = Substitute.For<IClubRepository>();
         _unitOfWorkMock = Substitute.For<IUnitOfWork>();
+    }
+
+    [Fact]
+    public async Task Handle_Should_ReturnFailureResult_WhenClubTypeNotFound()
+    {
+        // Arrange
+        var clubTypeCode = "sdf";
+        var command = new CreateClubCommand(clubTypeCode, FullName, Acronym, Website);
+
+        _clubRepositoryMock.IsFullNameUniqueAsync(null, FullName, default)
+            .Returns(true);
+        _clubRepositoryMock.IsAcronymUniqueAsync(null, Acronym, default)
+            .Returns(true);
+        _clubRepositoryMock.IsWebsiteUniqueAsync(null, Website, default)
+            .Returns(true);
+
+        var handler = new CreateClubCommandHandler(_clubRepositoryMock, _unitOfWorkMock);
+
+        // Act
+        Result<Guid> result = await handler.Handle(command, default);
+
+        // Assert
+        result.IsFailure.Should().BeTrue();
+        result.Error.Should().Be(ClubTypeErrors.NotFound(clubTypeCode));
     }
 
     [Fact]
