@@ -1,9 +1,9 @@
 ﻿using QuickClubs.Domain.Abstractions;
-using QuickClubs.Domain.EventEntry.ValueObjects;
+using QuickClubs.Domain.EventEntries.ValueObjects;
 using QuickClubs.Domain.Events.ValueObjects;
 using QuickClubs.Domain.Users.ValueObjects;
 
-namespace QuickClubs.Domain.EventEntry;
+namespace QuickClubs.Domain.EventEntries;
 public class EventEntry : AggregateRoot<EventEntryId>
 {
     public EventId EventId { get; private set; }
