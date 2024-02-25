@@ -50,7 +50,7 @@ else
 
     private async Task GetClub()
     {
-        Guid MyId = Guid.Parse(Id);
+        Guid MyId = Guid.Parse(Id!);
 
         var result = await clubService.GetClub(MyId);
 

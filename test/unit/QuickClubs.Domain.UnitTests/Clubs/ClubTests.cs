@@ -17,7 +17,7 @@ public class ClubTests : BaseTest
 
         // Act
         var club = Club.Create(
-            clubType,
+            clubType!,
             name,
             website);
 
