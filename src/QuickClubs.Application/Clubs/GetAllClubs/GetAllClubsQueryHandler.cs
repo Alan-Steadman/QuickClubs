@@ -22,6 +22,7 @@ public sealed class GetAllClubsQueryHandler : IQueryHandler<GetAllClubsQuery, IE
         const string sql = """
             SELECT
                 Id,
+                ClubType,
                 FullName,
                 Acronym,
                 Website,

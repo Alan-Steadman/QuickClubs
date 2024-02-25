@@ -1,9 +1,10 @@
 POST https://localhost:5443/api/v1/clubs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3OGE0Njc0MC1lYTU0LTQzZTAtOTRkNy0yOTgxMDYxNWZjNGMiLCJlbWFpbCI6ImhlbnJ5QGludGVybmV0LmNvbSIsImp0aSI6IjdhN2I1ZDQwLTEzMGEtNDhmZi05YTQxLTg4ZTBhMTYyZjhlYSIsImV4cCI6MTcwMTQ4MzEzMCwiaXNzIjoicXVpY2tjbHVicyIsImF1ZCI6InF1aWNrY2x1YnMifQ.mHZdwsAmlzXWp7nNiZM5AunApmecdb54NwoLXXCDUxA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MjlkZTViYi1iMDg3LTQwN2UtOWVmOC04ODZjYzFkMTc2MjEiLCJlbWFpbCI6ImhlbnJ5QGludGVybmV0LmNvbSIsImdpdmVuX25hbWUiOiJIZW5yeSIsImZhbWlseV9uYW1lIjoiOHRoIiwianRpIjoiODNkN2UzODktZTlkZS00ZmNhLWEwNzItODFiYzEzMjg2Y2NiIiwiZXhwIjoxNzA4OTI4NDY1LCJpc3MiOiJxdWlja2NsdWJzIiwiYXVkIjoicXVpY2tjbHVicyJ9.Dx8SiJZYRwO5iA1r-0oyWUU3AURjc-mgpAJMgdLEvwg
 
 {
-    "fullName": "Tunbridge Wells Motor Club",
+    "clubTypeCode": "MC",
+    "fullName": "Tunbridge Wells motor Club",
     "acronym": "twmc",
     "website": "https://www.twmc.org.uk/"
 }

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using QuickClubs.Domain.Clubs;
 using QuickClubs.Domain.Clubs.ValueObjects;
+using QuickClubs.Domain.ClubTypes;
 using QuickClubs.Domain.Common;
 
 namespace QuickClubs.Infrastructure.Persistence.Configurations;
@@ -16,6 +17,10 @@ internal sealed class ClubConfiguration : IEntityTypeConfiguration<Club>
 
         builder.Property(club => club.Id)
             .HasConversion(clubId => clubId.Value, value => new ClubId(value));
+
+        builder.Property(club => club.ClubType)
+            .HasConversion(clubType => clubType.Code, value => ClubType.FromCode(value))
+            .HasMaxLength(ClubType.CodeMaxLength);
 
         builder.OwnsOne(club => club.Name, nameBuilder =>
         {

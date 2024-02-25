@@ -3,6 +3,7 @@ using QuickClubs.Domain.Clubs.Entities;
 using QuickClubs.Domain.Clubs.Errors;
 using QuickClubs.Domain.Clubs.Events;
 using QuickClubs.Domain.Clubs.ValueObjects;
+using QuickClubs.Domain.ClubTypes;
 using QuickClubs.Domain.Common;
 
 namespace QuickClubs.Domain.Clubs;
@@ -10,18 +11,21 @@ public sealed class Club : AggregateRoot<ClubId>
 {
     private Club(
         ClubId id,
+        ClubType clubType,
         ClubName name,
         ClubWebsite website,
         bool isAffiliate,
         ClubSettings? settings
         ) : base(id)
     {
+        ClubType = clubType;
         Name = name;
         Website = website;
         IsAffiliate = isAffiliate;
         Settings = settings;
     }
 
+    public ClubType ClubType { get; private set; }
     public ClubName Name { get; private set; }
     public ClubWebsite Website { get; private set; }
     public bool IsAffiliate { get; private set; }
@@ -42,11 +46,13 @@ public sealed class Club : AggregateRoot<ClubId>
     }
 
     public static Club Create(
+        ClubType clubType,
         ClubName name,
         ClubWebsite website)
     {
         var club = new Club(
             id: ClubId.New(),
+            clubType: clubType,
             name: name,
             website: website,
             isAffiliate: false,

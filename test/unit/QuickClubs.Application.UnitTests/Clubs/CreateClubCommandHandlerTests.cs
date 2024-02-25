@@ -12,6 +12,7 @@ public class CreateClubCommandHandlerTests
     private readonly IClubRepository _clubRepositoryMock;
     private readonly IUnitOfWork _unitOfWorkMock;
 
+    private static readonly string ClubTypeCode = "MC";
     private static readonly string FullName = "Trumpton Motor Club";
     private static readonly string Acronym = "TMC";
     private static readonly string Website = "https://www.tmc.org.uk/";
@@ -26,7 +27,7 @@ public class CreateClubCommandHandlerTests
     public async Task Handle_Should_ReturnFailureResult_WhenFullNameIsNotUnique()
     {
         // Arrange
-        var command = new CreateClubCommand(FullName, Acronym, Website);
+        var command = new CreateClubCommand(ClubTypeCode, FullName, Acronym, Website);
 
         _clubRepositoryMock.IsFullNameUniqueAsync(null, FullName, default)
             .Returns(false);
@@ -49,7 +50,7 @@ public class CreateClubCommandHandlerTests
     public async Task Handle_Should_ReturnFailureResult_WhenAcronymIsNotUnique()
     {
         // Arrange
-        var command = new CreateClubCommand(FullName, Acronym, Website);
+        var command = new CreateClubCommand(ClubTypeCode, FullName, Acronym, Website);
 
         _clubRepositoryMock.IsFullNameUniqueAsync(null, FullName, default)
             .Returns(true);
@@ -72,7 +73,7 @@ public class CreateClubCommandHandlerTests
     public async Task Handle_Should_ReturnFailureResult_WhenWebsiteIsNotUnique()
     {
         // Arrange
-        var command = new CreateClubCommand(FullName, Acronym, Website);
+        var command = new CreateClubCommand(ClubTypeCode, FullName, Acronym, Website);
 
         _clubRepositoryMock.IsFullNameUniqueAsync(null, FullName, default)
             .Returns(true);
@@ -95,7 +96,7 @@ public class CreateClubCommandHandlerTests
     public async Task Handle_Should_ReturnSuccessResult_WhenEverythingIsUnique()
     {
         // Arrange
-        var command = new CreateClubCommand(FullName, Acronym, Website);
+        var command = new CreateClubCommand(ClubTypeCode, FullName, Acronym, Website);
 
         _clubRepositoryMock.IsFullNameUniqueAsync(null, FullName, default)
             .Returns(true);
@@ -118,7 +119,7 @@ public class CreateClubCommandHandlerTests
     public async Task Handle_Should_CallAddOnRepository_WhenEverythingIsUnique()
     {
         // Arrange
-        var command = new CreateClubCommand(FullName, Acronym, Website);
+        var command = new CreateClubCommand(ClubTypeCode, FullName, Acronym, Website);
 
         _clubRepositoryMock.IsFullNameUniqueAsync(null, FullName, default)
             .Returns(true);
@@ -141,7 +142,7 @@ public class CreateClubCommandHandlerTests
     public async Task Handle_Should_NotCallUnitOfWorkSaveChanges_WhenFullNameIsNotUnique()
     {
         // Arrange
-        var command = new CreateClubCommand(FullName, Acronym, Website);
+        var command = new CreateClubCommand(ClubTypeCode, FullName, Acronym, Website);
 
         _clubRepositoryMock.IsFullNameUniqueAsync(null, FullName, default)
             .Returns(false);

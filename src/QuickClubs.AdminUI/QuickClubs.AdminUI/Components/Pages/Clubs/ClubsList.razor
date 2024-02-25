@@ -19,6 +19,7 @@
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
+                    <th>Club Type</th>
                     <th>Club Name</th>
                     <th>Acronym</th>
                     <th>Website</th>
@@ -29,6 +30,7 @@
                 @foreach (var club in clubs)
                 {
                     <tr @onclick="(() => ViewClub(club.Id))" class="clickable" >
+                        <td>@club.ClubType</td>
                         <td>@club.FullName</td>
                         <td>@club.Acronym</td>
                         <td>@club.Website</td>

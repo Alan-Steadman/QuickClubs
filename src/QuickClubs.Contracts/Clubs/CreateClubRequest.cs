@@ -5,8 +5,11 @@ namespace QuickClubs.Contracts.Clubs;
 public sealed class CreateClubRequest
 {
     [Required]
+    public string ClubTypeCode { get; set; } = null!;
+
+    [Required]
     public string FullName { get; set; } = null!;
- 
+
     [Required]
     public string Acronym { get; set; } = null!;
 

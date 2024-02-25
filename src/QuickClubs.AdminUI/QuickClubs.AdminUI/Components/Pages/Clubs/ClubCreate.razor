@@ -9,8 +9,14 @@
 
 <EditForm Model="@Model" OnValidSubmit="@Submit" FormName="CreateClub">
     <div class="form-group mb-3">
+        <label for="clubTypeCode">Club Type Code</label>
+        <InputText id="clubTypeCode" @bind-Value="Model!.ClubTypeCode" placeholder="Club Type Code" class="form-control" aria-describedby="clubTypeCodeHelp" />
+        <small id="clubTypeCodeHelp">The club&apos;s club type code</small>
+    </div>
+
+    <div class="form-group mb-3">
         <label for="fullName">Full Name</label>
-        <InputText id="fullName" @bind-Value="Model!.FullName" placeholder="Full Name" class="form-control" aria-describedby="fullNameHelp"/>
+        <InputText id="fullName" @bind-Value="Model!.FullName" placeholder="Full Name" class="form-control" aria-describedby="fullNameHelp" />
         <small id="fullNameHelp">The club&apos;s full name</small>
     </div>
 
