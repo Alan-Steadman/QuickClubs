@@ -15,18 +15,33 @@ public class Event : AggregateRoot<EventId>
     public EventName Name { get; private set; }
     public EventStart Start { get; private set; }
     public EventEnd End { get; private set; }
-    // TODO: ReadOnlyList of All Event Times (include built in times like Start/End, EntriesOpen/EntriesClose, and include all custom event times)
-    // TODO: Editable list of Custom Event Times (eg scrutineering starts 9am, lunch starts at 12pm)
+
     // TODO: Invited clubs
     // TODO: Classes(or categories>)
     // TODO: Event Officials
     public Money EntryFee { get; private set; }
     public bool IsPublished { get; private set; }
     public EntryRestrictions EntryRestrictions { get; private set; }
+
     public IReadOnlyList<EventEntryId> EventEntries => _eventEntries.AsReadOnly();
+    public IReadOnlyList<EventTime> CustomEventTimes => _customEventTimes.AsReadOnly();
+    public IReadOnlyList<EventTime> AllEventTimes
+    {
+        get
+        {
+            List<EventTime> eventTimes = _customEventTimes;
+            eventTimes.Add(new EventTime(Start.Value, "Start", null));
+            eventTimes.Add(new EventTime(Start.Value, "End", null));
+            return _customEventTimes.AsReadOnly();
+        }
+    }
+
+    private readonly List<EventEntryId> _eventEntries = new();
+    private readonly List<EventTime> _customEventTimes = new();
+
     // TODO: Document Attachments
 
 
-    private readonly List<EventEntryId> _eventEntries = new();
+
 }
 
