@@ -1,7 +1,7 @@
 ﻿using QuickClubs.Domain.Abstractions;
 using QuickClubs.Domain.Clubs.ValueObjects;
 using QuickClubs.Domain.Common;
-using QuickClubs.Domain.EventEntries;
+using QuickClubs.Domain.EventEntries.ValueObjects;
 using QuickClubs.Domain.Events.ValueObjects;
 using QuickClubs.Domain.EventTypes.ValueObjects;
 using QuickClubs.Domain.Locations.ValueObjects;
@@ -23,11 +23,10 @@ public class Event : AggregateRoot<EventId>
     public Money EntryFee { get; private set; }
     public bool IsPublished { get; private set; }
     public EntryRestrictions EntryRestrictions { get; private set; }
-    public IReadOnlyList<EventEntry> EventEntries => _eventEntries.AsReadOnly();
+    public IReadOnlyList<EventEntryId> EventEntries => _eventEntries.AsReadOnly();
     // TODO: Document Attachments
 
 
-    private readonly List<EventEntry> _eventEntries = new();
+    private readonly List<EventEntryId> _eventEntries = new();
 }
-
 
