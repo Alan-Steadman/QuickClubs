@@ -16,9 +16,10 @@ public class Event : AggregateRoot<EventId>
     public EventStart Start { get; private set; }
     public EventEnd End { get; private set; }
 
-    // TODO: Invited clubs
+    // TODO: Invited clubs (do invited clubs belong in EntryRestrictions value object?
     // TODO: Classes(or categories>)
     // TODO: Event Officials
+    // TODO: Document Attachments
     public Money EntryFee { get; private set; }
     public bool IsPublished { get; private set; }
     public EntryRestrictions EntryRestrictions { get; private set; }
@@ -39,9 +40,56 @@ public class Event : AggregateRoot<EventId>
     private readonly List<EventEntryId> _eventEntries = new();
     private readonly List<EventTime> _customEventTimes = new();
 
-    // TODO: Document Attachments
+    private Event(
+        EventId id,
+        ClubId clubId,
+        EventTypeID eventTypeID,
+        LocationId locationId,
+        EventName name,
+        EventStart start,
+        EventEnd end,
+        Money entryFee,
+        bool isPublished,
+        EntryRestrictions entryRestrictions) : base(id)
+    {
+        ClubId = clubId;
+        EventTypeID = eventTypeID;
+        LocationId = locationId;
+        Name = name;
+        Start = start;
+        End = end;
+        EntryFee = entryFee;
+        IsPublished = isPublished;
+        EntryRestrictions = entryRestrictions;
+    }
 
+    public static Event Create(
+        ClubId clubId,
+        EventTypeID eventTypeID,
+        LocationId locationId,
+        EventName name,
+        EventStart start,
+        EventEnd end,
+        Money entryFee,
+        bool isPublished,
+        EntryRestrictions entryRestrictions)
+    {
+        return new (
+            EventId.New(),
+            clubId,
+            eventTypeID,
+            locationId,
+            name,
+            start,
+            end,
+            entryFee,
+            isPublished,
+            entryRestrictions);
+    }
 
-
+#pragma warning disable CS8618
+    private Event()
+    {
+    }
+#pragma warning restore CS8618
 }
-
