@@ -2,6 +2,6 @@
 
 namespace QuickClubs.Domain.Locations.ValueObjects;
 public sealed record Position(
-    Address Address,
-    WhatThreeWords WhatThreeWords,
-    OsGridRef OsGridRef);
+    Address? Address,
+    WhatThreeWords? WhatThreeWords,
+    OsGridRef? OsGridRef);

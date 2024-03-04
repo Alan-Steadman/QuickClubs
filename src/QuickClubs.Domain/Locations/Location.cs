@@ -8,7 +8,7 @@ public sealed class Location : AggregateRoot<LocationId>
     public ClubId ClubId { get; private set; }
     public LocationName Name { get; private set; }
     public Position Position { get; private set; }
-    public Directions Directions { get; private set; }
+    public Directions? Directions { get; private set; }
 
     private Location(
         LocationId id,
