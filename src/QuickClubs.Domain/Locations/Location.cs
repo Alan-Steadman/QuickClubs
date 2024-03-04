@@ -38,4 +38,23 @@ public sealed class Location : AggregateRoot<LocationId>
 
         return location;
     }
+
+    public Result UpdatePosition(Position position)
+    {
+        Position = position;
+        return Result.Success();
+    }
+
+    public Result UpdateName(LocationName name)
+    {
+        Name = name;
+        return Result.Success();
+    }
+
+    public Result UpdateDirections(Directions directions)
+    {
+        Directions = directions;
+        return Result.Success();
+    }
+
 }
