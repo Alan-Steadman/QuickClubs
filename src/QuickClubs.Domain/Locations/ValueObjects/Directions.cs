@@ -2,5 +2,5 @@
 
 public sealed record Directions(string Value)
 {
-    public int MaxLength = 250;
+    public const int MaxLength = 250;
 }

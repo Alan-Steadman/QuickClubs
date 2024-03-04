@@ -15,7 +15,7 @@ public sealed class Location : AggregateRoot<LocationId>
         ClubId clubId,
         LocationName name,
         Position position,
-        Directions directions) : base(id)
+        Directions? directions) : base(id)
     {
         ClubId = clubId;
         Name = name;
@@ -27,7 +27,7 @@ public sealed class Location : AggregateRoot<LocationId>
         ClubId clubId,
         LocationName name,
         Position position,
-        Directions directions)
+        Directions? directions)
     {
         var location = new Location(
             LocationId.New(),
@@ -51,7 +51,7 @@ public sealed class Location : AggregateRoot<LocationId>
         return Result.Success();
     }
 
-    public Result UpdateDirections(Directions directions)
+    public Result UpdateDirections(Directions? directions)
     {
         Directions = directions;
         return Result.Success();
