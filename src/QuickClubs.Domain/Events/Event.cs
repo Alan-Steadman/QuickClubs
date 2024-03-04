@@ -32,7 +32,7 @@ public class Event : AggregateRoot<EventId>
         {
             List<EventTime> eventTimes = _customEventTimes;
             eventTimes.Add(new EventTime(Start.Value, "Start", null));
-            eventTimes.Add(new EventTime(Start.Value, "End", null));
+            eventTimes.Add(new EventTime(End.Value, "End", null));
             return _customEventTimes.AsReadOnly();
         }
     }
