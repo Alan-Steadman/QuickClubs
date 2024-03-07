@@ -80,13 +80,17 @@ Set the startup project to 'docker-compose' and press F5.
 - Swagger : https://localhost:5443/swagger/index.html
 - smtp4dev : http://localhost:3000/
 
+## Docs
+
+- [Architectural Decision Record](docs/ArchitecturalDecisionRecord.md)
+
 ## Next Steps and TODOs
 
 ### Replace existing Blazor AdminUI
 
 The current QuickClubs.AdminUI Blazor project is just a quick and dirty exploratory prototype.  This will soon be replaced with a cleaner, three project implementation, consisting of:
 
-- An ApiClient generated using NSwag
+- An ApiClient generated using NSwag (or is there another one built into VS?)
 - A client infrastructure project, containing all infrastructure that can be pulled out of the blazor project
 - A thin Blazor AdminUI, using vertical slice feature folders
 
