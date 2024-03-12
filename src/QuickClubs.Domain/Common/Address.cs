@@ -1,4 +1,6 @@
-﻿namespace QuickClubs.Domain.Common;
+﻿using System.Text;
+
+namespace QuickClubs.Domain.Common;
 
 public record Address(
     string Building,
@@ -14,4 +16,17 @@ public record Address(
     public const int TownMaxLength = 50;
     public const int CountyMaxLength = 20;
     public const int PostcodeMaxLength = 8;
+
+    public override string ToString()
+    {
+        var sb = new StringBuilder();
+        sb.AppendLine(Building);
+        sb.AppendLine(Street);
+        sb.AppendLine(Locality);
+        sb.AppendLine(Town);
+        sb.AppendLine(County);
+        sb.AppendLine(Postcode);
+        return sb.ToString();
+    }
+
 }
