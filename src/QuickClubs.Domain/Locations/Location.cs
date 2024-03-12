@@ -1,5 +1,6 @@
 ﻿using QuickClubs.Domain.Abstractions;
 using QuickClubs.Domain.Clubs.ValueObjects;
+using QuickClubs.Domain.Locations.Entities;
 using QuickClubs.Domain.Locations.ValueObjects;
 
 namespace QuickClubs.Domain.Locations;
@@ -57,4 +58,9 @@ public sealed class Location : AggregateRoot<LocationId>
         return Result.Success();
     }
 
+#pragma warning disable CS8618
+    public Location()
+    {
+    }
+#pragma warning restore CS8618
 }
