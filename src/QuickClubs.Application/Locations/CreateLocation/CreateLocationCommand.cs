@@ -1,4 +1,5 @@
 ﻿using QuickClubs.Application.Abstractions.Mediator;
+using QuickClubs.Application.Locations.Common;
 
 namespace QuickClubs.Application.Locations.CreateLocation;
 public sealed record CreateLocationCommand(
@@ -13,4 +14,4 @@ public sealed record CreateLocationCommand(
     string? WhatThreeWords,
     string? OsGridRef,
     string? Directions)
-    : ICommand<Guid>;
+    : ICommand<LocationResult>;
