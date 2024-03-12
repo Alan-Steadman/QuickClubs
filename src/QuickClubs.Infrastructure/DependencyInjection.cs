@@ -11,6 +11,7 @@ using QuickClubs.Application.Abstractions.Data;
 using QuickClubs.Application.Abstractions.Email;
 using QuickClubs.Domain.Abstractions;
 using QuickClubs.Domain.Clubs.Repository;
+using QuickClubs.Domain.Locations.Repository;
 using QuickClubs.Domain.MembershipOptions.Repository;
 using QuickClubs.Domain.Memberships.Repository;
 using QuickClubs.Domain.Users.Repository;
@@ -55,6 +56,7 @@ public static class DependencyInjection
         });
 
         services.AddScoped<IClubRepository, ClubRepository>();
+        services.AddScoped<ILocationRepository, LocationRepository>();
         services.AddScoped<IMembershipOptionRepository, MembershipOptionRepository>();
         services.AddScoped<IMembershipRepository, MembershipRepository>();
         services.AddScoped<IUserRepository, UserRepository>();

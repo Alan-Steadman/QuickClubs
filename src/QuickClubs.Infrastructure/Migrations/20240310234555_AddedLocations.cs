@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace QuickClubs.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class AddedLocations : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,14 +16,40 @@ namespace QuickClubs.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ClubType = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     FullName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Acronym = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     Website = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
-                    IsAffiliate = table.Column<bool>(type: "bit", nullable: false)
+                    IsAffiliate = table.Column<bool>(type: "bit", nullable: false),
+                    Version = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Club", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Location",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ClubId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    Building = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Street = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Locality = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Town = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    County = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    Postcode = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: true),
+                    WhatThreeWords = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: true),
+                    OsGridRef = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    PositionId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Directions = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    Version = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Location", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -36,16 +62,17 @@ namespace QuickClubs.Infrastructure.Migrations
                     MembershipLevelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    MembershipNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MembershipName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MembershipNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    MembershipName = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     Price_Amount = table.Column<decimal>(type: "decimal(6,2)", nullable: false),
                     Price_Currency = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Paid = table.Column<bool>(type: "bit", nullable: false),
                     Approval_IsApproved = table.Column<bool>(type: "bit", nullable: false),
-                    Approval_ApprovalStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Approval_ApprovalStatus = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
                     Approval_ApprovedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Approval_ApprovedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Approval_Reason = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Approval_Reason = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Version = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -61,7 +88,8 @@ namespace QuickClubs.Infrastructure.Migrations
                     Name = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
                     Period = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
                     CutoffMonth = table.Column<int>(type: "int", nullable: true),
-                    CutoffDay = table.Column<int>(type: "int", nullable: true)
+                    CutoffDay = table.Column<int>(type: "int", nullable: true),
+                    Version = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -78,7 +106,8 @@ namespace QuickClubs.Infrastructure.Migrations
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     PasswordHash = table.Column<string>(type: "nvarchar(75)", maxLength: 75, nullable: false),
                     Registered = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastLogin = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    LastLogin = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Version = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -200,6 +229,18 @@ namespace QuickClubs.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Location_ClubId_Id",
+                table: "Location",
+                columns: new[] { "ClubId", "Id" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Location_ClubId_Name",
+                table: "Location",
+                columns: new[] { "ClubId", "Name" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Member_MembershipId",
                 table: "Member",
                 column: "MembershipId");
@@ -227,6 +268,9 @@ namespace QuickClubs.Infrastructure.Migrations
         {
             migrationBuilder.DropTable(
                 name: "ClubSettings");
+
+            migrationBuilder.DropTable(
+                name: "Location");
 
             migrationBuilder.DropTable(
                 name: "Member");

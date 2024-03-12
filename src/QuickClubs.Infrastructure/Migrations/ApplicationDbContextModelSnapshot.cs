@@ -29,7 +29,8 @@ namespace QuickClubs.Infrastructure.Migrations
 
                     b.Property<string>("ClubType")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
 
                     b.Property<bool>("IsAffiliate")
                         .HasColumnType("bit");
@@ -42,6 +43,41 @@ namespace QuickClubs.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Club", (string)null);
+                });
+
+            modelBuilder.Entity("QuickClubs.Domain.Locations.Location", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("Id");
+
+                    b.Property<Guid>("ClubId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Directions")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("Directions");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<byte[]>("Version")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClubId", "Id")
+                        .IsUnique();
+
+                    b.HasIndex("ClubId", "Name")
+                        .IsUnique();
+
+                    b.ToTable("Location", (string)null);
                 });
 
             modelBuilder.Entity("QuickClubs.Domain.MembershipOptions.MembershipOption", b =>
@@ -248,6 +284,90 @@ namespace QuickClubs.Infrastructure.Migrations
                     b.Navigation("Settings");
 
                     b.Navigation("Website")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("QuickClubs.Domain.Locations.Location", b =>
+                {
+                    b.OwnsOne("QuickClubs.Domain.Locations.Entities.Position", "Position", b1 =>
+                        {
+                            b1.Property<Guid>("LocationId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid?>("Id")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("PositionId");
+
+                            b1.Property<string>("OsGridRef")
+                                .HasMaxLength(10)
+                                .HasColumnType("nvarchar(10)")
+                                .HasColumnName("OsGridRef");
+
+                            b1.Property<string>("WhatThreeWords")
+                                .HasMaxLength(40)
+                                .HasColumnType("nvarchar(40)")
+                                .HasColumnName("WhatThreeWords");
+
+                            b1.HasKey("LocationId");
+
+                            b1.ToTable("Location");
+
+                            b1.WithOwner()
+                                .HasForeignKey("LocationId");
+
+                            b1.OwnsOne("QuickClubs.Domain.Common.Address", "Address", b2 =>
+                                {
+                                    b2.Property<Guid>("PositionLocationId")
+                                        .HasColumnType("uniqueidentifier");
+
+                                    b2.Property<string>("Building")
+                                        .IsRequired()
+                                        .HasMaxLength(50)
+                                        .HasColumnType("nvarchar(50)")
+                                        .HasColumnName("Building");
+
+                                    b2.Property<string>("County")
+                                        .IsRequired()
+                                        .HasMaxLength(20)
+                                        .HasColumnType("nvarchar(20)")
+                                        .HasColumnName("County");
+
+                                    b2.Property<string>("Locality")
+                                        .IsRequired()
+                                        .HasMaxLength(50)
+                                        .HasColumnType("nvarchar(50)")
+                                        .HasColumnName("Locality");
+
+                                    b2.Property<string>("Postcode")
+                                        .IsRequired()
+                                        .HasMaxLength(8)
+                                        .HasColumnType("nvarchar(8)")
+                                        .HasColumnName("Postcode");
+
+                                    b2.Property<string>("Street")
+                                        .IsRequired()
+                                        .HasMaxLength(50)
+                                        .HasColumnType("nvarchar(50)")
+                                        .HasColumnName("Street");
+
+                                    b2.Property<string>("Town")
+                                        .IsRequired()
+                                        .HasMaxLength(50)
+                                        .HasColumnType("nvarchar(50)")
+                                        .HasColumnName("Town");
+
+                                    b2.HasKey("PositionLocationId");
+
+                                    b2.ToTable("Location");
+
+                                    b2.WithOwner()
+                                        .HasForeignKey("PositionLocationId");
+                                });
+
+                            b1.Navigation("Address");
+                        });
+
+                    b.Navigation("Position")
                         .IsRequired();
                 });
 
