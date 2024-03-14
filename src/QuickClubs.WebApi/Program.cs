@@ -19,6 +19,7 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI(options =>
     {
@@ -32,7 +33,7 @@ if (app.Environment.IsDevelopment())
         //}
 
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-        //options.DisplayOperationId();
+        options.DisplayOperationId();
     });
     app.ApplyMigrations();
 }

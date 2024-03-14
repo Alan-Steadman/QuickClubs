@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using QuickClubs.Presentation.Common.Mapping;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
 
 namespace QuickClubs.Presentation;
@@ -63,6 +64,11 @@ public static class DependencyInjection
 
             var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
             options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+
+            options.CustomOperationIds(apiDesc =>
+            {
+                return apiDesc.TryGetMethodInfo(out var methodInfo) ? methodInfo.Name : null;
+            });
 
             options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
