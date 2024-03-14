@@ -2,7 +2,9 @@
 using MapsterMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using QuickClubs.Application.Locations.Common;
 using QuickClubs.Application.Locations.CreateLocation;
+using QuickClubs.Application.Locations.GetAllLocations;
 using QuickClubs.Application.Locations.GetLocation;
 using QuickClubs.Contracts.Locations;
 
@@ -18,9 +20,16 @@ public sealed class LocationsController : ApiController
         _mapper = mapper;
     }
 
+    /// <summary>
+    /// Creates a new location
+    /// </summary>
+    /// <param name="clubId">The club in which to create the new location</param>
+    /// <param name="request">The CreateLocationRequest</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns>A LocationResponse of the newly create location</returns>
     [HttpPost]
     [MapToApiVersion(1)]
-    public async Task<ActionResult<Guid>> CreateLocation(
+    public async Task<ActionResult<LocationResult>> CreateLocation(
         Guid clubId,
         CreateLocationRequest request,
         CancellationToken cancellationToken)
@@ -34,8 +43,6 @@ public sealed class LocationsController : ApiController
             : BadRequest(result.Error);
     }
 
-    //public async Task<ActionResult<LocationResponse>> GetLocation(Guid id)
-
     /// <summary>
     /// Retrieves a location matching the supplied id
     /// </summary>
@@ -45,7 +52,7 @@ public sealed class LocationsController : ApiController
     [HttpGet("{id:guid}")]
     [ActionName("GetLocation")]
     [MapToApiVersion(1)]
-    public async Task<ActionResult> GetLocation(Guid id, CancellationToken cancellationToken)
+    public async Task<ActionResult<LocationResult>> GetLocation(Guid id, CancellationToken cancellationToken)
     {
         var query = new GetLocationQuery(id);
 
@@ -53,6 +60,24 @@ public sealed class LocationsController : ApiController
 
         return result.IsSuccess ?
             Ok(_mapper.Map<LocationResponse>(result.Value))
+            : NotFound();
+    }
+
+    /// <summary>
+    /// Retrieves all locations
+    /// </summary>
+    /// <returns>An IEnumerable of type LocationResponse</returns>
+    [AllowAnonymous]
+    [HttpGet]
+    [MapToApiVersion(1)]
+    public async Task<ActionResult<IEnumerable<LocationResponse>>> GetAllLocations(Guid clubId, CancellationToken cancellationToken)
+    {
+        var query = new GetAllLocationsQuery(clubId);
+
+        var result = await Sender.Send(query, cancellationToken);
+
+        return result.IsSuccess ?
+            Ok(_mapper.Map<IEnumerable<LocationResponse>>(result.Value))
             : NotFound();
     }
 }

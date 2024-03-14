@@ -1,0 +1,3 @@
+@clubId=C8C7A7DC-0440-4391-83CF-F55FC9458B09
+
+GET https://localhost:5443/api/v1/clubs/{{clubId}}/locations/

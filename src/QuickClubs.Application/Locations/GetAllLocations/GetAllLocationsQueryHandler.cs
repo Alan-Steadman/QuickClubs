@@ -37,7 +37,7 @@ public sealed class GetAllLocationsQueryHandler : IQueryHandler<GetAllLocationsQ
             FROM
                 Location
             WHERE
-                ClubId = @LocationId
+                ClubId = @ClubId
             ORDER BY
                 [Name]
             

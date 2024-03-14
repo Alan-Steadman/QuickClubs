@@ -22,7 +22,7 @@ public sealed class ClubsController : ApiController
     /// Creates a new club
     /// </summary>
     /// <param name="request">A CreateClubRequest</param>
-    /// <returns>The id of the newly created Club</returns>
+    /// <returns>A ClubResponse of the newly created Club</returns>
     [HttpPost]
     [MapToApiVersion(1)]
     public async Task<IActionResult> CreateClub(
