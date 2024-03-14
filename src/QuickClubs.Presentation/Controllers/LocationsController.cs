@@ -42,7 +42,7 @@ public sealed class LocationsController : ApiController
         return result.IsSuccess ?
             CreatedAtAction(
                 nameof(GetLocation),
-                (clubId: result.Value.ClubId, id: result.Value.Id),
+                new { clubId = result.Value.ClubId, id = result.Value.Id },
                 MapResult(result.Value))
             : BadRequest(result.Error);
     }
