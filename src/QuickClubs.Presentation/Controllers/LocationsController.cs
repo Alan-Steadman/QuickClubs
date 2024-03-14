@@ -7,6 +7,7 @@ using QuickClubs.Application.Locations.CreateLocation;
 using QuickClubs.Application.Locations.GetAllLocations;
 using QuickClubs.Application.Locations.GetLocation;
 using QuickClubs.Contracts.Locations;
+using QuickClubs.Domain.Abstractions;
 
 namespace QuickClubs.Presentation.Controllers;
 
@@ -29,7 +30,7 @@ public sealed class LocationsController : ApiController
     /// <returns>A LocationResponse of the newly create location</returns>
     [HttpPost]
     [MapToApiVersion(1)]
-    public async Task<ActionResult<LocationResult>> CreateLocation(
+    public async Task<ActionResult<LocationResponse>> CreateLocation(
         Guid clubId,
         CreateLocationRequest request,
         CancellationToken cancellationToken)
@@ -39,7 +40,10 @@ public sealed class LocationsController : ApiController
         var result = await Sender.Send(command, cancellationToken);
 
         return result.IsSuccess ?
-            CreatedAtAction(nameof(GetLocation), new { clubId = result.Value.ClubId, id = result.Value.Id }, result.Value)
+            CreatedAtAction(
+                nameof(GetLocation),
+                (clubId: result.Value.ClubId, id: result.Value.Id),
+                MapResult(result.Value))
             : BadRequest(result.Error);
     }
 
@@ -50,17 +54,16 @@ public sealed class LocationsController : ApiController
     /// <returns>A LocationResponse</returns>
     [AllowAnonymous]
     [HttpGet("{id:guid}")]
-    [ActionName("GetLocation")]
     [MapToApiVersion(1)]
-    public async Task<ActionResult<LocationResult>> GetLocation(Guid id, CancellationToken cancellationToken)
+    public async Task<ActionResult<LocationResponse>> GetLocation(Guid id, CancellationToken cancellationToken)
     {
         var query = new GetLocationQuery(id);
 
         var result = await Sender.Send(query, cancellationToken);
 
         return result.IsSuccess ?
-            Ok(_mapper.Map<LocationResponse>(result.Value))
-            : NotFound();
+            base.Ok(MapResult(result))
+            : base.NotFound();
     }
 
     /// <summary>
@@ -79,5 +82,10 @@ public sealed class LocationsController : ApiController
         return result.IsSuccess ?
             Ok(_mapper.Map<IEnumerable<LocationResponse>>(result.Value))
             : NotFound();
+    }
+
+    private LocationResponse MapResult(Result<LocationResult> result)
+    {
+        return _mapper.Map<LocationResponse>(result.Value);
     }
 }
