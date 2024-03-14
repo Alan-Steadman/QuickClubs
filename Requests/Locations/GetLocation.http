@@ -1,0 +1,4 @@
+@clubId=C8C7A7DC-0440-4391-83CF-F55FC9458B09
+@locationId=E3693F87-34AA-4E90-BB09-01AFC31B979E
+
+GET https://localhost:5443/api/v1/clubs/{{clubId}}/locations/{{locationId}}
