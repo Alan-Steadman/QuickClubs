@@ -33,9 +33,8 @@ public sealed class GetAllClubsQueryHandler : IQueryHandler<GetAllClubsQuery, IE
                 FullName
             """;
 
-        var clubs = await connection.QueryAsync<ClubResult>(
-            sql);
+        var clubs = await connection.QueryAsync<ClubResult>(sql);
 
-        return Result.Success<IEnumerable<ClubResult>>(clubs) ;
+        return Result.Success<IEnumerable<ClubResult>>(clubs);
     }
 }

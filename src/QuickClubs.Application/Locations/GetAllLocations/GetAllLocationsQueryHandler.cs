@@ -4,18 +4,18 @@ using QuickClubs.Application.Abstractions.Mediator;
 using QuickClubs.Application.Locations.Common;
 using QuickClubs.Domain.Abstractions;
 
-namespace QuickClubs.Application.Locations.GetLocation;
+namespace QuickClubs.Application.Locations.GetAllLocations;
 
-public sealed class GetLocationQueryHandler : IQueryHandler<GetLocationQuery, LocationResult>
+public sealed class GetAllLocationsQueryHandler : IQueryHandler<GetAllLocationsQuery, IEnumerable<LocationResult>>
 {
     private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
-    public GetLocationQueryHandler(ISqlConnectionFactory sqlConnectionFactory)
+    public GetAllLocationsQueryHandler(ISqlConnectionFactory sqlConnectionFactory)
     {
         _sqlConnectionFactory = sqlConnectionFactory;
     }
 
-    public async Task<Result<LocationResult>> Handle(GetLocationQuery request, CancellationToken cancellationToken)
+    public async Task<Result<IEnumerable<LocationResult>>> Handle(GetAllLocationsQuery request, CancellationToken cancellationToken)
     {
         using var connection = _sqlConnectionFactory.CreateConnection();
 
@@ -37,16 +37,19 @@ public sealed class GetLocationQueryHandler : IQueryHandler<GetLocationQuery, Lo
             FROM
                 Location
             WHERE
-                Id = @LocationId
+                ClubId = @LocationId
+            ORDER BY
+                [Name]
+            
             """;
 
-        var location = await connection.QueryFirstOrDefaultAsync<LocationResult>(
+        var locations = await connection.QueryAsync<LocationResult>(
             sql,
             new
             {
-                request.LocationId
-            });
+                request.ClubId
+            }); ;
 
-        return location;
+        return Result.Success<IEnumerable<LocationResult>>(locations);
     }
 }
