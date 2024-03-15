@@ -1,7 +1,6 @@
 ﻿namespace QuickClubs.Contracts.MembershipOptions;
 
 public sealed record CreateMembershipOptionRequest(
-    Guid ClubId,
     string Name,
     string Period, // daily/weekly/monthly/yearly
     bool HasCutoff,

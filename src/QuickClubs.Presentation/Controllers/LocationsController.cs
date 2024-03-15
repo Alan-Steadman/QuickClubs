@@ -26,8 +26,7 @@ public sealed class LocationsController : ApiController
     /// </summary>
     /// <param name="clubId">The club in which to create the new location</param>
     /// <param name="request">The CreateLocationRequest</param>
-    /// <param name="cancellationToken"></param>
-    /// <returns>A LocationResponse of the newly create location</returns>
+    /// <returns>A LocationResponse of the newly created location</returns>
     [HttpPost]
     [MapToApiVersion(1)]
     public async Task<ActionResult<LocationResponse>> CreateLocation(

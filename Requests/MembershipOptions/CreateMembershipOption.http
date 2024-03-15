@@ -1,9 +1,10 @@
-POST https://localhost:5443/api/v1/membership-options
+@clubId=c8c7a7dc-0440-4391-83cf-f55fc9458b09
+
+POST https://localhost:5443/api/v1/clubs/{{clubId}}/membership-options
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5OTViYzk5NC1kOWRlLTQwNmYtOTkzYi0zMzgwYzMwMzg4YTQiLCJlbWFpbCI6ImhlbnJ5QGludGVybmV0LmNvbSIsImdpdmVuX25hbWUiOiJIZW5yeSIsImZhbWlseV9uYW1lIjoiOHRoIiwianRpIjoiM2U2NjU1OWItM2VjMS00MDRlLWEzOTUtNjFiMTVhMjRiM2IxIiwiZXhwIjoxNzEwNTc4Mzk2LCJpc3MiOiJxdWlja2NsdWJzIiwiYXVkIjoicXVpY2tjbHVicyJ9.iObaWFkXpyvkjcvQhxOjLusqRkafIR1OuBY7r_g6Evc
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxM2NjMGY4NC01ZTdkLTQyM2MtOWYyOC05MGFkOGNhZThhMmMiLCJlbWFpbCI6InNvbWUub25lQGludGVybmV0LmNvbSIsImp0aSI6IjQ3Y2UwMjQwLTM1NDQtNDMxZi04NWQwLWU0NzczMTJjMjc0ZiIsImV4cCI6MTcwMDcwMzA4NSwiaXNzIjoicXVpY2tjbHVicyIsImF1ZCI6InF1aWNrY2x1YnMifQ.dOGGHJDHM_n8kkkXcMBBVwHYY4JBVHWtSra_FQ7Yb7c
 
 {
-    "ClubId": "0EF6F163-2013-4697-A780-97945B346726",
     "Name": "Annual Membership",
     "Period": "Yearly",
     "HasCutoff": true,
