@@ -1,6 +1,6 @@
 @clubId=c8c7a7dc-0440-4391-83cf-f55fc9458b09
 
-POST https://localhost:5443/api/v1/clubs/c8c7a7dc-0440-4391-83cf-f55fc9458b09/locations
+POST https://localhost:5443/api/v1/clubs/{{clubId}}/locations
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5OTViYzk5NC1kOWRlLTQwNmYtOTkzYi0zMzgwYzMwMzg4YTQiLCJlbWFpbCI6ImhlbnJ5QGludGVybmV0LmNvbSIsImdpdmVuX25hbWUiOiJIZW5yeSIsImZhbWlseV9uYW1lIjoiOHRoIiwianRpIjoiZTM5OWE1MGMtOTM0OC00OWVhLThmYmYtY2UzZTA1YjljYTAxIiwiZXhwIjoxNzEwMjM5MzY3LCJpc3MiOiJxdWlja2NsdWJzIiwiYXVkIjoicXVpY2tjbHVicyJ9.V2UgeQiwSKos9KhBTu0vMV4R-aNIXyOWxE6stnIVONA
 Content-Type: application/json
 
