@@ -1,4 +1,5 @@
 ﻿using QuickClubs.Application.Abstractions.Mediator;
+using QuickClubs.Application.MembershipOptions.Common;
 using QuickClubs.Domain.Abstractions;
 using QuickClubs.Domain.Clubs.Errors;
 using QuickClubs.Domain.Clubs.Repository;
@@ -10,7 +11,7 @@ using QuickClubs.Domain.MembershipOptions.ValueObjects;
 
 namespace QuickClubs.Application.MembershipOptions.CreateMembershipOption;
 
-public sealed class CreateMembershipOptionCommandHandler : ICommandHandler<CreateMembershipOptionCommand, Guid>
+public sealed class CreateMembershipOptionCommandHandler : ICommandHandler<CreateMembershipOptionCommand, MembershipOptionResult>
 {
     private readonly IMembershipOptionRepository _membershipOptionRepository;
     private readonly IClubRepository _clubRepository;
@@ -26,18 +27,18 @@ public sealed class CreateMembershipOptionCommandHandler : ICommandHandler<Creat
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<Result<Guid>> Handle(CreateMembershipOptionCommand request, CancellationToken cancellationToken)
+    public async Task<Result<MembershipOptionResult>> Handle(CreateMembershipOptionCommand request, CancellationToken cancellationToken)
     {
         var club = await _clubRepository.GetByIdAsync(new ClubId(request.ClubId), cancellationToken);
 
         if (club is null)
         {
-            return Result.Failure<Guid>(ClubErrors.NotFound(request.ClubId));
+            return Result.Failure<MembershipOptionResult>(ClubErrors.NotFound(request.ClubId));
         }
 
         if (!club.IsAffiliate)
         {
-            return Result.Failure<Guid>(ClubErrors.NotAffiliated);
+            return Result.Failure<MembershipOptionResult>(ClubErrors.NotAffiliated);
         }
 
         var membershipOption = Domain.MembershipOptions.MembershipOption.Create(
@@ -58,6 +59,25 @@ public sealed class CreateMembershipOptionCommandHandler : ICommandHandler<Creat
 
         await _unitOfWork.SaveChangesAsync();
 
-        return Result.Success(membershipOption.Id.Value);
+        var result = new MembershipOptionResult(
+            membershipOption.Id.Value,
+            membershipOption.ClubId.Value,
+            membershipOption.Name.Value,
+            membershipOption.Period.ToString(),
+            membershipOption.HasCutoff(),
+            membershipOption.Cutoff?.Month,
+            membershipOption.Cutoff?.Day,
+            membershipOption.Levels.Select(level => 
+                new MembershipLevelResult(
+                    level.Id.Value,
+                    membershipOption.Id.Value,
+                    level.Name.Value,
+                    level.Description.Value,
+                    level.MaxMembers,
+                    level.MinAge,
+                    level.MaxAge,
+                    level.Price.Amount)).ToList());
+
+        return result;
     }
 }

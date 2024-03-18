@@ -1,4 +1,5 @@
 ﻿using QuickClubs.Application.Abstractions.Mediator;
+using QuickClubs.Application.MembershipOptions.Common;
 
 namespace QuickClubs.Application.MembershipOptions.CreateMembershipOption;
 
@@ -9,7 +10,7 @@ public sealed record CreateMembershipOptionCommand(
     bool HasCutoff,
     int CutoffMonth,
     int CutoffDay,
-    List<CreateMembershipLevel> Levels) : ICommand<Guid>;
+    List<CreateMembershipLevel> Levels) : ICommand<MembershipOptionResult>;
 
 public sealed record CreateMembershipLevel(
     string Name,

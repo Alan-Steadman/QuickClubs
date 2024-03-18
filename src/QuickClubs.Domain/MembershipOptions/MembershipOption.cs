@@ -15,6 +15,8 @@ public sealed class MembershipOption : AggregateRoot<MembershipOptionId>
     public Cutoff? Cutoff { get; private set; }
     public IReadOnlyList<MembershipLevel> Levels => _levels.AsReadOnly();
 
+    public bool HasCutoff() => (Cutoff == null);
+
     private MembershipOption(
         MembershipOptionId membershipOptionId,
         ClubId clubId,
