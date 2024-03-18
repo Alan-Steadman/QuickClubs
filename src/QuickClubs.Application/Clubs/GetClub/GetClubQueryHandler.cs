@@ -3,6 +3,7 @@ using QuickClubs.Application.Abstractions.Data;
 using QuickClubs.Application.Abstractions.Mediator;
 using QuickClubs.Application.Clubs.Common;
 using QuickClubs.Domain.Abstractions;
+using QuickClubs.Domain.Clubs.Errors;
 
 namespace QuickClubs.Application.Clubs.GetClub;
 
@@ -39,6 +40,9 @@ public sealed class GetClubQueryHandler : IQueryHandler<GetClubQuery, ClubResult
             {
                 request.ClubId
             });
+
+        if (club is null)
+            return Result.Failure<ClubResult>(ClubErrors.NotFound(request.ClubId));
 
         return club;
     }

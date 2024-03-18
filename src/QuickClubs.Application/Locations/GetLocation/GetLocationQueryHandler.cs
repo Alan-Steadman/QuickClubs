@@ -3,6 +3,7 @@ using QuickClubs.Application.Abstractions.Data;
 using QuickClubs.Application.Abstractions.Mediator;
 using QuickClubs.Application.Locations.Common;
 using QuickClubs.Domain.Abstractions;
+using QuickClubs.Domain.Locations.Errors;
 
 namespace QuickClubs.Application.Locations.GetLocation;
 
@@ -46,6 +47,9 @@ public sealed class GetLocationQueryHandler : IQueryHandler<GetLocationQuery, Lo
             {
                 request.LocationId
             });
+
+        if (location is null)
+            return Result.Failure<LocationResult>(LocationErrors.NotFound(request.LocationId));
 
         return location;
     }
