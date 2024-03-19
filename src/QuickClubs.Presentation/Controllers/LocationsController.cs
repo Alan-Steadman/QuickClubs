@@ -66,8 +66,9 @@ public sealed class LocationsController : ApiController
     }
 
     /// <summary>
-    /// Retrieves all locations
+    /// Retrieves all locations for a club
     /// </summary>
+    /// <param name="clubId">The club whose locations to retrieve</param>
     /// <returns>An IEnumerable of type LocationResponse</returns>
     [AllowAnonymous]
     [HttpGet]

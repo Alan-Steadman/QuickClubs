@@ -48,7 +48,7 @@ public sealed class GetAllLocationsQueryHandler : IQueryHandler<GetAllLocationsQ
             new
             {
                 request.ClubId
-            }); ;
+            });
 
         return Result.Success<IEnumerable<LocationResult>>(locations);
     }

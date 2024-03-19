@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QuickClubs.Application.MembershipOptions.Common;
 using QuickClubs.Application.MembershipOptions.CreateMembershipOption;
+using QuickClubs.Application.MembershipOptions.GetAllMembershipOptions;
 using QuickClubs.Application.MembershipOptions.GetMembershipOption;
 using QuickClubs.Contracts.MembershipOptions;
 using QuickClubs.Domain.Abstractions;
@@ -57,6 +58,26 @@ public sealed class MembershipOptionsController : ApiController
         var result = await Sender.Send(query, cancellationToken);
 
         return result.IsSuccess ? Ok(MapResult(result.Value)) : base.NotFound(result.Error);
+    }
+
+
+    /// <summary>
+    /// Retrieves all membership options for a club
+    /// </summary>
+    /// <param name="clubId">The club whose locations to retrieve</param>
+    /// <returns>An IEnumerable of MembershipOptionResponse</returns>
+    [AllowAnonymous]
+    [HttpGet]
+    [MapToApiVersion(1)]
+    public async Task<ActionResult<IEnumerable<MembershipOptionResponse>>> GetMembershipOptions(Guid clubId, CancellationToken cancellationToken)
+    {
+        var query = new GetAllMembershipOptionsQuery(clubId);
+
+        var result = await Sender.Send(query, cancellationToken);
+
+        return result.IsSuccess ?
+            Ok(_mapper.Map<IEnumerable<MembershipOptionResponse>>(result.Value)) 
+            : NotFound(result.Error);
     }
 
     private MembershipOptionResponse MapResult(Result<MembershipOptionResult> result)
