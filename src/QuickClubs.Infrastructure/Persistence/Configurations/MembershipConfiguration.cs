@@ -31,6 +31,8 @@ internal sealed class MembershipConfiguration : IEntityTypeConfiguration<Members
 
             membersBuilder.Property(m => m.Value)
                 .HasColumnName("UserId");
+
+            membersBuilder.WithOwner().HasForeignKey("MembershipId");
         });
 
         builder.Metadata.FindNavigation(nameof(Membership.Members))!
