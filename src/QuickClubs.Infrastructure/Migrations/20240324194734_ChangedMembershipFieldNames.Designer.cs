@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuickClubs.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using QuickClubs.Infrastructure.Persistence;
 namespace QuickClubs.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240324194734_ChangedMembershipFieldNames")]
+    partial class ChangedMembershipFieldNames
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -511,8 +514,7 @@ namespace QuickClubs.Infrastructure.Migrations
                                 .HasColumnName("ApprovedDate");
 
                             b1.Property<bool>("IsApproved")
-                                .HasColumnType("bit")
-                                .HasColumnName("IsApproved");
+                                .HasColumnType("bit");
 
                             b1.Property<string>("Reason")
                                 .HasMaxLength(200)

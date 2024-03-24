@@ -55,24 +55,36 @@ internal sealed class MembershipConfiguration : IEntityTypeConfiguration<Members
         builder.OwnsOne(m => m.Price, priceBuilder =>
         {
             priceBuilder.Property(p => p.Amount)
+                .HasColumnName("PriceAmount")
                 .HasColumnType(Money.AmountColumnType);
 
             priceBuilder.Property(p => p.Currency)
-                .HasConversion(c => c.Code, value => Currency.FromCode(value));
+                .HasColumnName("PriceCurrency")
+                .HasConversion(c => c.Code, value => Currency.FromCode(value))
+                .HasMaxLength(Currency.CodeMaxLength);
         });
 
         builder.OwnsOne(m => m.Approval, approvalBuilder =>
         {
+            approvalBuilder.Property(a => a.IsApproved)
+                .HasColumnName("IsApproved");
+
             approvalBuilder.Property(a => a.ApprovalStatus)
+                .HasColumnName("ApprovalStatus")
                 .HasConversion(a => a.ToString(), value => ApprovalStatus.FromString(value))
                 .HasMaxLength(ApprovalStatus.MaxLength);
 
             approvalBuilder.Property(a => a.ApprovedBy)
+                .HasColumnName("ApprovedBy")
                 .HasConversion(
                     uid => uid.Value,
                     value => new UserId(value));
 
+            approvalBuilder.Property(a => a.ApprovedDate)
+                .HasColumnName("ApprovedDate");
+
             approvalBuilder.Property(a => a.Reason)
+                .HasColumnName("ApprovalReason")
                 .HasMaxLength(Approval.ReasonMaxLength);
         });
 
