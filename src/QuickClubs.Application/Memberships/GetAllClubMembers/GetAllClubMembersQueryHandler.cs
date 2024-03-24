@@ -29,7 +29,7 @@ public sealed class GetAllClubMembersQueryHandler : IQueryHandler<GetAllClubMemb
 
         const string sql = """
             SELECT
-                MemberId = Membership.Id
+                Id = Membership.Id
               , Membership.MembershipNumber
               , Membership.MembershipName
               , Membership.EndDate

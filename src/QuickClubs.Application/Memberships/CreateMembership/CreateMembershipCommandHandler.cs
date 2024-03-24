@@ -48,40 +48,27 @@ public sealed class CreateMembershipCommandHandler : ICommandHandler<CreateMembe
     {
         var membershipOption = await _membershipOptionRepository.GetByIdAsync(new MembershipOptionId(request.MembershipOptionId), cancellationToken);
         if (membershipOption is null)
-        {
             return Result.Failure<Guid>(MembershipOptionErrors.NotFound(request.MembershipOptionId));
-        }
 
         var membershipLevel = membershipOption.Levels.FirstOrDefault(l => l.Id == new MembershipLevelId(request.MembershipLevelId));
         if (membershipLevel is null)
-        {
             return Result.Failure<Guid>(MembershipOptionErrors.MembershipLevelNotFound(request.MembershipLevelId));
-        }
 
         var club = await _clubRepository.GetByIdAsync(membershipOption.ClubId, cancellationToken);
         if (club is null)
-        {
             return Result.Failure<Guid>(ClubErrors.NotFound(membershipOption.ClubId.Value));
-        }
 
         var user = await _userRepository.GetByIdAsync(new UserId(request.UserId), cancellationToken);
         if (user is null)
-        {
             return Result.Failure<Guid>(UserErrors.NotFound(request.UserId));
-        }
 
-        var members = new List<UserId>
-        {
-             user.Id
-        };
+        var members = new List<UserId> { user.Id };
 
         foreach (var additionalMemberUserId in request.AdditionalMembers)
         {
             var additionalUser = await _userRepository.GetByIdAsync(new UserId(additionalMemberUserId), cancellationToken);
             if (additionalUser is null)
-            {
                 return Result.Failure<Guid>(UserErrors.NotFound(additionalMemberUserId));
-            }
 
             members.Add(additionalUser.Id);
         }   
