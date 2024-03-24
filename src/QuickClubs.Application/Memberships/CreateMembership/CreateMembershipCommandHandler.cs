@@ -10,6 +10,8 @@ using QuickClubs.Domain.Memberships;
 using QuickClubs.Domain.Memberships.Repository;
 using QuickClubs.Domain.Memberships.Services;
 using QuickClubs.Domain.Memberships.ValueObjects;
+using QuickClubs.Domain.Users.Errors;
+using QuickClubs.Domain.Users.Repository;
 using QuickClubs.Domain.Users.ValueObjects;
 
 namespace QuickClubs.Application.Memberships.CreateMembership;
@@ -19,6 +21,7 @@ public sealed class CreateMembershipCommandHandler : ICommandHandler<CreateMembe
     private readonly IClubRepository _clubRepository;
     private readonly IMembershipOptionRepository _membershipOptionRepository;
     private readonly IMembershipRepository _membershipRepository;
+    private readonly IUserRepository _userRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IDateTimeProvider _dateTimeProvider;
     private readonly EndDateService _endDateService;
@@ -27,6 +30,7 @@ public sealed class CreateMembershipCommandHandler : ICommandHandler<CreateMembe
         IClubRepository clubRepository,
         IMembershipOptionRepository membershipOptionRepository,
         IMembershipRepository membershipRepository,
+        IUserRepository userRepository,
         IUnitOfWork unitOfWork,
         IDateTimeProvider dateTimeProvider,
         EndDateService endDateService)
@@ -34,6 +38,7 @@ public sealed class CreateMembershipCommandHandler : ICommandHandler<CreateMembe
         _clubRepository = clubRepository;
         _membershipOptionRepository = membershipOptionRepository;
         _membershipRepository = membershipRepository;
+        _userRepository = userRepository;
         _unitOfWork = unitOfWork;
         _dateTimeProvider = dateTimeProvider;
         _endDateService = endDateService;
@@ -53,17 +58,33 @@ public sealed class CreateMembershipCommandHandler : ICommandHandler<CreateMembe
             return Result.Failure<Guid>(MembershipOptionErrors.MembershipLevelNotFound(request.MembershipLevelId));
         }
 
-        var club = await _clubRepository.GetByIdAsync(membershipOption.ClubId);
+        var club = await _clubRepository.GetByIdAsync(membershipOption.ClubId, cancellationToken);
         if (club is null)
         {
             return Result.Failure<Guid>(ClubErrors.NotFound(membershipOption.ClubId.Value));
         }
 
+        var user = await _userRepository.GetByIdAsync(new UserId(request.UserId), cancellationToken);
+        if (user is null)
+        {
+            return Result.Failure<Guid>(UserErrors.NotFound(request.UserId));
+        }
+
         var members = new List<UserId>
         {
-             new UserId(request.UserId)
+             user.Id
         };
-        members.AddRange(request.AdditionalMembers.ConvertAll<UserId>(m => new UserId(m)));
+
+        foreach (var additionalMemberUserId in request.AdditionalMembers)
+        {
+            var additionalUser = await _userRepository.GetByIdAsync(new UserId(additionalMemberUserId), cancellationToken);
+            if (additionalUser is null)
+            {
+                return Result.Failure<Guid>(UserErrors.NotFound(additionalMemberUserId));
+            }
+
+            members.Add(additionalUser.Id);
+        }   
 
         // TODO: Check members count vs membership option
         // TODO: Check ages of users vs membership option - return error if not set
