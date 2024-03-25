@@ -46,7 +46,7 @@ public sealed class GetAllClubMembersQueryHandler : IQueryHandler<GetAllClubMemb
             	LEFT JOIN UserProfile ON UserProfile.UserId = [User].Id
             WHERE
             	Membership.ClubId = @ClubId
-            	AND Membership.Approval_IsApproved = 1
+            	AND Membership.IsApproved = 1
             	--AND Membership.Paid = 1
             	AND @MemberAtDate BETWEEN Membership.StartDate AND Membership.EndDate
             """;
