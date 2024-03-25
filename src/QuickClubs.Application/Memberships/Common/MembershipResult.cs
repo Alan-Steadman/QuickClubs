@@ -3,7 +3,6 @@ public sealed class MembershipResult
 { 
     public Guid Id { get; init; }
     public Guid ClubId { get; init; }
-    public List<MembershipMemberResult> Members { get; set; } = [];
     public Guid MembershipOptionId { get; init; }
     public Guid MembershipLevelId { get; init; }
     public DateTime StartDate { get; init; }
@@ -15,6 +14,7 @@ public sealed class MembershipResult
     public string PriceFormatted { get; init; }
     public bool Paid { get; init; }
     public ApprovalResult Approval { get; set; }
+    public List<MembershipMemberResult> Members { get; set; } = [];
 }
 public sealed class MembershipMemberResult
 {

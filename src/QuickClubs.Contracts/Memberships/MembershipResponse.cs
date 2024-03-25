@@ -3,7 +3,6 @@
 public sealed record MembershipResponse(
     Guid Id,
     Guid ClubId,
-    List<MembershipMemberResponse> Members,
     Guid MembershipOptionId,
     Guid MembershipLevelId,
     DateTime StartDate,
@@ -14,7 +13,8 @@ public sealed record MembershipResponse(
     string PriceCurrency,
     string PriceFormatted,
     bool Paid,
-    ApprovalResponse Approval);
+    ApprovalResponse Approval,
+    List<MembershipMemberResponse> Members);
 
 public sealed record MembershipMemberResponse(
     Guid Id,
