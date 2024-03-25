@@ -1,7 +1,5 @@
-GET https://localhost:5443/api/v1/memberships
+@membershipId=922095a7-ee77-4eda-bfb4-778e0774488b
+
+GET https://localhost:5443/api/v1/memberships/{{membershipId}}
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5OTViYzk5NC1kOWRlLTQwNmYtOTkzYi0zMzgwYzMwMzg4YTQiLCJlbWFpbCI6ImhlbnJ5QGludGVybmV0LmNvbSIsImdpdmVuX25hbWUiOiJIZW5yeSIsImZhbWlseV9uYW1lIjoiOHRoIiwianRpIjoiYTQyODAzNWMtZTYyMi00OTlmLWFhNWQtNDM1MDhiNGVmODNlIiwiZXhwIjoxNzExNDQ2MDAzLCJpc3MiOiJxdWlja2NsdWJzIiwiYXVkIjoicXVpY2tjbHVicyJ9.O7XB-BdiSCOFjyU9C7OULb4TJ4utLfXxFmX7rA69ZsA
-
-{
-    "clubId": "C8C7A7DC-0440-4391-83CF-F55FC9458B09"
-}

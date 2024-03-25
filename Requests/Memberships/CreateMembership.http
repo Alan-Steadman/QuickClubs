@@ -4,7 +4,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5OTViYzk5N
 
 {
     "userId": "995BC994-D9DE-406F-993B-3380C30388A4",
-    "additionalMembers": ["727159A9-EC3B-4587-A083-D2000A7D8A53", "03EECEFC-F530-4B7D-93CC-F760817BF7F9"],
+    "additionalMembers": ["727159A9-EC3B-4587-A083-D2000A7D8A52", "03EECEFC-F530-4B7D-93CC-F760817BF7F8"],
     "membershipOptionId": "18656917-cf50-44b7-ac65-4f9324e9428b",
     "membershipLevelId": "1a1d11c9-958d-4927-95c6-6fbe46bd7193"
 }

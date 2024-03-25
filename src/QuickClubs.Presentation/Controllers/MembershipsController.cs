@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using QuickClubs.Application.Memberships.ApproveMembership;
 using QuickClubs.Application.Memberships.CreateMembership;
 using QuickClubs.Application.Memberships.GetAllClubMembers;
+using QuickClubs.Application.Memberships.GetMembership;
 using QuickClubs.Application.Memberships.RejectMembership;
 using QuickClubs.Contracts.Memberships;
 using System.Security.Claims;
@@ -37,19 +38,35 @@ public class MembershipsController : ApiController
     }
 
     /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="Id">The membership id</param>
+    /// <returns>A MembershipResponse</returns>
+    [HttpGet("{id:guid}")]
+    [MapToApiVersion(1)]
+    public async Task<ActionResult<MembershipResponse>> GetMembership(Guid Id, CancellationToken cancellationToken)
+    {
+        var query = new GetMembershipQuery(Id);
+
+        var result = await Sender.Send(query, cancellationToken);
+
+        return result.IsSuccess ? Ok(_mapper.Map<MembershipResponse>(result.Value)) : NotFound();
+    }
+
+    /// <summary>
     /// Returns a list of all members of a club, at a given point in time.
     /// </summary>
     /// <param name="request">A GetAllClubMembersRequest</param>
     /// <returns>An IEnumerable of type MembershipResponse</returns>
     [HttpGet]
     [MapToApiVersion(1)]
-    public async Task<IActionResult> GetAllClubMembers(GetAllClubMembersRequest request, CancellationToken cancellationToken)
+    public async Task<ActionResult<IEnumerable<MemberResponse>>> GetAllClubMembers(GetAllClubMembersRequest request, CancellationToken cancellationToken)
     {
         var query = new GetAllClubMembersQuery(request.ClubId, request.MemberAtDate);
                 
         var result = await Sender.Send(query, cancellationToken);
 
-        return result.IsSuccess ? Ok(result.Value.Select(m => _mapper.Map<MembershipResponse>(m))) : NotFound();
+        return result.IsSuccess ? Ok(result.Value.Select(m => _mapper.Map<MemberResponse>(m))) : NotFound();
     }
 
     /// <summary>

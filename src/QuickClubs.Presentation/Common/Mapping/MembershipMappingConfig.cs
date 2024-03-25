@@ -9,6 +9,8 @@ internal class MembershipMappingConfig : IRegister
     public void Register(TypeAdapterConfig config)
     {
         config.NewConfig<CreateMembershipRequest, CreateMembershipCommand>(); // All fields line up
-        config.NewConfig<MemberResult, MembershipResponse>(); // All fields line up
+        config.NewConfig<MemberResult, MemberResponse>(); // All fields line up
+        config.NewConfig<MembershipResult, MembershipResponse>(); // All fields line up
+        config.NewConfig<ApprovalResult, ApprovalResponse>(); // All fields line up
     }
 }

@@ -1,15 +1,23 @@
 ﻿namespace QuickClubs.Contracts.Memberships;
 
-/// <summary>
-/// A MemberResponse is used when you want to find all club members.  Hence it includes their contact details.
-/// It is different to a MembershipResponse which is used when you want specific membership details, eg approval status, etc.
-/// </summary>
 public sealed record MembershipResponse(
     Guid Id,
+    Guid ClubId,
+    List<MembershipMemberResponse> Members,
+    Guid MembershipOptionId,
+    Guid MembershipLevelId,
+    DateTime StartDate,
+    DateTime EndDate,
     string MembershipNumber,
     string MembershipName,
-    DateTime EndDate,
+    decimal PriceAmount,
+    string PriceCurrency,
+    string PriceFormatted,
+    bool Paid,
+    ApprovalResponse Approval);
+
+public sealed record MembershipMemberResponse(
+    Guid Id,
     Guid UserId,
     string FirstName,
-    string LastName,
-    string Email);
+    string LastName);
