@@ -1,5 +1,6 @@
 ﻿using QuickClubs.Application.Abstractions.Clock;
 using QuickClubs.Application.Abstractions.Mediator;
+using QuickClubs.Application.Memberships.Common;
 using QuickClubs.Domain.Abstractions;
 using QuickClubs.Domain.Clubs.Errors;
 using QuickClubs.Domain.Clubs.Repository;
@@ -16,7 +17,7 @@ using QuickClubs.Domain.Users.ValueObjects;
 
 namespace QuickClubs.Application.Memberships.CreateMembership;
 
-public sealed class CreateMembershipCommandHandler : ICommandHandler<CreateMembershipCommand, Guid>
+public sealed class CreateMembershipCommandHandler : ICommandHandler<CreateMembershipCommand, MembershipResult>
 {
     private readonly IClubRepository _clubRepository;
     private readonly IMembershipOptionRepository _membershipOptionRepository;
@@ -44,23 +45,23 @@ public sealed class CreateMembershipCommandHandler : ICommandHandler<CreateMembe
         _endDateService = endDateService;
     }
 
-    public async Task<Result<Guid>> Handle(CreateMembershipCommand request, CancellationToken cancellationToken)
+    public async Task<Result<MembershipResult>> Handle(CreateMembershipCommand request, CancellationToken cancellationToken)
     {
         var membershipOption = await _membershipOptionRepository.GetByIdAsync(new MembershipOptionId(request.MembershipOptionId), cancellationToken);
         if (membershipOption is null)
-            return Result.Failure<Guid>(MembershipOptionErrors.NotFound(request.MembershipOptionId));
+            return Result.Failure<MembershipResult>(MembershipOptionErrors.NotFound(request.MembershipOptionId));
 
         var membershipLevel = membershipOption.Levels.FirstOrDefault(l => l.Id == new MembershipLevelId(request.MembershipLevelId));
         if (membershipLevel is null)
-            return Result.Failure<Guid>(MembershipOptionErrors.MembershipLevelNotFound(request.MembershipLevelId));
+            return Result.Failure<MembershipResult>(MembershipOptionErrors.MembershipLevelNotFound(request.MembershipLevelId));
 
         var club = await _clubRepository.GetByIdAsync(membershipOption.ClubId, cancellationToken);
         if (club is null)
-            return Result.Failure<Guid>(ClubErrors.NotFound(membershipOption.ClubId.Value));
+            return Result.Failure<MembershipResult>(ClubErrors.NotFound(membershipOption.ClubId.Value));
 
         var user = await _userRepository.GetByIdAsync(new UserId(request.UserId), cancellationToken);
         if (user is null)
-            return Result.Failure<Guid>(UserErrors.NotFound(request.UserId));
+            return Result.Failure<MembershipResult>(UserErrors.NotFound(request.UserId));
 
         var members = new List<UserId> { user.Id };
 
@@ -68,10 +69,10 @@ public sealed class CreateMembershipCommandHandler : ICommandHandler<CreateMembe
         {
             var additionalUser = await _userRepository.GetByIdAsync(new UserId(additionalMemberUserId), cancellationToken);
             if (additionalUser is null)
-                return Result.Failure<Guid>(UserErrors.NotFound(additionalMemberUserId));
+                return Result.Failure<MembershipResult>(UserErrors.NotFound(additionalMemberUserId));
 
             members.Add(additionalUser.Id);
-        }   
+        }
 
         // TODO: Check members count vs membership option
         // TODO: Check ages of users vs membership option - return error if not set
@@ -95,6 +96,34 @@ public sealed class CreateMembershipCommandHandler : ICommandHandler<CreateMembe
         _membershipRepository.Add(membership);
         await _unitOfWork.SaveChangesAsync();
 
-        return Result.Success<Guid>(membership.Id.Value);
+        var result = new MembershipResult 
+        {
+            Id = membership.Id.Value,
+            ClubId = membership.ClubId.Value,
+            MembershipOptionId = membership.MembershipOptionId.Value,
+            MembershipLevelId = membership.MembershipLevelId.Value,
+            StartDate = membership.StartDate,
+            EndDate = membership.EndDate,
+            MembershipNumber = membership.MembershipNumber.Value,
+            MembershipName = membership.MembershipName.Value,
+            PriceAmount = membership.Price.Amount,
+            PriceCurrency = membership.Price.Currency.Code,
+            PriceFormatted = membership.Price.Currency.Symbol + membership.Price.Amount,
+            Paid = membership.Paid,
+            Approval = new ApprovalResult
+            {
+                IsApproved = membership.Approval.IsApproved,
+                ApprovalStatus = membership.Approval.ApprovalStatus.Name,
+                ApprovedByUserId = membership.Approval.ApprovedBy?.Value,
+                ApprovedDate = membership.Approval.ApprovedDate,
+                ApprovalReason = membership.Approval.Reason
+            },
+            Members = membership.Members.Select(m => new MembershipMemberResult
+            {
+                UserId = m.Value
+            }).ToList()
+        }; 
+
+        return Result.Success<MembershipResult>(result);
     }
 }
