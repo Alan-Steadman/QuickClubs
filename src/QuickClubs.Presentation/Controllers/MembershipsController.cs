@@ -2,11 +2,13 @@
 using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
 using QuickClubs.Application.Memberships.ApproveMembership;
+using QuickClubs.Application.Memberships.Common;
 using QuickClubs.Application.Memberships.CreateMembership;
 using QuickClubs.Application.Memberships.GetAllClubMembers;
 using QuickClubs.Application.Memberships.GetMembership;
 using QuickClubs.Application.Memberships.RejectMembership;
 using QuickClubs.Contracts.Memberships;
+using QuickClubs.Domain.Abstractions;
 using System.Security.Claims;
 
 namespace QuickClubs.Presentation.Controllers;
@@ -24,17 +26,21 @@ public class MembershipsController : ApiController
     /// Create a new membership for a user at a club
     /// </summary>
     /// <param name="request">A CreateMembershipRequest</param>
-    /// <returns>The id of the newly created membership</returns>
+    /// <returns>A MembershipResponse object of the newly created membership</returns>
     [HttpPost]
     [MapToApiVersion(1)]
-    public async Task<IActionResult> CreateMembership(CreateMembershipRequest request, CancellationToken cancellationToken)
+    public async Task<ActionResult<MembershipResponse>> CreateMembership(CreateMembershipRequest request, CancellationToken cancellationToken)
     {
         var command = _mapper.Map<CreateMembershipCommand>(request);
 
         var result = await Sender.Send(command);
 
-        // TODO: Return 201 CreatedAt:
-        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+        return result.IsSuccess ?
+            CreatedAtAction(
+                nameof(GetMembership),
+                new { clubId = result.Value.ClubId, id = result.Value.Id },
+                MapResult(result)) 
+            : BadRequest(result.Error);
     }
 
     /// <summary>
@@ -50,7 +56,7 @@ public class MembershipsController : ApiController
 
         var result = await Sender.Send(query, cancellationToken);
 
-        return result.IsSuccess ? Ok(_mapper.Map<MembershipResponse>(result.Value)) : NotFound();
+        return result.IsSuccess ? base.Ok(MapResult(result)) : base.NotFound(result.Error);
     }
 
     /// <summary>
@@ -66,7 +72,7 @@ public class MembershipsController : ApiController
                 
         var result = await Sender.Send(query, cancellationToken);
 
-        return result.IsSuccess ? Ok(result.Value.Select(m => _mapper.Map<MemberResponse>(m))) : NotFound();
+        return result.IsSuccess ? Ok(result.Value.Select(m => _mapper.Map<MemberResponse>(m))) : NotFound(result.Error);
     }
 
     /// <summary>
@@ -137,5 +143,10 @@ public class MembershipsController : ApiController
             return null;
 
         return userId;
+    }
+
+    private MembershipResponse MapResult(Result<MembershipResult> result)
+    {
+        return _mapper.Map<MembershipResponse>(result.Value);
     }
 }
